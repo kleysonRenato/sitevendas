@@ -34,10 +34,6 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     font-size: 0.95em;
-    /* Remover o padrão de grid se não desejar */
-    /* background-image: linear-gradient(0deg, transparent, transparent 98%, var(--border-color-dark) 98.5%, transparent 99%, transparent),
-                      linear-gradient(90deg, transparent, transparent 98%, var(--border-color-dark) 98.5%, transparent 99%, transparent);
-    background-size: 20px 20px; */
 }
 
 /* Classes para simular a navegação entre as telas */
@@ -62,7 +58,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 6px var(--shadow-default);
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Permite quebrar linha se necessário */
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -77,8 +73,7 @@ header {
 }
 
 .site-logo {
-    height: 100px;
-    border-radius: 100px;
+    height: 40px;
     width: auto;
     filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5)); /* Brilho vermelho no logo */
     transition: transform 0.2s ease-out;
@@ -102,6 +97,12 @@ header h1:hover {
     transform: scale(1.01);
 }
 
+/* Botões de Navegação (Desktop) */
+header .nav-buttons {
+    display: flex; /* Visível por padrão em desktop */
+    align-items: center;
+}
+
 header .nav-buttons button {
     background: none;
     border: 1px solid var(--white); /* Botões de navegação com borda branca */
@@ -123,6 +124,23 @@ header .nav-buttons button:hover {
     box-shadow: 0 0 8px var(--primary-red); /* Brilho vermelho no hover */
     transform: translateY(-1px);
 }
+
+/* Menu Hambúrguer (Escondido por padrão) */
+.hamburger-menu {
+    display: none; /* Escondido por padrão em desktop */
+    background: none;
+    border: none;
+    font-size: 2.5em; /* Tamanho maior para o ícone */
+    color: var(--white);
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: color 0.2s ease-out;
+}
+
+.hamburger-menu:hover {
+    color: var(--primary-red);
+}
+
 
 /* --- Hero Section (Página Inicial) --- */
 .hero-section {
@@ -585,23 +603,73 @@ footer {
         font-size: 1.1em;
         padding: 12px 30px;
     }
+    .btn-whatsapp i {
+        font-size: 1.3em;
+    }
 }
 
 @media (max-width: 768px) {
     body {
         font-size: 0.88em;
     }
+
+    header {
+        flex-direction: row; /* Mantém na mesma linha principal */
+        justify-content: space-between; /* Espaço entre logo e menu */
+        align-items: center;
+        padding: 12px 20px; /* Padding menor */
+    }
+
+    .site-branding {
+        flex-grow: 1; /* Permite que o branding ocupe o espaço necessário */
+        justify-content: flex-start; /* Alinha à esquerda */
+        gap: 8px; /* Espaçamento menor */
+    }
+
     .site-logo {
-        height: 30px;
+        height: 30px; /* Logo menor */
     }
     header h1 {
-        font-size: 1.6em;
+        font-size: 1.5em; /* Título menor */
     }
-    header .nav-buttons button {
-        font-size: 0.8em;
-        padding: 8px 15px;
-        margin-left: 8px;
+
+    .nav-buttons {
+        display: none; /* Esconde os botões de navegação por padrão */
+        flex-direction: column; /* Em coluna quando ativado */
+        position: absolute;
+        top: 70px; /* Abaixo do header */
+        left: 0;
+        width: 100%;
+        background-color: var(--black); /* Fundo do menu */
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
+        z-index: 999;
+        padding: 15px 0;
+        border-top: 1px solid var(--primary-red); /* Borda superior vermelha */
     }
+
+    .nav-buttons.active {
+        display: flex; /* Mostra o menu quando ativo */
+    }
+
+    .nav-buttons button {
+        margin: 10px 0; /* Margem vertical para os botões do menu */
+        width: 90%; /* Ocupa quase a largura total */
+        max-width: 300px; /* Limite de largura */
+        align-self: center; /* Centraliza */
+        padding: 12px 20px;
+        font-size: 1em;
+        border: 1px solid var(--primary-red); /* Borda vermelha para os botões do menu */
+        background-color: var(--dark-gray); /* Fundo escuro */
+    }
+    .nav-buttons button:hover {
+        background-color: var(--primary-red);
+        color: var(--white);
+    }
+
+    .hamburger-menu {
+        display: block; /* Mostra o menu hambúrguer */
+    }
+
     .hero-section {
         padding: 60px 20px;
         min-height: 400px;
@@ -659,8 +727,8 @@ footer {
         padding: 0 15px;
     }
     .btn-whatsapp {
-        font-size: 1em;
-        padding: 10px 25px;
+        font-size: 1.1em;
+        padding: 12px 30px;
     }
     .btn-whatsapp i {
         font-size: 1.3em;
@@ -671,17 +739,26 @@ footer {
     body {
         font-size: 0.85em;
     }
+    header {
+        padding: 10px 15px; /* Ainda menor */
+    }
     .site-logo {
         height: 25px;
     }
     header h1 {
-        font-size: 1.4em;
+        font-size: 1.3em; /* Título ainda menor */
     }
-    header .nav-buttons button {
-        font-size: 0.75em;
-        padding: 7px 12px;
-        margin-left: 5px;
+    .hamburger-menu {
+        font-size: 2.2em; /* Ícone um pouco menor */
     }
+    .nav-buttons {
+        top: 60px; /* Ajusta a posição do menu dropdown */
+    }
+    .nav-buttons button {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
+
     .hero-section {
         padding: 50px 15px;
         min-height: 350px;

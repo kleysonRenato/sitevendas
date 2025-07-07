@@ -38,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadingDetailMessage = document.getElementById('loadingDetailMessage');
 
+    // NOVAS REFERÊNCIAS PARA O MENU HAMBÚRGUER
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const mainNav = document.getElementById('mainNav');
+
+
     // --- Simulação de Banco de Dados (Dados Temporários em Memória) ---
     // Você pode adicionar mais produtos aqui ou deixar que o admin os adicione.
     let products = [
@@ -95,6 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Rola para o topo da página após a navegação
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        // FECHA O MENU HAMBÚRGUER AO NAVEGAR
+        mainNav.classList.remove('active');
     }
 
     // --- Event Listeners para Navegação ---
@@ -117,6 +124,12 @@ document.addEventListener('DOMContentLoaded', () => {
     viewAllProductsBtn.addEventListener('click', () => {
         showSection('allProductsSection');
     });
+
+    // LÓGICA PARA O MENU HAMBÚRGUER
+    hamburgerMenu.addEventListener('click', () => {
+        mainNav.classList.toggle('active'); // Adiciona/remove a classe 'active'
+    });
+
 
     // --- Lógica de Login do Administrador ---
     adminLoginForm.addEventListener('submit', (e) => {
