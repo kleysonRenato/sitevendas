@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Bold Hipster',
             price: 99.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://images.unsplash.com/photo-1620247657929-236b2f703567?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://i.pinimg.com/736x/d3/0f/b0/d30fb0db288a610b156531bf70b00006.jpg'
         },
         {
             id: '4',
