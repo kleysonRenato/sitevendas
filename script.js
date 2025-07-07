@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Óculos Urban Cool', // NOME DO PRODUTO
             price: 129.90, // PREÇO DO PRODUTO (use ponto para decimais)
             description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true' // URL DA IMAGEM
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/image%202.png?raw=true' // URL DA IMAGEM
         },
         {
             id: '2',
