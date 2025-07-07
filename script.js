@@ -1,13 +1,15 @@
 // script.js
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM totalmente carregado. Iniciando script.js...");
+
     // --- Referências aos Elementos HTML ---
     const homeSection = document.getElementById('homeSection');
     const allProductsSection = document.getElementById('allProductsSection');
     const productDetailSection = document.getElementById('productDetailSection');
     const aboutUsSection = document.getElementById('aboutUsSection');
 
-    const header = document.querySelector('header'); // Referência ao cabeçalho
+    const header = document.querySelector('header'); 
     const navHomeBtn = document.getElementById('navHome');
     const navAllProductsBtn = document.getElementById('navAllProducts');
     const navAboutUsBtn = document.getElementById('navAboutUs');
@@ -26,163 +28,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Verifica se mainNav existe antes de tentar manipulá-lo
     if (mainNav) {
-        // Cria e adiciona o botão de fechar o menu lateral
+        console.log("mainNav encontrado.");
         const closeMenuBtn = document.createElement('button');
         closeMenuBtn.classList.add('close-btn');
-        closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; // Ícone de 'x' para fechar
-        mainNav.prepend(closeMenuBtn); // Adiciona o botão de fechar ao início do menu
+        closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; 
+        mainNav.prepend(closeMenuBtn); 
 
-        // Botão para fechar o menu lateral (o "X")
         closeMenuBtn.addEventListener('click', () => {
             mainNav.classList.remove('active');
-            // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
             if (window.innerWidth <= 768 && header && header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
-            } else if (window.innerWidth <= 768 && hamburgerMenu) { // Se não estiver oculto, mas estamos em mobile, garante que ele não esteja visível
+            } else if (window.innerWidth <= 768 && hamburgerMenu) {
                 hamburgerMenu.classList.remove('visible');
             }
         });
     } else {
-        console.error("Elemento com ID 'mainNav' não encontrado. O menu lateral pode não funcionar.");
+        console.error("ERRO: Elemento com ID 'mainNav' não encontrado. O menu lateral pode não funcionar.");
     }
 
-    // --- LISTA DE PRODUTOS (EDIÇÃO MANUAL) ---
-    // ##################################################################################
-    // ############################# EDITE AQUI OS PRODUTOS ###########################
-    // ##################################################################################
+    // --- LISTA DE PRODUTOS ---
     let products = [
-        {
-            id: '1', // ID único para o produto (pode ser qualquer string)
-            name: 'KIT RADAR 5 LENTES', // NOME DO PRODUTO
-            price: 279.90, // PREÇO DO PRODUTO (CORRIGIDO: use ponto para decimais)
-            description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/kitradar5lentes.png?raw=true' // URL DA IMAGEM
-        },
-        {
-            id: '2',
-            name: 'PLANTARIS ',
-            price: 119.90,
-            description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/plate.png?raw=true'
-        },
-        {
-            id: '3',
-            name: 'JULIET',
-            price: 119.90,
-            description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/juliet.png?raw=true'
-        },
-        {
-            id: '4',
-            name: 'PENNY',
-            price: 119.00,
-            description: 'Óculos com inspiração retrô e toque contemporâneo. Ideal para quem busca um visual autêntico e cheio de personalidade.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/penny.png?raw=true'
-        },
-        {
-            id: '5',
-            name: 'JULIET ',
-            price: 119.0,
-            description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
-        }
-        // Para ADICIONAR UM NOVO ÓCULOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
-        // E ADICIONE UM NOVO OBJETO COMO ESTE:
-        /*
-        ,
-        {
-            id: '6', // Altere para um ID único, ex: '6', 'novo-modelo'
-            name: 'Nome do Seu Novo Óculos', // O nome que aparecerá
-            price: 200.00, // O preço
-            description: 'Uma descrição incrível sobre seu novo óculos com detalhes e benefícios.', // A descrição
-            imageUrl: 'https://url-da-sua-nova-imagem-aqui.jpg' // A URL da imagem
-        }
-        */
+        { id: '1', name: 'KIT RADAR 5 LENTES', price: 279.90, description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/kitradar5lentes.png?raw=true' },
+        { id: '2', name: 'PLANTARIS ', price: 119.90, description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/plate.png?raw=true' },
+        { id: '3', name: 'JULIET', price: 119.90, description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/juliet.png?raw=true' },
+        { id: '4', name: 'PENNY', price: 119.00, description: 'Óculos com inspiração retrô e toque contemporâneo. Ideal para quem busca um visual autêntico e cheio de personalidade.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/penny.png?raw=true' },
+        { id: '5', name: 'JULIET ', price: 119.0, description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true' }
     ];
-    // ##################################################################################
-    // ################################# FIM DA EDIÇÃO ################################
-    // ##################################################################################
+    console.log("Produtos carregados. Total: ", products.length);
 
-    // --- Dados dos Donos do Site (EDITAR AQUI) ---
-    // ##################################################################################
-    // ########################## EDITE AQUI AS INFORMAÇÕES DOS DONOS #################
-    // ##################################################################################
+    // --- Dados dos Donos do Site ---
     const owners = [
-        {
-            name: 'Felipe J.',
-            role: 'Fundador & Designer Chefe',
-            bio: 'Felipe J. é o visionário por trás da Osiris Apparel. Sua paixão por design e inovação em óculos o levou a fundar a empresa, garantindo que cada peça combine estilo e funcionalidade.', // Bio de exemplo adicionada
-            photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true',
-            socialMedia: {
-                instagram: 'https://instagram.com/joaosilva', // Ajuste este link para o Instagram real de Felipe
-                linkedin: 'https://linkedin.com/in/joaosilva' // Ajuste este link para o LinkedIn real de Felipe
-            }
-        },
-        {
-            name: 'Guilherme O.',
-            role: 'Diretor de Marketing',
-            bio: 'Acreditamos que a moda é uma forma de expressão, e por isso buscamos oferecer produtos que unem conforto, identidade e originalidade. Nossas peças são desenvolvidas para quem deseja se destacar, mantendo sempre um visual autêntico e marcante.',
-            photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true',
-            socialMedia: {
-                instagram: 'https://instagram.com/mariaoliveira', // Ajuste este link para o Instagram real de Guilherme
-                twitter: 'https://twitter.com/maria' // Ajuste este link para o Twitter real de Guilherme
-            }
-        }
-        // Para ADICIONAR MAIS DONOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
-        // E ADICIONE UM NOVO OBJETO COMO ESTE:
-        /*
-        ,
-        {
-            name: 'Nome do Novo Dono',
-            role: 'Cargo do Novo Dono',
-            bio: 'Uma breve biografia sobre a pessoa e sua contribuição para a empresa.',
-            photoUrl: 'https://url-da-foto-do-novo-dono.jpg',
-            socialMedia: {
-                instagram: 'https://instagram.com/novodono'
-            }
-        }
-        */
+        { name: 'Felipe J.', role: 'Fundador & Designer Chefe', bio: 'Felipe J. é o visionário por trás da Osiris Apparel. Sua paixão por design e inovação em óculos o levou a fundar a empresa, garantindo que cada peça combine estilo e funcionalidade.', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true', socialMedia: { instagram: 'https://instagram.com/joaosilva', linkedin: 'https://linkedin.com/in/joaosilva' } },
+        { name: 'Guilherme O.', role: 'Diretor de Marketing', bio: 'Acreditamos que a moda é uma forma de expressão, e por isso buscamos oferecer produtos que unem conforto, identidade e originalidade. Nossas peças são desenvolvidas para quem deseja se destacar, mantendo sempre um visual autêntico e marcante.', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true', socialMedia: { instagram: 'https://instagram.com/mariaoliveira', twitter: 'https://twitter.com/maria' } }
     ];
-    // ##################################################################################
-    // ############################ FIM DA EDIÇÃO DOS DONOS ###########################
-    // ##################################################################################
+    console.log("Donos carregados.");
 
 
     // --- Funções de Navegação de Páginas ---
     function showSection(sectionId, productId = null) {
-        // Esconde todas as seções (main > section)
+        console.log(`Tentando mostrar a seção: ${sectionId}`);
         document.querySelectorAll('main .page-section').forEach(section => {
             section.classList.remove('active');
         });
 
-        // Mostra a seção desejada
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.classList.add('active');
-
-            // Lógicas específicas ao exibir cada seção
             if (sectionId === 'homeSection') {
-                renderFeaturedProducts(); // Renderiza APENAS os destaques
+                renderFeaturedProducts();
             } else if (sectionId === 'allProductsSection') {
-                renderAllProducts(); // Renderiza TODOS os produtos
+                renderAllProducts();
             } else if (sectionId === 'productDetailSection' && productId) {
                 renderProductDetails(productId);
             } else if (sectionId === 'aboutUsSection') {
-                renderAboutUsContent(); // Renderiza o conteúdo da seção "Sobre Nós"
+                renderAboutUsContent();
             }
-            // Rola para o topo da página após a navegação
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
-            console.error(`Seção com ID '${sectionId}' não encontrada.`);
+            console.error(`ERRO: Seção com ID '${sectionId}' não encontrada no HTML.`);
         }
         
-        // Garante que o menu lateral seja fechado ao navegar
         if (mainNav) {
             mainNav.classList.remove('active');
         }
 
-        // Em mobile, quando uma seção é mostrada, o menu hambúrguer deve estar visível se o cabeçalho estiver escondido
-        // ou o cabeçalho deve estar visível.
         if (window.innerWidth <= 768 && hamburgerMenu && header) {
             if (header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
@@ -193,114 +102,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Event Listeners para Navegação ---
-    // O botão Home e o logo sempre voltam para a página inicial
     if (navHomeBtn) {
         navHomeBtn.addEventListener('click', () => showSection('homeSection'));
-    } else {
-        console.error("Elemento com ID 'navHome' não encontrado.");
-    }
-
+    } else { console.error("ERRO: Elemento com ID 'navHome' não encontrado."); }
     if (navAllProductsBtn) {
         navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
-    } else {
-        console.error("Elemento com ID 'navAllProducts' não encontrado.");
-    }
-    
+    } else { console.error("ERRO: Elemento com ID 'navAllProducts' não encontrado."); }
     if (navAboutUsBtn) {
         navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
-    } else {
-        console.error("Elemento com ID 'navAboutUs' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'navAboutUs' não encontrado."); }
     
-    // Botões de exploração e visualização na Home Section
     if (exploreProductsBtn) {
         exploreProductsBtn.addEventListener('click', () => {
-            // Rola suavemente para a seção de produtos em destaque na home
             const productsShowcase = document.querySelector('.products-showcase');
             if (productsShowcase) {
                 productsShowcase.scrollIntoView({ behavior: 'smooth' });
             } else {
-                console.warn("Elemento com classe '.products-showcase' não encontrado para rolar.");
+                console.warn("AVISO: Elemento com classe '.products-showcase' não encontrado para rolar.");
             }
         });
-    } else {
-        console.error("Elemento com ID 'exploreProductsBtn' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'exploreProductsBtn' não encontrado."); }
 
     if (viewAllProductsBtn) {
         viewAllProductsBtn.addEventListener('click', () => {
             showSection('allProductsSection');
         });
-    } else {
-        console.error("Elemento com ID 'viewAllProductsBtn' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'viewAllProductsBtn' não encontrado."); }
 
-    // LÓGICA PARA O MENU HAMBÚRGUER (em mobile)
     if (hamburgerMenu && mainNav) {
         hamburgerMenu.addEventListener('click', () => {
-            mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
-            // O hambúrguer deve ficar escondido quando o menu lateral está aberto
+            mainNav.classList.toggle('active'); 
             hamburgerMenu.classList.toggle('visible');
         });
-    } else {
-        console.error("Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar.");
-    }
+    } else { console.error("ERRO: Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar."); }
 
-    // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
+    // --- Lógica de Scroll ---
     let lastScrollY = window.scrollY;
-    
-    // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
-    // Adiciona um pequeno buffer (10px) para que o cabeçalho desapareça completamente antes do hambúrguer aparecer
-    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; // Adiciona verificação para 'header'
-
+    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         const isMobile = window.innerWidth <= 768;
-
         if (isMobile) {
-            if (header && hamburgerMenu && mainNav) { // Verificação para garantir que os elementos existem
-                // Rolando para baixo E passou da altura do cabeçalho
+            if (header && hamburgerMenu && mainNav) { 
                 if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
-                    header.classList.add('hidden'); // Esconde o cabeçalho
-                    hamburgerMenu.classList.add('visible'); // Mostra o hambúrguer
-                }
-                // Rolando para cima OU no topo da página
-                else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
-                    header.classList.remove('hidden'); // Mostra o cabeçalho
-                    hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer (quando o cabeçalho está visível)
-                    mainNav.classList.remove('active'); // Garante que o menu lateral feche
+                    header.classList.add('hidden'); 
+                    hamburgerMenu.classList.add('visible'); 
+                } else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
+                    header.classList.remove('hidden'); 
+                    hamburgerMenu.classList.remove('visible'); 
+                    mainNav.classList.remove('active'); 
                 }
             }
         } else {
-            // Em desktop, garante que o cabeçalho esteja sempre visível e o hambúrguer escondido
-            if (header) { // Verifica se 'header' existe
-                header.classList.remove('hidden');
-            }
-            if (hamburgerMenu) { // Verifica se 'hamburgerMenu' existe
-                hamburgerMenu.classList.remove('visible');
-            }
-            if (mainNav) { // Verifica se 'mainNav' existe
-                mainNav.classList.remove('active'); // Sempre fechado em desktop, pois a navegação é diferente
-            }
+            if (header) { header.classList.remove('hidden'); }
+            if (hamburgerMenu) { hamburgerMenu.classList.remove('visible'); }
+            if (mainNav) { mainNav.classList.remove('active'); }
         }
-
-        lastScrollY = currentScrollY; // Atualiza a última posição de rolagem
+        lastScrollY = currentScrollY; 
     });
 
-    // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar a janela
     window.addEventListener('resize', () => {
-        if (header && hamburgerMenu && mainNav) { // Verificação para garantir que os elementos existem
-            // Se a tela se torna desktop
+        if (header && hamburgerMenu && mainNav) { 
             if (window.innerWidth > 768) {
-                hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer
-                mainNav.classList.remove('active'); // Fecha o menu lateral
-                header.classList.remove('hidden'); // Garante que o cabeçalho esteja visível
+                hamburgerMenu.classList.remove('visible'); 
+                mainNav.classList.remove('active'); 
+                header.classList.remove('hidden'); 
             } else {
-                // Se a tela se torna mobile
-                // Verifica se o cabeçalho deveria estar escondido para exibir o hambúrguer
                 if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
                     hamburgerMenu.classList.add('visible');
-                } else { // Se o cabeçalho está visível no topo, esconde o hambúrguer
+                } else { 
                     hamburgerMenu.classList.remove('visible');
                 }
             }
@@ -310,54 +180,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página Inicial (Produtos em Destaque) ---
     function renderFeaturedProducts() {
+        console.log("Iniciando renderFeaturedProducts...");
         if (!featuredProductsGrid) {
-            console.error("Elemento com ID 'featuredProductsGrid' não encontrado.");
+            console.error("ERRO: Elemento com ID 'featuredProductsGrid' não encontrado no HTML para renderizar produtos em destaque.");
             return;
         }
-        featuredProductsGrid.innerHTML = '';
-        if (loadingFeaturedMessage) { // Adiciona verificação
-            loadingFeaturedMessage.style.display = 'none';
+        featuredProductsGrid.innerHTML = ''; // Limpa o grid
+        
+        if (loadingFeaturedMessage) {
+            console.log("Escondendo loadingFeaturedMessage.");
+            loadingFeaturedMessage.style.display = 'none'; // Esconde a mensagem de carregamento
+        } else {
+            console.warn("AVISO: Elemento 'loadingFeaturedMessage' não encontrado.");
         }
 
-        // Pega os 3 primeiros produtos do array 'products' para destaque
         const numberOfFeatured = 3;
         const featuredProducts = products.slice(0, numberOfFeatured);
+        console.log("Produtos em destaque selecionados:", featuredProducts.length, featuredProducts);
+
 
         if (featuredProducts.length === 0) {
             featuredProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos em destaque no momento.</p>';
+            console.log("Nenhum produto em destaque para mostrar.");
             return;
         }
 
-        featuredProducts.forEach(product => {
-            const productCard = createProductCard(product);
-            featuredProductsGrid.appendChild(productCard);
+        featuredProducts.forEach((product, index) => {
+            try {
+                const productCard = createProductCard(product);
+                featuredProductsGrid.appendChild(productCard);
+                console.log(`Produto em destaque #${index + 1} (${product.name}) adicionado.`);
+            } catch (e) {
+                console.error(`ERRO ao criar ou adicionar card do produto em destaque "${product.name}" (ID: ${product.id}):`, e);
+            }
         });
+        console.log("Finalizado renderFeaturedProducts.");
     }
 
     // --- Lógica da Página de Coleção Completa ---
     function renderAllProducts() {
+        console.log("Iniciando renderAllProducts...");
         if (!allProductsGrid) {
-            console.error("Elemento com ID 'allProductsGrid' não encontrado.");
+            console.error("ERRO: Elemento com ID 'allProductsGrid' não encontrado no HTML para renderizar todos os produtos.");
             return;
         }
         allProductsGrid.innerHTML = '';
-        if (loadingAllProductsMessage) { // Adiciona verificação
+        if (loadingAllProductsMessage) {
+            console.log("Escondendo loadingAllProductsMessage.");
             loadingAllProductsMessage.style.display = 'none';
+        } else {
+            console.warn("AVISO: Elemento 'loadingAllProductsMessage' não encontrado.");
         }
 
         if (products.length === 0) {
             allProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos disponível na coleção completa.</p>';
+            console.log("Nenhum produto na coleção completa para mostrar.");
             return;
         }
 
-        products.forEach(product => {
-            const productCard = createProductCard(product);
-            allProductsGrid.appendChild(productCard);
+        products.forEach((product, index) => {
+            try {
+                const productCard = createProductCard(product);
+                allProductsGrid.appendChild(productCard);
+                console.log(`Produto completo #${index + 1} (${product.name}) adicionado.`);
+            } catch (e) {
+                console.error(`ERRO ao criar ou adicionar card do produto completo "${product.name}" (ID: ${product.id}):`, e);
+            }
         });
+        console.log("Finalizado renderAllProducts.");
     }
 
     // --- Função Auxiliar para Criar Card de Produto (Reutilizável) ---
     function createProductCard(product) {
+        console.log("Criando card para:", product.name);
         const productCard = document.createElement('a');
         productCard.href = '#';
         productCard.classList.add('product-card');
@@ -377,19 +272,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página de Detalhes do Produto (Clientes) ---
     function renderProductDetails(productId) {
+        console.log(`Iniciando renderProductDetails para ID: ${productId}`);
         if (!productDetailSection) {
-            console.error("Elemento com ID 'productDetailSection' não encontrado.");
+            console.error("ERRO: Elemento com ID 'productDetailSection' não encontrado.");
             return;
         }
         productDetailSection.innerHTML = '';
-        if (loadingDetailMessage) { // Adiciona verificação
-            loadingDetailMessage.style.display = 'none'; // Já definimos no CSS para display:none inicialmente, mas reforça
+        if (loadingDetailMessage) {
+            loadingDetailMessage.style.display = 'none';
+        } else {
+            console.warn("AVISO: Elemento 'loadingDetailMessage' não encontrado.");
         }
 
         const product = products.find(p => p.id === productId);
 
         if (!product) {
             productDetailSection.innerHTML = '<div class="product-detail-container"><p class="no-products-message">Óculos não encontrado.</p></div>';
+            console.warn(`AVISO: Produto com ID '${productId}' não encontrado.`);
             return;
         }
 
@@ -407,25 +306,25 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         productDetailSection.appendChild(detailContainer);
 
-        // Adicionar funcionalidade do botão WhatsApp
-        // Verifica se o botão foi adicionado e existe antes de adicionar o listener
         const whatsappContactBtn = document.getElementById('whatsappContactBtn');
         if (whatsappContactBtn) {
             whatsappContactBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const whatsappNumber = '5551996237370'; // SEU NÚMERO DE WHATSAPP JÁ ESTÁ AQUI!
+                const whatsappNumber = '5551996237370'; 
                 const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
                 window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
             });
         } else {
-            console.error("Botão 'whatsappContactBtn' não encontrado após a renderização do detalhe do produto.");
+            console.error("ERRO: Botão 'whatsappContactBtn' não encontrado após a renderização do detalhe do produto.");
         }
+        console.log("Finalizado renderProductDetails.");
     }
 
     // --- Lógica da Seção "Sobre Nós" (Donos do Site) ---
     function renderAboutUsContent() {
+        console.log("Iniciando renderAboutUsContent...");
         if (!aboutUsSection) {
-            console.error("Elemento com ID 'aboutUsSection' não encontrado.");
+            console.error("ERRO: Elemento com ID 'aboutUsSection' não encontrado.");
             return;
         }
         aboutUsSection.innerHTML = `
@@ -449,8 +348,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `;
+        console.log("Finalizado renderAboutUsContent.");
     }
 
     // --- Inicialização: Exibe a página inicial ao carregar o site ---
+    console.log("Chamando showSection('homeSection') para iniciar.");
     showSection('homeSection');
 });
