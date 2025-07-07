@@ -24,11 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mainNav = document.getElementById('mainNav');
 
-    // Cria e adiciona o botão de fechar o menu lateral
-    const closeMenuBtn = document.createElement('button');
-    closeMenuBtn.classList.add('close-btn');
-    closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; // Ícone de 'x' para fechar
-    mainNav.prepend(closeMenuBtn); // Adiciona o botão de fechar ao início do menu
+    // Verifica se mainNav existe antes de tentar manipulá-lo
+    if (mainNav) {
+        // Cria e adiciona o botão de fechar o menu lateral
+        const closeMenuBtn = document.createElement('button');
+        closeMenuBtn.classList.add('close-btn');
+        closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; // Ícone de 'x' para fechar
+        mainNav.prepend(closeMenuBtn); // Adiciona o botão de fechar ao início do menu
+
+        // Botão para fechar o menu lateral (o "X")
+        closeMenuBtn.addEventListener('click', () => {
+            mainNav.classList.remove('active');
+            // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
+            if (window.innerWidth <= 768 && header && header.classList.contains('hidden')) {
+                hamburgerMenu.classList.add('visible');
+            } else if (window.innerWidth <= 768 && hamburgerMenu) { // Se não estiver oculto, mas estamos em mobile, garante que ele não esteja visível
+                hamburgerMenu.classList.remove('visible');
+            }
+        });
+    } else {
+        console.error("Elemento com ID 'mainNav' não encontrado. O menu lateral pode não funcionar.");
+    }
 
     // --- LISTA DE PRODUTOS (EDIÇÃO MANUAL) ---
     // ##################################################################################
@@ -66,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: '5',
             name: 'JULIET ',
-            price: 119,00,
+            price: 119.0,
             description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
             imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
         }
@@ -156,14 +172,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             // Rola para o topo da página após a navegação
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            console.error(`Seção com ID '${sectionId}' não encontrada.`);
         }
+        
         // Garante que o menu lateral seja fechado ao navegar
-        mainNav.classList.remove('active');
+        if (mainNav) {
+            mainNav.classList.remove('active');
+        }
+
         // Em mobile, quando uma seção é mostrada, o menu hambúrguer deve estar visível se o cabeçalho estiver escondido
         // ou o cabeçalho deve estar visível.
-        if (window.innerWidth <= 768) {
-            // Se o menu lateral foi fechado, e estamos em mobile, o hambúrguer deve sumir se o cabeçalho voltar,
-            // ou aparecer se o cabeçalho sumir.
+        if (window.innerWidth <= 768 && hamburgerMenu && header) {
             if (header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
             } else {
@@ -174,65 +194,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners para Navegação ---
     // O botão Home e o logo sempre voltam para a página inicial
-    navHomeBtn.addEventListener('click', () => showSection('homeSection'));
+    if (navHomeBtn) {
+        navHomeBtn.addEventListener('click', () => showSection('homeSection'));
+    } else {
+        console.error("Elemento com ID 'navHome' não encontrado.");
+    }
 
-    navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
-    navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
-
+    if (navAllProductsBtn) {
+        navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
+    } else {
+        console.error("Elemento com ID 'navAllProducts' não encontrado.");
+    }
+    
+    if (navAboutUsBtn) {
+        navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
+    } else {
+        console.error("Elemento com ID 'navAboutUs' não encontrado.");
+    }
+    
     // Botões de exploração e visualização na Home Section
-    exploreProductsBtn.addEventListener('click', () => {
-        // Rola suavemente para a seção de produtos em destaque na home
-        document.querySelector('.products-showcase').scrollIntoView({ behavior: 'smooth' });
-    });
-    viewAllProductsBtn.addEventListener('click', () => {
-        showSection('allProductsSection');
-    });
+    if (exploreProductsBtn) {
+        exploreProductsBtn.addEventListener('click', () => {
+            // Rola suavemente para a seção de produtos em destaque na home
+            const productsShowcase = document.querySelector('.products-showcase');
+            if (productsShowcase) {
+                productsShowcase.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.warn("Elemento com classe '.products-showcase' não encontrado para rolar.");
+            }
+        });
+    } else {
+        console.error("Elemento com ID 'exploreProductsBtn' não encontrado.");
+    }
+
+    if (viewAllProductsBtn) {
+        viewAllProductsBtn.addEventListener('click', () => {
+            showSection('allProductsSection');
+        });
+    } else {
+        console.error("Elemento com ID 'viewAllProductsBtn' não encontrado.");
+    }
 
     // LÓGICA PARA O MENU HAMBÚRGUER (em mobile)
-    hamburgerMenu.addEventListener('click', () => {
-        mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
-        // O hambúrguer deve ficar escondido quando o menu lateral está aberto
-        hamburgerMenu.classList.toggle('visible');
-    });
-
-    // Botão para fechar o menu lateral (o "X")
-    closeMenuBtn.addEventListener('click', () => {
-        mainNav.classList.remove('active');
-        // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
-        if (window.innerWidth <= 768 && header.classList.contains('hidden')) {
-            hamburgerMenu.classList.add('visible');
-        } else if (window.innerWidth <= 768) { // Se não estiver oculto, mas estamos em mobile, garante que ele não esteja visível
-            hamburgerMenu.classList.remove('visible');
-        }
-    });
+    if (hamburgerMenu && mainNav) {
+        hamburgerMenu.addEventListener('click', () => {
+            mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
+            // O hambúrguer deve ficar escondido quando o menu lateral está aberto
+            hamburgerMenu.classList.toggle('visible');
+        });
+    } else {
+        console.error("Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar.");
+    }
 
     // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
     let lastScrollY = window.scrollY;
+    
     // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
     // Adiciona um pequeno buffer (10px) para que o cabeçalho desapareça completamente antes do hambúrguer aparecer
-    const headerTriggerHeight = header.offsetHeight + 10;
+    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; // Adiciona verificação para 'header'
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
-            // Rolando para baixo E passou da altura do cabeçalho
-            if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
-                header.classList.add('hidden'); // Esconde o cabeçalho
-                hamburgerMenu.classList.add('visible'); // Mostra o hambúrguer
-            }
-            // Rolando para cima OU no topo da página
-            else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
-                header.classList.remove('hidden'); // Mostra o cabeçalho
-                hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer (quando o cabeçalho está visível)
-                mainNav.classList.remove('active'); // Garante que o menu lateral feche
+            if (header && hamburgerMenu && mainNav) { // Verificação para garantir que os elementos existem
+                // Rolando para baixo E passou da altura do cabeçalho
+                if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
+                    header.classList.add('hidden'); // Esconde o cabeçalho
+                    hamburgerMenu.classList.add('visible'); // Mostra o hambúrguer
+                }
+                // Rolando para cima OU no topo da página
+                else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
+                    header.classList.remove('hidden'); // Mostra o cabeçalho
+                    hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer (quando o cabeçalho está visível)
+                    mainNav.classList.remove('active'); // Garante que o menu lateral feche
+                }
             }
         } else {
             // Em desktop, garante que o cabeçalho esteja sempre visível e o hambúrguer escondido
-            header.classList.remove('hidden');
-            hamburgerMenu.classList.remove('visible');
-            mainNav.classList.remove('active'); // Sempre fechado em desktop, pois a navegação é diferente
+            if (header) { // Verifica se 'header' existe
+                header.classList.remove('hidden');
+            }
+            if (hamburgerMenu) { // Verifica se 'hamburgerMenu' existe
+                hamburgerMenu.classList.remove('visible');
+            }
+            if (mainNav) { // Verifica se 'mainNav' existe
+                mainNav.classList.remove('active'); // Sempre fechado em desktop, pois a navegação é diferente
+            }
         }
 
         lastScrollY = currentScrollY; // Atualiza a última posição de rolagem
@@ -240,18 +289,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar a janela
     window.addEventListener('resize', () => {
-        // Se a tela se torna desktop
-        if (window.innerWidth > 768) {
-            hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer
-            mainNav.classList.remove('active'); // Fecha o menu lateral
-            header.classList.remove('hidden'); // Garante que o cabeçalho esteja visível
-        } else {
-            // Se a tela se torna mobile
-            // Verifica se o cabeçalho deveria estar escondido para exibir o hambúrguer
-            if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
-                hamburgerMenu.classList.add('visible');
-            } else { // Se o cabeçalho está visível no topo, esconde o hambúrguer
-                hamburgerMenu.classList.remove('visible');
+        if (header && hamburgerMenu && mainNav) { // Verificação para garantir que os elementos existem
+            // Se a tela se torna desktop
+            if (window.innerWidth > 768) {
+                hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer
+                mainNav.classList.remove('active'); // Fecha o menu lateral
+                header.classList.remove('hidden'); // Garante que o cabeçalho esteja visível
+            } else {
+                // Se a tela se torna mobile
+                // Verifica se o cabeçalho deveria estar escondido para exibir o hambúrguer
+                if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
+                    hamburgerMenu.classList.add('visible');
+                } else { // Se o cabeçalho está visível no topo, esconde o hambúrguer
+                    hamburgerMenu.classList.remove('visible');
+                }
             }
         }
     });
@@ -259,8 +310,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página Inicial (Produtos em Destaque) ---
     function renderFeaturedProducts() {
+        if (!featuredProductsGrid) {
+            console.error("Elemento com ID 'featuredProductsGrid' não encontrado.");
+            return;
+        }
         featuredProductsGrid.innerHTML = '';
-        loadingFeaturedMessage.style.display = 'none';
+        if (loadingFeaturedMessage) { // Adiciona verificação
+            loadingFeaturedMessage.style.display = 'none';
+        }
 
         // Pega os 3 primeiros produtos do array 'products' para destaque
         const numberOfFeatured = 3;
@@ -279,8 +336,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página de Coleção Completa ---
     function renderAllProducts() {
+        if (!allProductsGrid) {
+            console.error("Elemento com ID 'allProductsGrid' não encontrado.");
+            return;
+        }
         allProductsGrid.innerHTML = '';
-        loadingAllProductsMessage.style.display = 'none';
+        if (loadingAllProductsMessage) { // Adiciona verificação
+            loadingAllProductsMessage.style.display = 'none';
+        }
 
         if (products.length === 0) {
             allProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos disponível na coleção completa.</p>';
@@ -314,8 +377,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página de Detalhes do Produto (Clientes) ---
     function renderProductDetails(productId) {
+        if (!productDetailSection) {
+            console.error("Elemento com ID 'productDetailSection' não encontrado.");
+            return;
+        }
         productDetailSection.innerHTML = '';
-        loadingDetailMessage.style.display = 'none'; // Já definimos no CSS para display:none inicialmente, mas reforça
+        if (loadingDetailMessage) { // Adiciona verificação
+            loadingDetailMessage.style.display = 'none'; // Já definimos no CSS para display:none inicialmente, mas reforça
+        }
 
         const product = products.find(p => p.id === productId);
 
@@ -339,16 +408,26 @@ document.addEventListener('DOMContentLoaded', () => {
         productDetailSection.appendChild(detailContainer);
 
         // Adicionar funcionalidade do botão WhatsApp
-        document.getElementById('whatsappContactBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            const whatsappNumber = '5551996237370'; // SEU NÚMERO DE WHATSAPP JÁ ESTÁ AQUI!
-            const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
-            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
-        });
+        // Verifica se o botão foi adicionado e existe antes de adicionar o listener
+        const whatsappContactBtn = document.getElementById('whatsappContactBtn');
+        if (whatsappContactBtn) {
+            whatsappContactBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const whatsappNumber = '5551996237370'; // SEU NÚMERO DE WHATSAPP JÁ ESTÁ AQUI!
+                const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
+                window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+            });
+        } else {
+            console.error("Botão 'whatsappContactBtn' não encontrado após a renderização do detalhe do produto.");
+        }
     }
 
     // --- Lógica da Seção "Sobre Nós" (Donos do Site) ---
     function renderAboutUsContent() {
+        if (!aboutUsSection) {
+            console.error("Elemento com ID 'aboutUsSection' não encontrado.");
+            return;
+        }
         aboutUsSection.innerHTML = `
             <div class="about-us-container">
                 <h2>Sobre Nós - A Equipe por Trás da Osiris Apparel</h2>
