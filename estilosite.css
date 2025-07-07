@@ -72,20 +72,21 @@ header.hidden {
     text-decoration: none;
     transition: color 0.3s ease;
     display: flex;
-    align-items: center;
-    gap: 8px;
+    align-items: center; /* Alinha a imagem e o texto verticalmente */
+    gap: 8px; /* Espaçamento entre a imagem e o texto */
 }
 
 .logo:hover {
     color: var(--primary-color); /* Vermelho fraco ao passar o mouse */
 }
 
-/* Estilo para a nova imagem da logo */
+/* Estilo para a imagem da logo dentro da tag .logo */
 .logo img {
-    height: 75px;
+    height: 75px; /* Altura da imagem da logo */
     border-radius: 50px;
-    width: auto;
-    vertical-align: middle;
+    width: auto; /* Mantém a proporção */
+    vertical-align: middle; /* Alinha verticalmente com o texto */
+    margin-right: 0; /* O gap já cuida do espaçamento */
 }
 
 /* --- Navegação Principal (Desktop) --- */
@@ -544,6 +545,7 @@ footer {
     }
     .logo img {
         height: 28px; /* Ajuste para mobile */
+        margin-right: 5px; /* Reduza o espaçamento para mobile */
     }
 
     /* Esconde a navegação normal em mobile */
