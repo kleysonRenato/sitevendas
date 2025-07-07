@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: '5',
-            name: 'Modern Minimalist',
-            price: 85.50,
+            name: 'JULIET ',
+            price: 119,00,
             description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
             imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
         }
