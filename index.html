@@ -3,122 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OSIRIS APPAREL - Seu Estilo Começa Aqui</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Osiris Apparel - Óculos de Sol Modernos</title>
     <link rel="stylesheet" href="estilosite.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
-        <div class="site-branding">
-            <img src="Imagenssite/image 1.png" alt="Logo OSIRIS APPAREL" class="site-logo">
-            <h1 id="siteTitle">OSIRIS APPAREL</h1>
+        <div class="header-content">
+            <a href="#" class="logo" id="navHome">Osiris Apparel</a>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <i class="bi bi-list"></i>
+            </button>
+            <nav class="main-nav" id="mainNav">
+                <ul>
+                    <li><a href="#" id="navHome">Home</a></li>
+                    <li><a href="#" id="navAllProducts">Coleção</a></li>
+                    <li><a href="#" id="navAboutUs">Sobre Nós</a></li>
+                </ul>
+            </nav>
         </div>
-        <button class="hamburger-menu" id="hamburgerMenu">
-            <i class="bi bi-list"></i>
-        </button>
-        <nav class="nav-buttons" id="mainNav">
-            <button id="navHome" class="btn">Início</button>
-            <button id="navAllProducts" class="btn">Coleção Completa</button>
-            <button id="navAdmin" class="btn">Área do Vendedor</button>
-        </nav>
     </header>
 
     <main id="homeSection" class="page-section active">
         <section class="hero-section">
             <div class="hero-content">
-                <h2>Seu Estilo, Sua Atitude.</h2>
-                <p>Descubra a coleção de óculos que define sua personalidade urbana e ousada.</p>
-                <button id="exploreProductsBtn" class="btn btn-primary">Explorar Destaques</button>
+                <h1>Seu Olhar, Sua Atitude.</h1>
+                <p>Descubra a coleção que redefine o estilo e a proteção para seus olhos.</p>
+                <button class="btn btn-primary" id="exploreProductsBtn">Explorar Produtos</button>
             </div>
         </section>
 
         <section class="products-showcase">
-            <h2>Destaques da Coleção</h2>
-            <div id="featuredProductsGrid" class="product-grid">
-                <p class="no-products-message" id="loadingFeaturedMessage">Carregando destaques...</p>
+            <h2>Nossos Destaques</h2>
+            <div class="product-grid" id="featuredProductsGrid">
+                <p id="loadingFeaturedMessage" class="loading-message">Carregando óculos em destaque...</p>
             </div>
-            <div class="view-all-btn-container">
-                <button id="viewAllProductsBtn" class="btn btn-primary">Ver Coleção Completa</button>
-            </div>
+            <button class="btn btn-secondary" id="viewAllProductsBtn">Ver Coleção Completa</button>
         </section>
     </main>
 
     <main id="allProductsSection" class="page-section">
-        <section class="products-showcase full-collection">
-            <h2>Coleção Completa OSIRIS</h2>
-            <div id="allProductsGrid" class="product-grid">
-                <p class="no-products-message" id="loadingAllProductsMessage">Carregando todos os óculos...</p>
+        <section class="full-collection">
+            <h2>Nossa Coleção Completa</h2>
+            <div class="product-grid" id="allProductsGrid">
+                <p id="loadingAllProductsMessage" class="loading-message">Carregando todos os óculos...</p>
             </div>
         </section>
     </main>
 
-    <main id="adminLoginSection" class="page-section">
-        <div class="form-container login-container">
-            <h2>Login do Vendedor</h2>
-            <form id="adminLoginForm">
-                <div class="form-group">
-                    <label for="adminEmail">Email:</label>
-                    <input type="email" id="adminEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="adminPassword">Senha:</label>
-                    <input type="password" id="adminPassword" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Entrar</button>
-                <p id="loginMessage" class="message error"></p>
-            </form>
-        </div>
-    </main>
-
-    <main id="adminDashboardSection" class="page-section">
-        <div class="dashboard-container">
-            <h2>Gerenciar Óculos</h2>
-            <form id="productForm">
-                <input type="hidden" id="productId"> <div class="form-group">
-                    <label for="productName">Nome/Modelo:</label>
-                    <input type="text" id="productName" required>
-                </div>
-                <div class="form-group">
-                    <label for="productPrice">Preço (R$):</label>
-                    <input type="number" id="productPrice" step="0.01" required>
-                </div>
-                <div class="form-group">
-                    <label for="productDescription">Descrição:</label>
-                    <textarea id="productDescription" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="productImageURL">URL da Imagem:</label>
-                    <input type="url" id="productImageURL" placeholder="https://exemplo.com/oculos.jpg" required>
-                    <small>Dica: Use um serviço como Imgur ou similar para hospedar imagens e obter a URL.</small>
-                </div>
-                <button type="submit" class="btn btn-primary" id="saveProductBtn">Adicionar Óculos</button>
-                <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display:none;">Cancelar Edição</button>
-                <p id="productMessage" class="message"></p>
-            </form>
-        </div>
-
-        <div class="dashboard-container" style="margin-top: 20px;">
-            <h2>Lista de Óculos</h2>
-            <div id="adminProductsList" class="product-grid">
-                <p class="no-products-message">Nenhum óculos cadastrado.</p>
-            </div>
-            <div class="dashboard-actions">
-                <button id="adminLogoutBtn" class="btn btn-secondary">
-                    <i class="bi bi-box-arrow-right"></i> Sair
-                </button>
-            </div>
-        </div>
-    </main>
-
     <main id="productDetailSection" class="page-section">
-        <div class="product-detail-container">
-            <p class="no-products-message" id="loadingDetailMessage">Carregando detalhes do óculos...</p>
-        </div>
+        <p id="loadingDetailMessage" class="loading-message">Carregando detalhes do óculos...</p>
+    </main>
+
+    <main id="aboutUsSection" class="page-section">
     </main>
 
     <footer>
-        <p>&copy; 2025 OSIRIS APPAREL. Todos os direitos reservados.</p>
+        <p>&copy; 2024 Osiris Apparel. Todos os direitos reservados.</p>
     </footer>
 
     <script src="script.js"></script>

@@ -1,827 +1,153 @@
 /* style.css */
 
-:root {
-    --primary-red: #FF0000; /* Vermelho vibrante para destaque */
-    --secondary-red: #CC0000; /* Vermelho mais escuro para hover */
-    --black: #000000;
-    --dark-gray: #121212; /* Cinza muito escuro para o fundo principal */
-    --medium-gray: #1E1E1E; /* Cinza escuro para containers e elementos */
-    --light-gray: #D0D0D0; /* Cinza claro para texto secundário */
-    --white: #FFFFFF; /* Branco puro para texto principal e elementos chave */
-
-    /* Sombras e bordas */
-    --shadow-default: rgba(0, 0, 0, 0.5);
-    --border-color-dark: #333333; /* Borda escura para elementos */
-
-    --error-color: var(--primary-red);
-    --success-color: #00CC00; /* Verde para sucesso, por ser contrastante e universalmente reconhecido */
-}
-
-/* Base e Reset */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Urbanist', sans-serif;
-    line-height: 1.6;
-    color: var(--white); /* Texto principal branco */
-    background-color: var(--dark-gray); /* Fundo principal preto/muito escuro */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-    font-size: 0.95em;
-}
-
-/* Classes para simular a navegação entre as telas */
-.page-section {
-    display: none;
-    flex-grow: 1;
-    padding: 30px;
-    width: 100%;
-}
-
-.page-section.active {
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- Header --- */
+/* --- Cabeçalho Geral --- */
 header {
-    background-color: var(--black); /* Fundo do header preto */
-    color: var(--white);
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px var(--shadow-default);
-    flex-wrap: wrap; /* Permite quebrar linha se necessário */
-    position: sticky;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
     top: 0;
+    left: 0;
     z-index: 1000;
-    border-bottom: 2px solid var(--primary-red); /* Borda inferior vermelha */
-}
-
-/* Estilo para a imagem ao lado do nome do site */
-.site-branding {
+    padding: 10px 0;
+    min-height: 60px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    /* Adicionado para a transição suave de aparecer/desaparecer */
+    transform: translateY(0); /* Posição inicial visível */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Transição para sumir/aparecer e sombra */
 }
 
-.site-logo {
-    height: 120px;
-    border-radius: 50px;
-    width: auto;
-    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.5)); /* Brilho vermelho no logo */
-    transition: transform 0.2s ease-out;
+/* Classe para esconder o cabeçalho */
+header.hidden {
+    transform: translateY(-100%); /* Move o cabeçalho para cima para escondê-lo */
+    box-shadow: none; /* Remove a sombra quando escondido */
 }
 
-.site-logo:hover {
-    transform: scale(1.05);
-}
-
-header h1 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2em;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 1.8px;
-    color: var(--white); /* Título OSIRIS em branco */
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3); /* Brilho branco sutil */
-    transition: transform 0.2s ease-out;
-}
-header h1:hover {
-    transform: scale(1.01);
-}
-
-/* Botões de Navegação (Desktop) */
-header .nav-buttons {
-    display: flex; /* Visível por padrão em desktop */
-    align-items: center;
-}
-
-header .nav-buttons button {
-    background: none;
-    border: 1px solid var(--white); /* Botões de navegação com borda branca */
-    color: var(--white);
-    font-size: 0.9em;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 10px 20px;
-    margin-left: 15px;
-    border-radius: 5px;
-    transition: all 0.2s ease-out;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-}
-
-header .nav-buttons button:hover {
-    background-color: var(--primary-red); /* Fundo vermelho no hover */
-    color: var(--white);
-    box-shadow: 0 0 8px var(--primary-red); /* Brilho vermelho no hover */
-    transform: translateY(-1px);
-}
-
-/* Menu Hambúrguer (Escondido por padrão) */
+/* --- Menu Hambúrguer (para mobile e agora para rolagem) --- */
 .hamburger-menu {
-    display: none; /* Escondido por padrão em desktop */
+    display: none; /* Esconde por padrão em desktop, mas vamos controlar via JS */
     background: none;
     border: none;
-    font-size: 2.5em; /* Tamanho maior para o ícone */
-    color: var(--white);
-    cursor: pointer;
-    padding: 5px 10px;
-    transition: color 0.2s ease-out;
-}
-
-.hamburger-menu:hover {
-    color: var(--primary-red);
-}
-
-
-/* --- Hero Section (Página Inicial) --- */
-.hero-section {
-    /* Mantenha sua imagem de fundo, mas ajuste o gradiente para preto/vermelho */
-    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1596706059905-2b4a15998f82?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
-    color: var(--white);
-    text-align: center;
-    padding: 100px 40px;
-    min-height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    border-bottom: 2px solid var(--primary-red); /* Borda inferior vermelha */
-    position: relative;
-}
-
-.hero-content h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    letter-spacing: 2.5px;
-    color: var(--white);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-}
-
-.hero-content p {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 1.3em;
-    max-width: 700px;
-    margin: 0 auto 40px auto;
-    color: var(--light-gray);
-    font-weight: 300;
-}
-
-#exploreProductsBtn {
-    background-color: var(--primary-red); /* Botão vermelho */
-    color: var(--white);
-    padding: 14px 30px;
-    font-size: 1.1em;
-    border: 2px solid var(--primary-red);
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 8px var(--shadow-default);
-    transition: all 0.2s ease-out;
-}
-
-#exploreProductsBtn:hover {
-    background-color: var(--secondary-red); /* Vermelho mais escuro no hover */
-    border-color: var(--secondary-red);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px var(--shadow-default);
-}
-
-.products-showcase {
-    padding: 60px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.products-showcase h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2.8em;
-    color: var(--white);
-    text-align: center;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border-bottom: 2px solid var(--primary-red); /* Borda inferior vermelha */
-    padding-bottom: 15px;
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.products-showcase.full-collection {
-    padding-top: 40px;
-}
-.products-showcase.full-collection h2 {
-    margin-bottom: 50px;
-}
-
-.view-all-btn-container {
-    text-align: center;
-    margin-top: 50px;
-}
-
-/* --- Botões Gerais --- */
-.btn {
-    font-family: 'Urbanist', sans-serif;
-    display: inline-block;
-    padding: 12px 25px;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease-out;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    font-size: 1em;
-}
-
-.btn-primary {
-    background-color: var(--primary-red); /* Botão primário vermelho */
-    color: var(--white);
-    border: 2px solid var(--primary-red);
-    box-shadow: 0 2px 6px var(--shadow-default);
-}
-
-.btn-primary:hover {
-    background-color: var(--secondary-red); /* Hover vermelho mais escuro */
-    border-color: var(--secondary-red);
-    box-shadow: 0 3px 8px var(--shadow-default);
-    transform: translateY(-1px);
-}
-
-.btn-secondary {
-    background-color: var(--medium-gray); /* Botão secundário cinza escuro */
-    color: var(--white);
-    border: 2px solid var(--white); /* Borda branca */
-    box-shadow: 0 2px 6px var(--shadow-default);
-}
-
-.btn-secondary:hover {
-    background-color: var(--black); /* Hover preto */
-    border-color: var(--primary-red); /* Borda vermelha no hover */
-    transform: translateY(-1px);
-    color: var(--primary-red); /* Texto vermelho no hover */
-    box-shadow: 0 3px 8px var(--shadow-default);
-}
-
-/* --- Formulários e Containers --- */
-.form-container, .dashboard-container {
-    background-color: var(--medium-gray); /* Fundo do container cinza escuro */
-    padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-default);
-    margin-top: 40px;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid var(--border-color-dark); /* Borda escura */
-}
-
-.login-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 120px);
-    padding: 30px;
-}
-.login-container form {
-    width: 100%;
-    max-width: 400px;
-}
-
-.form-container h2, .dashboard-container h2 {
-    font-family: 'Outfit', sans-serif;
-    text-align: center;
-    color: var(--white);
-    margin-bottom: 30px;
-    font-size: 2.2em;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    border-bottom: 2px solid var(--primary-red); /* Borda inferior vermelha */
-    padding-bottom: 10px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 400;
-    color: var(--light-gray); /* Texto do label cinza claro */
-    font-size: 0.95em;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color-dark); /* Borda escura */
-    border-radius: 6px;
-    background-color: var(--dark-gray); /* Fundo do input cinza escuro */
-    color: var(--white); /* Texto do input branco */
-    transition: border-color 0.2s ease-out, box-shadow 0.2s ease-out;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: var(--primary-red); /* Borda vermelha no foco */
-    outline: none;
-    box-shadow: 0 0 6px rgba(255, 0, 0, 0.5); /* Brilho vermelho no foco */
-}
-
-.form-group small {
-    font-size: 0.8em;
-    color: var(--light-gray);
-    display: block;
-    margin-top: 6px;
-}
-
-.message {
-    text-align: center;
-    margin-top: 20px;
-    font-weight: 500;
-    font-size: 1em;
-}
-
-.message.error {
-    color: var(--error-color); /* Mensagem de erro vermelha */
-}
-
-.message.success {
-    color: var(--success-color); /* Mensagem de sucesso verde */
-}
-
-/* --- Lista de Produtos (Clientes e Admin) --- */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    padding: 20px 0;
-}
-
-.product-card {
-    background-color: var(--medium-gray); /* Fundo do card cinza escuro */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-default);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, border-color 0.2s ease-out;
-    text-decoration: none;
-    color: var(--white);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid var(--border-color-dark); /* Borda do card escura */
-}
-
-.product-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px var(--shadow-default);
-    border-color: var(--primary-red); /* Borda vermelha no hover */
-}
-
-.product-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-bottom: 1px solid var(--border-color-dark); /* Borda da imagem escura */
-    transition: transform 0.2s ease-out;
-}
-
-.product-card:hover img {
-    transform: scale(1.01);
-}
-
-.product-info {
-    padding: 20px;
-    flex-grow: 1;
-}
-
-.product-card h3 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: var(--white); /* Título do produto branco */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 0 0 2px rgba(255, 255, 255, 0.2);
-}
-
-.product-card p.price {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 1.2em;
-    font-weight: 500;
-    color: var(--primary-red); /* Preço em vermelho */
-    margin-top: 10px;
-    text-shadow: 0 0 2px rgba(255, 0, 0, 0.3);
-}
-
-.product-actions {
-    display: flex;
-    justify-content: space-around;
-    padding: 15px;
-    border-top: 1px solid var(--border-color-dark); /* Borda superior dos botões escura */
-    background-color: var(--black); /* Fundo dos botões preto */
-}
-
-.product-actions .btn {
-    flex-grow: 1;
-    margin: 0 8px;
-    font-size: 0.8em;
-    padding: 10px 15px;
-}
-
-.dashboard-actions {
-    margin-top: 40px;
-    text-align: center;
-}
-.dashboard-actions .btn {
-    padding: 12px 25px;
-    font-size: 1em;
-}
-
-.no-products-message {
-    text-align: center;
-    color: var(--light-gray);
-    padding: 40px;
-    font-style: italic;
-    font-size: 1.1em;
-    width: 100%;
-    border: 1px dashed var(--border-color-dark);
-    border-radius: 10px;
-    margin-top: 30px;
-}
-
-/* --- Tela de Detalhes do Produto (Cliente) --- */
-.product-detail-container {
-    background-color: var(--medium-gray); /* Fundo do container de detalhes cinza escuro */
-    padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 6px 15px var(--shadow-default);
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 1px solid var(--border-color-dark); /* Borda escura */
-}
-
-.product-detail-container img {
-    max-width: 70%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 10px var(--shadow-default);
-    border: 1px solid var(--border-color-dark); /* Borda da imagem de detalhes escura */
-}
-
-.product-detail-container h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 3em;
-    color: var(--white);
-    margin-bottom: 20px;
-    text-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
-}
-
-.product-detail-container p.price {
-    font-family: 'Urbanist', sans-serif;
     font-size: 2em;
-    font-weight: 500;
-    color: var(--primary-red); /* Preço em vermelho */
-    margin-bottom: 30px;
-    text-shadow: 0 0 2px rgba(255, 0, 0, 0.3);
+    color: #333;
+    cursor: pointer;
+    z-index: 1001;
+    /* Posicionamento fixo para o menu hambúrguer quando o cabeçalho some */
+    position: fixed; /* Adicionado */
+    top: 15px; /* Ajuste a posição do ícone hambúrguer */
+    right: 20px; /* Ajuste a posição do ícone hambúrguer */
+    transition: opacity 0.3s ease-out; /* Transição para o ícone aparecer/sumir */
+    opacity: 0; /* Escondido por padrão, aparece com a classe 'visible' */
+    pointer-events: none; /* Não clicável por padrão */
 }
 
-.product-detail-container p.description {
-    font-family: 'Urbanist', sans-serif;
-    font-size: 1.1em;
-    color: var(--light-gray); /* Descrição em cinza claro */
-    margin-bottom: 40px;
-    max-width: 800px;
-    text-align: center;
-    line-height: 1.8;
-    font-weight: 300;
+.hamburger-menu.visible {
+    opacity: 1; /* Torna o ícone visível */
+    pointer-events: auto; /* Torna-o clicável */
+    /* Garante que o ícone fique acima do cabeçalho quando ambos estão visíveis na rolagem */
+    z-index: 1002;
 }
 
-.btn-whatsapp {
-    background-color: #25D366; /* Verde do WhatsApp (cor padrão reconhecível) */
-    color: var(--white);
-    padding: 15px 35px;
-    border-radius: 30px;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
-    transition: all 0.2s ease-out;
-    font-weight: 600;
+
+/* --- Navegação Principal (Menu Lateral que aparece) --- */
+.main-nav {
+    display: none; /* Esconde por padrão em desktop */
+    flex-direction: column;
+    width: 100%;
+    position: absolute; /* Padrão, mas será ajustado para fixo quando "aberto" em mobile */
+    top: 60px; /* Alinha o menu abaixo do cabeçalho */
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    /* Estilos para o menu lateral quando ativo */
+    position: fixed; /* Importante para fixar o menu lateral */
+    top: 0;
+    right: -250px; /* Escondido fora da tela */
+    width: 250px; /* Largura do menu lateral */
+    height: 100%;
+    padding-top: 70px; /* Espaço para não cobrir o topo da tela */
+    background-color: #f8f8f8; /* Fundo do menu lateral */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    transition: right 0.3s ease-out; /* Transição para deslizar para dentro */
 }
 
-.btn-whatsapp:hover {
-    background-color: #1DA851;
-    transform: translateY(-1px);
-    box-shadow: 0 5px 12px rgba(37, 211, 102, 0.5);
+.main-nav.active {
+    display: flex; /* Mostra o menu */
+    right: 0; /* Desliza para dentro da tela */
 }
 
-.btn-whatsapp i {
-    font-size: 1.4em;
+/* Botão para fechar o menu lateral */
+.main-nav .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2em;
+    background: none;
+    border: none;
+    color: #333;
+    cursor: pointer;
 }
 
-/* --- Footer --- */
-footer {
-    background-color: var(--black); /* Fundo do footer preto */
-    color: var(--light-gray); /* Texto do footer cinza claro */
-    text-align: center;
-    padding: 20px;
-    margin-top: auto;
-    box-shadow: 0 -2px 6px var(--shadow-default);
-    border-top: 1px solid var(--border-color-dark); /* Borda superior escura */
-    font-size: 0.8em;
+.main-nav ul {
+    flex-direction: column;
+    width: 100%;
+    text-align: left; /* Alinha os itens do menu à esquerda no menu lateral */
+    padding-left: 20px; /* Espaçamento para os itens do menu */
 }
 
-/* --- Responsividade --- */
-@media (max-width: 992px) {
-    body {
-        font-size: 0.9em;
-    }
-    .site-logo {
-        height: 35px;
-    }
-    header h1 {
-        font-size: 1.8em;
-    }
-    header .nav-buttons button {
-        font-size: 0.85em;
-        padding: 9px 18px;
-        margin-left: 10px;
-    }
-    .hero-section {
-        padding: 80px 30px;
-        min-height: 450px;
-    }
-    .hero-content h2 {
-        font-size: 3em;
-    }
-    .hero-content p {
-        font-size: 1.2em;
-    }
-    #exploreProductsBtn {
-        font-size: 1em;
-        padding: 12px 25px;
-    }
-    .products-showcase h2 {
-        font-size: 2.4em;
-    }
-    .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 25px;
-    }
-    .product-detail-container h2 {
-        font-size: 2.6em;
-    }
-    .product-detail-container p.price {
-        font-size: 1.8em;
-    }
-    .btn-whatsapp {
-        font-size: 1.1em;
-        padding: 12px 30px;
-    }
-    .btn-whatsapp i {
-        font-size: 1.3em;
-    }
+.main-nav ul li {
+    margin: 15px 0; /* Mais espaço entre os itens no menu lateral */
 }
 
-@media (max-width: 768px) {
-    body {
-        font-size: 0.88em;
-    }
+.main-nav ul li a {
+    font-size: 1.1em; /* Um pouco maior para o menu lateral */
+    display: block; /* Ocupa a largura total para melhor clique */
+    padding: 8px 0;
+    border-bottom: 1px solid #eee; /* Linha divisória suave */
+}
 
-    header {
-        flex-direction: row; /* Mantém na mesma linha principal */
-        justify-content: space-between; /* Espaço entre logo e menu */
-        align-items: center;
-        padding: 12px 20px; /* Padding menor */
-    }
+/* --- Margem para o Conteúdo Principal --- */
+main {
+    /* Ajuste este valor para que o conteúdo comece abaixo do cabeçalho */
+    margin-top: 80px; /* Mantenha um valor seguro, pois o cabeçalho pode reaparecer */
+    padding-bottom: 50px;
+}
 
-    .site-branding {
-        flex-grow: 1; /* Permite que o branding ocupe o espaço necessário */
-        justify-content: flex-start; /* Alinha à esquerda */
-        gap: 8px; /* Espaçamento menor */
-    }
-
-    .site-logo {
-        height: 30px; /* Logo menor */
-    }
-    header h1 {
-        font-size: 1.5em; /* Título menor */
-    }
-
-    .nav-buttons {
-        display: none; /* Esconde os botões de navegação por padrão */
-        flex-direction: column; /* Em coluna quando ativado */
-        position: absolute;
-        top: 70px; /* Abaixo do header */
-        left: 0;
-        width: 100%;
-        background-color: var(--black); /* Fundo do menu */
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.7);
-        z-index: 999;
-        padding: 15px 0;
-        border-top: 1px solid var(--primary-red); /* Borda superior vermelha */
-    }
-
-    .nav-buttons.active {
-        display: flex; /* Mostra o menu quando ativo */
-    }
-
-    .nav-buttons button {
-        margin: 10px 0; /* Margem vertical para os botões do menu */
-        width: 90%; /* Ocupa quase a largura total */
-        max-width: 300px; /* Limite de largura */
-        align-self: center; /* Centraliza */
-        padding: 12px 20px;
-        font-size: 1em;
-        border: 1px solid var(--primary-red); /* Borda vermelha para os botões do menu */
-        background-color: var(--dark-gray); /* Fundo escuro */
-    }
-    .nav-buttons button:hover {
-        background-color: var(--primary-red);
-        color: var(--white);
-    }
-
+/* --- Responsividade (para telas menores) --- */
+@media (min-width: 769px) { /* Em telas maiores que mobile, o hambúrguer deve ficar escondido */
     .hamburger-menu {
-        display: block; /* Mostra o menu hambúrguer */
+        display: none !important; /* Força a ocultação em desktop */
     }
-
-    .hero-section {
-        padding: 60px 20px;
-        min-height: 400px;
+    .main-nav {
+        position: static; /* Voltar para fluxo normal em desktop */
+        display: flex; /* Mostrar navegação normal */
+        width: auto;
+        height: auto;
+        padding: 0;
+        box-shadow: none;
+        flex-direction: row; /* Itens em linha em desktop */
+        top: auto;
+        right: auto;
+        background-color: transparent;
     }
-    .hero-content h2 {
-        font-size: 2.6em;
+    .main-nav ul {
+        flex-direction: row;
+        text-align: center;
+        padding-left: 0;
     }
-    .hero-content p {
-        font-size: 1.1em;
-        margin-bottom: 30px;
+    .main-nav ul li {
+        margin-left: 25px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
-    #exploreProductsBtn {
-        font-size: 0.95em;
-        padding: 10px 22px;
-    }
-    .products-showcase {
-        padding: 50px 25px;
-    }
-    .products-showcase h2 {
-        font-size: 2em;
-        margin-bottom: 30px;
-    }
-    .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-    }
-    .product-card img {
-        height: 220px;
-    }
-    .product-card h3 {
-        font-size: 1.3em;
-        margin-bottom: 8px;
-    }
-    .product-card p.price {
-        font-size: 1.1em;
-        margin-top: 8px;
-    }
-    .product-actions .btn {
-        font-size: 0.7em;
-        padding: 8px 12px;
-        margin: 0 5px;
-    }
-    .product-detail-container img {
-        max-width: 80%;
-        margin-bottom: 25px;
-    }
-    .product-detail-container h2 {
-        font-size: 2.2em;
-    }
-    .product-detail-container p.price {
-        font-size: 1.6em;
-    }
-    .product-detail-container p.description {
+    .main-nav ul li a {
+        border-bottom: none;
+        padding: 5px 0;
         font-size: 1em;
-        padding: 0 15px;
     }
-    .btn-whatsapp {
-        font-size: 1.1em;
-        padding: 12px 30px;
-    }
-    .btn-whatsapp i {
-        font-size: 1.3em;
-    }
-}
-
-@media (max-width: 480px) {
-    body {
-        font-size: 0.85em;
-    }
-    header {
-        padding: 10px 15px; /* Ainda menor */
-    }
-    .site-logo {
-        height: 25px;
-    }
-    header h1 {
-        font-size: 1.3em; /* Título ainda menor */
-    }
-    .hamburger-menu {
-        font-size: 2.2em; /* Ícone um pouco menor */
-    }
-    .nav-buttons {
-        top: 60px; /* Ajusta a posição do menu dropdown */
-    }
-    .nav-buttons button {
-        padding: 10px 15px;
-        font-size: 0.9em;
-    }
-
-    .hero-section {
-        padding: 50px 15px;
-        min-height: 350px;
-    }
-    .hero-content h2 {
-        font-size: 2.2em;
-    }
-    .hero-content p {
-        font-size: 1em;
-        margin-bottom: 25px;
-    }
-    #exploreProductsBtn {
-        font-size: 0.9em;
-        padding: 9px 20px;
-    }
-    .products-showcase {
-        padding: 40px 20px;
-    }
-    .products-showcase h2 {
-        font-size: 1.8em;
-        margin-bottom: 25px;
-    }
-    .product-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .product-card img {
-        height: 200px;
-    }
-    .product-card h3 {
-        font-size: 1.2em;
-        margin-bottom: 6px;
-    }
-    .product-card p.price {
-        font-size: 1em;
-        margin-top: 6px;
-    }
-    .product-actions .btn {
-        flex-grow: 1;
-        margin: 0 5px;
-        font-size: 0.7em;
-        padding: 8px 12px;
-    }
-    .product-detail-container img {
-        max-width: 90%;
-        margin-bottom: 20px;
-    }
-    .product-detail-container h2 {
-        font-size: 2em;
-    }
-    .product-detail-container p.price {
-        font-size: 1.5em;
-    }
-    .product-detail-container p.description {
-        font-size: 0.95em;
-        padding: 0 10px;
-    }
-    .btn-whatsapp {
-        font-size: 0.9em;
-        padding: 10px 22px;
-    }
-    .btn-whatsapp i {
-        font-size: 1.2em;
+    .main-nav .close-btn {
+        display: none; /* Esconde o botão de fechar em desktop */
     }
 }
