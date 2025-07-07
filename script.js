@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'Felipe J.',
             role: 'Fundador & Designer Chefe',
-            bio: 'Com mais de 10 anos de experiência em design de moda e paixão por óculos, João lidera a criação de nossos modelos exclusivos, unindo estética e funcionalidade.',
+            bio: '',
             photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true',
             socialMedia: {
                 instagram: 'https://instagram.com/joaosilva',
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'Guilherme O.',
             role: 'Diretora de Marketing',
-            bio: 'Especialista em branding e comunicação digital, Maria é a mente por trás da nossa presença online, garantindo que a Osiris Apparel chegue a quem busca estilo e qualidade.',
+            bio: '',
             photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true',
             socialMedia: {
                 instagram: 'https://instagram.com/mariaoliveira',
