@@ -40,21 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Óculos Urban Cool', // NOME DO PRODUTO
             price: 129.90, // PREÇO DO PRODUTO (use ponto para decimais)
             description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true' // URL DA IMAGEM
+            imageUrl: 'https://images.unsplash.com/photo-1574621147055-661f22144365?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // URL DA IMAGEM
         },
         {
             id: '2',
-            name: 'juju',
+            name: 'Street Vibe Aviator',
             price: 159.90,
             description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1502110595393-2cecb014d5ad?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         },
         {
             id: '3',
             name: 'Bold Hipster',
             price: 99.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/juju.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1620247657929-236b2f703567?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         },
         {
             id: '4',
@@ -315,17 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica da Página de Detalhes do Produto (Clientes) ---
     function renderProductDetails(productId) {
         productDetailSection.innerHTML = '';
-        loadingDetailMessage.style.display = 'block';
+        loadingDetailMessage.style.display = 'none'; // Já definimos no CSS para display:none inicialmente, mas reforça
 
         const product = products.find(p => p.id === productId);
 
         if (!product) {
             productDetailSection.innerHTML = '<div class="product-detail-container"><p class="no-products-message">Óculos não encontrado.</p></div>';
-            loadingDetailMessage.style.display = 'none';
             return;
         }
 
-        loadingDetailMessage.style.display = 'none';
         const detailContainer = document.createElement('div');
         detailContainer.classList.add('product-detail-container');
         detailContainer.innerHTML = `
@@ -343,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Adicionar funcionalidade do botão WhatsApp
         document.getElementById('whatsappContactBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            const whatsappNumber = '51996237370'; // <<<<<<< ATUALIZE SEU NÚMERO AQUI COM O NÚMERO DO CLIENTE
+            const whatsappNumber = '5551996237370'; // SEU NÚMERO DE WHATSAPP JÁ ESTÁ AQUI!
             const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
             window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         });
