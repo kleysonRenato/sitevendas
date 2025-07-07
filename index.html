@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OSIRIS APPAREL - Seu Estilo Começa Aqui</title>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Urbanist:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilosite.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
-        <h1 id="siteTitle">OSIRIS APPAREL</h1>
+        <div class="site-branding">
+            <img src="https://i.imgur.com/your-logo.png" alt="Logo OSIRIS APPAREL" class="site-logo">
+            <h1 id="siteTitle">OSIRIS APPAREL</h1>
+        </div>
         <nav class="nav-buttons">
-            <button id="navHome" class="btn">Início</button> <button id="navAllProducts" class="btn">Coleção Completa</button> <button id="navAdmin" class="btn">Área do Vendedor</button>
+            <button id="navHome" class="btn">Início</button>
+            <button id="navAllProducts" class="btn">Coleção Completa</button>
+            <button id="navAdmin" class="btn">Área do Vendedor</button>
         </nav>
     </header>
 
@@ -21,12 +26,13 @@
             <div class="hero-content">
                 <h2>Seu Estilo, Sua Atitude.</h2>
                 <p>Descubra a coleção de óculos que define sua personalidade urbana e ousada.</p>
-                <button id="exploreProductsBtn" class="btn btn-primary">Explorar Coleção</button>
+                <button id="exploreProductsBtn" class="btn btn-primary">Explorar Destaques</button>
             </div>
         </section>
 
         <section class="products-showcase">
-            <h2>Destaques da Coleção</h2> <div id="featuredProductsGrid" class="product-grid">
+            <h2>Destaques da Coleção</h2>
+            <div id="featuredProductsGrid" class="product-grid">
                 <p class="no-products-message" id="loadingFeaturedMessage">Carregando destaques...</p>
             </div>
             <div class="view-all-btn-container">
