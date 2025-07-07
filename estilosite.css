@@ -395,7 +395,7 @@ main {
 
 .product-detail-container img {
     max-width: 80%; /* Ajusta a largura máxima para 80% do container */
-    height: 350px; /* Define uma altura fixa */
+    height: auto; /* Permite que a altura se ajuste proporcionalmente */
     object-fit: contain; /* Garante que a imagem se ajuste sem ser cortada */
     border-radius: 8px;
     margin-bottom: 25px;
@@ -598,7 +598,7 @@ footer {
     }
     .product-detail-container img { /* Ajuste da imagem para mobile */
         max-width: 90%; /* Pode ser um pouco maior em mobile para usar o espaço */
-        height: 250px; /* Ajusta a altura da imagem para mobile */
+        height: auto; /* Mantém a proporção em mobile também */
     }
 
 
