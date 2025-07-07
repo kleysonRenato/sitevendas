@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header'); // Referência ao cabeçalho
     const navHomeBtn = document.getElementById('navHome');
     const navAllProductsBtn = document.getElementById('navAllProducts');
-    const navAboutUsBtn = document.getElementById('navAboutUs'); // Novo botão para a seção "Sobre Nós"
+    const navAboutUsBtn = document.getElementById('navAboutUs');
     const exploreProductsBtn = document.getElementById('exploreProductsBtn');
     const viewAllProductsBtn = document.getElementById('viewAllProductsBtn');
 
@@ -47,28 +47,28 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Street Vibe Aviator',
             price: 159.90,
             description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
-            imageUrl: 'https://images.unsplash.com/photo-1502110595393-2cecb014d5ad?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
         },
         {
             id: '3',
             name: 'Bold Hipster',
             price: 99.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://images.unsplash.com/photo-1620247657929-236b2f703567?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
         },
         {
             id: '4',
             name: 'Vintage Edge',
             price: 110.00,
             description: 'Óculos com inspiração retrô e toque contemporâneo. Ideal para quem busca um visual autêntico e cheio de personalidade.',
-            imageUrl: 'https://images.unsplash.com/photo-1626871146602-df982a2254aa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
         },
         {
             id: '5',
             name: 'Modern Minimalist',
             price: 85.50,
             description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
-            imageUrl: 'https://images.unsplash.com/photo-1579549320698-c64a51e626e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
         }
         // Para ADICIONAR UM NOVO ÓCULOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
         // E ADICIONE UM NOVO OBJETO COMO ESTE:
@@ -166,7 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Event Listeners para Navegação ---
+    // O botão Home e o logo sempre voltam para a página inicial
     navHomeBtn.addEventListener('click', () => showSection('homeSection'));
+    // navHomeBtn já é o link da logo, então não precisa de outro listener para o logo
+
     navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
     navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
 
@@ -192,7 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
     let lastScrollY = window.scrollY;
     // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
-    const headerTriggerHeight = header.offsetHeight + 10; // Adiciona um pequeno buffer
+    // Adiciona um pequeno buffer (10px) para que o cabeçalho desapareça completamente antes do hambúrguer aparecer
+    const headerTriggerHeight = header.offsetHeight + 10;
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
@@ -227,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mainNav.classList.remove('active');
         } else {
             // Se virou mobile e o cabeçalho está escondido (rolando para baixo), mostra o hambúrguer
+            // Verifica se o cabeçalho está de fato escondido antes de mostrar o hambúrguer em mobile
             if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
             }
