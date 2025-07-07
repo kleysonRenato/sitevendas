@@ -82,7 +82,8 @@ header.hidden {
 
 /* Estilo para a nova imagem da logo */
 .logo img {
-    height: 35px;
+    height: 75px;
+    border-radius: 50px;
     width: auto;
     vertical-align: middle;
 }
