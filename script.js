@@ -58,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: '4',
-            name: 'Vintage Edge',
-            price: 110.00,
+            name: 'PENNY',
+            price: 119.00,
             description: 'Óculos com inspiração retrô e toque contemporâneo. Ideal para quem busca um visual autêntico e cheio de personalidade.',
-            imageUrl: 'https://images.unsplash.com/photo-1626871146602-df982a2254aa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/penny.png?raw=true'
         },
         {
             id: '5',
