@@ -26,21 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mainNav = document.getElementById('mainNav');
 
-    // Verifica se mainNav existe antes de tentar manipulá-lo
+    // Cria e adiciona o botão de fechar o menu lateral
+    // Importante: Verifica se mainNav existe antes de tentar manipulá-lo
     if (mainNav) {
-        console.log("mainNav encontrado.");
+        console.log("mainNav encontrado. Criando botão de fechar.");
         const closeMenuBtn = document.createElement('button');
         closeMenuBtn.classList.add('close-btn');
         closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; 
         mainNav.prepend(closeMenuBtn); 
 
-        // Botão para fechar o menu lateral (o "X")
+        // Adiciona o listener para o botão de fechar o menu lateral
         closeMenuBtn.addEventListener('click', () => {
             mainNav.classList.remove('active');
             // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
-            if (window.innerWidth <= 768 && header && header.classList.contains('hidden')) { // Adicionado 'header &&'
+            if (window.innerWidth <= 768 && header && header.classList.contains('hidden') && hamburgerMenu) {
                 hamburgerMenu.classList.add('visible');
-            } else if (window.innerWidth <= 768 && hamburgerMenu) { // Adicionado 'hamburgerMenu &&'
+            } else if (window.innerWidth <= 768 && hamburgerMenu) {
                 hamburgerMenu.classList.remove('visible');
             }
         });
@@ -69,10 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Funções de Navegação de Páginas ---
     function showSection(sectionId, productId = null) {
         console.log(`Tentando mostrar a seção: ${sectionId}`);
+        // Esconde todas as seções
         document.querySelectorAll('main .page-section').forEach(section => {
             section.classList.remove('active');
         });
 
+        // Mostra a seção desejada
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.classList.add('active');
@@ -90,14 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`ERRO: Seção com ID '${sectionId}' não encontrada no HTML.`);
         }
         
-        // Garante que o menu lateral seja fechado ao navegar
-        if (mainNav) { // Adicionada verificação
+        // Garante que o menu lateral seja fechado ao navegar (em mobile)
+        if (mainNav) { 
             mainNav.classList.remove('active');
         }
 
-        // Em mobile, quando uma seção é mostrada, o menu hambúrguer deve estar visível se o cabeçalho estiver escondido
-        // ou o cabeçalho deve estar visível.
-        if (window.innerWidth <= 768 && hamburgerMenu && header) { // Adicionadas verificações
+        // Em mobile, controla a visibilidade do hambúrguer após a navegação
+        if (window.innerWidth <= 768 && hamburgerMenu && header) { 
             if (header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
             } else {
@@ -107,118 +109,84 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Event Listeners para Navegação ---
-    // O botão Home e o logo sempre voltam para a página inicial
-    if (navHomeBtn) { // Adicionada verificação
+    // Verifica se os botões existem antes de adicionar event listeners
+    if (navHomeBtn) {
         navHomeBtn.addEventListener('click', () => showSection('homeSection'));
-    } else {
-        console.error("ERRO: Elemento com ID 'navHome' não encontrado.");
-    }
-
-    if (navAllProductsBtn) { // Adicionada verificação
+    } else { console.error("ERRO: Elemento com ID 'navHome' não encontrado."); }
+    
+    if (navAllProductsBtn) {
         navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
-    } else {
-        console.error("ERRO: Elemento com ID 'navAllProducts' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'navAllProducts' não encontrado."); }
     
-    if (navAboutUsBtn) { // Adicionada verificação
+    if (navAboutUsBtn) {
         navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
-    } else {
-        console.error("ERRO: Elemento com ID 'navAboutUs' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'navAboutUs' não encontrado."); }
     
-    // Botões de exploração e visualização na Home Section
-    if (exploreProductsBtn) { // Adicionada verificação
+    if (exploreProductsBtn) {
         exploreProductsBtn.addEventListener('click', () => {
-            // Rola suavemente para a seção de produtos em destaque na home
             const productsShowcase = document.querySelector('.products-showcase');
-            if (productsShowcase) { // Adicionada verificação
+            if (productsShowcase) {
                 productsShowcase.scrollIntoView({ behavior: 'smooth' });
             } else {
                 console.warn("AVISO: Elemento com classe '.products-showcase' não encontrado para rolar.");
             }
         });
-    } else {
-        console.error("ERRO: Elemento com ID 'exploreProductsBtn' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'exploreProductsBtn' não encontrado."); }
 
-    if (viewAllProductsBtn) { // Adicionada verificação
+    if (viewAllProductsBtn) {
         viewAllProductsBtn.addEventListener('click', () => {
             showSection('allProductsSection');
         });
-    } else {
-        console.error("ERRO: Elemento com ID 'viewAllProductsBtn' não encontrado.");
-    }
+    } else { console.error("ERRO: Elemento com ID 'viewAllProductsBtn' não encontrado."); }
 
-    // LÓGICA PARA O MENU HAMBÚRGUER (em mobile)
-    if (hamburgerMenu && mainNav) { // Adicionadas verificações
+    // Lógica para o menu hambúrguer em mobile
+    if (hamburgerMenu && mainNav) {
         hamburgerMenu.addEventListener('click', () => {
-            mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
-            // O hambúrguer deve ficar escondido quando o menu lateral está aberto
+            mainNav.classList.toggle('active'); 
             hamburgerMenu.classList.toggle('visible');
         });
-    } else {
-        console.error("ERRO: Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar.");
-    }
-
-    // Botão para fechar o menu lateral (o "X") - MOVIDO PARA DENTRO DO BLOCO DE MAINNAV EXISTENTE
-    // closeMenuBtn é criado no início do script, mas seu listener DEVE estar dentro do if(mainNav)
-    // para garantir que closeMenuBtn existe e não é null.
+    } else { console.error("ERRO: Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar."); }
 
     // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
     let lastScrollY = window.scrollY;
-    
     // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
-    // Adiciona um pequeno buffer (10px) para que o cabeçalho desapareça completamente antes do hambúrguer aparecer
-    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; // Adicionada verificação para 'header'
+    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; // Verifica se 'header' existe
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
         const isMobile = window.innerWidth <= 768;
 
         if (isMobile) {
-            if (header && hamburgerMenu && mainNav) { // Adicionadas verificações para garantir que os elementos existem
-                // Rolando para baixo E passou da altura do cabeçalho
+            if (header && hamburgerMenu && mainNav) { 
                 if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
-                    header.classList.add('hidden'); // Esconde o cabeçalho
-                    hamburgerMenu.classList.add('visible'); // Mostra o hambúrguer
-                }
-                // Rolando para cima OU no topo da página
-                else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
-                    header.classList.remove('hidden'); // Mostra o cabeçalho
-                    hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer (quando o cabeçalho está visível)
-                    mainNav.classList.remove('active'); // Garante que o menu lateral feche
+                    header.classList.add('hidden'); 
+                    hamburgerMenu.classList.add('visible'); 
+                } else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
+                    header.classList.remove('hidden'); 
+                    hamburgerMenu.classList.remove('visible'); 
+                    mainNav.classList.remove('active'); 
                 }
             }
         } else {
             // Em desktop, garante que o cabeçalho esteja sempre visível e o hambúrguer escondido
-            if (header) { // Adicionada verificação
-                header.classList.remove('hidden');
-            }
-            if (hamburgerMenu) { // Adicionada verificação
-                hamburgerMenu.classList.remove('visible');
-            }
-            if (mainNav) { // Adicionada verificação
-                mainNav.classList.remove('active'); // Sempre fechado em desktop, pois a navegação é diferente
-            }
+            if (header) { header.classList.remove('hidden'); }
+            if (hamburgerMenu) { hamburgerMenu.classList.remove('visible'); }
+            if (mainNav) { mainNav.classList.remove('active'); }
         }
-
-        lastScrollY = currentScrollY; // Atualiza a última posição de rolagem
+        lastScrollY = currentScrollY; 
     });
 
-    // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar a janela
+    // Garante comportamento correto ao redimensionar a janela
     window.addEventListener('resize', () => {
-        if (header && hamburgerMenu && mainNav) { // Adicionadas verificações para garantir que os elementos existem
-            // Se a tela se torna desktop
+        if (header && hamburgerMenu && mainNav) { 
             if (window.innerWidth > 768) {
-                hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer
-                mainNav.classList.remove('active'); // Fecha o menu lateral
-                header.classList.remove('hidden'); // Garante que o cabeçalho esteja visível
+                hamburgerMenu.classList.remove('visible'); 
+                mainNav.classList.remove('active'); 
+                header.classList.remove('hidden'); 
             } else {
-                // Se a tela se torna mobile
-                // Verifica se o cabeçalho deveria estar escondido para exibir o hambúrguer
                 if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
                     hamburgerMenu.classList.add('visible');
-                } else { // Se o cabeçalho está visível no topo, esconde o hambúrguer
+                } else { 
                     hamburgerMenu.classList.remove('visible');
                 }
             }
@@ -235,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         featuredProductsGrid.innerHTML = ''; // Limpa o grid
         
-        if (loadingFeaturedMessage) { // Adicionada verificação
+        if (loadingFeaturedMessage) {
             console.log("Escondendo loadingFeaturedMessage.");
             loadingFeaturedMessage.style.display = 'none'; // Esconde a mensagem de carregamento
         } else {
@@ -268,12 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica da Página de Coleção Completa ---
     function renderAllProducts() {
         console.log("Iniciando renderAllProducts...");
-        if (!allProductsGrid) { // Adicionada verificação
+        if (!allProductsGrid) {
             console.error("ERRO: Elemento com ID 'allProductsGrid' não encontrado no HTML para renderizar todos os produtos.");
             return;
         }
         allProductsGrid.innerHTML = '';
-        if (loadingAllProductsMessage) { // Adicionada verificação
+        if (loadingAllProductsMessage) {
             console.log("Escondendo loadingAllProductsMessage.");
             loadingAllProductsMessage.style.display = 'none';
         } else {
@@ -321,12 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica da Página de Detalhes do Produto (Clientes) ---
     function renderProductDetails(productId) {
         console.log(`Iniciando renderProductDetails para ID: ${productId}`);
-        if (!productDetailSection) { // Adicionada verificação
+        if (!productDetailSection) {
             console.error("ERRO: Elemento com ID 'productDetailSection' não encontrado.");
             return;
         }
         productDetailSection.innerHTML = '';
-        if (loadingDetailMessage) { // Adicionada verificação
+        if (loadingDetailMessage) {
             loadingDetailMessage.style.display = 'none';
         } else {
             console.warn("AVISO: Elemento 'loadingDetailMessage' não encontrado.");
@@ -354,10 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         productDetailSection.appendChild(detailContainer);
 
-        // Adicionar funcionalidade do botão WhatsApp
-        // Verifica se o botão foi adicionado e existe antes de adicionar o listener
         const whatsappContactBtn = document.getElementById('whatsappContactBtn');
-        if (whatsappContactBtn) { // Adicionada verificação
+        if (whatsappContactBtn) {
             whatsappContactBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const whatsappNumber = '5551996237370'; 
@@ -373,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Lógica da Seção "Sobre Nós" (Donos do Site) ---
     function renderAboutUsContent() {
         console.log("Iniciando renderAboutUsContent...");
-        if (!aboutUsSection) { // Adicionada verificação
+        if (!aboutUsSection) {
             console.error("ERRO: Elemento com ID 'aboutUsSection' não encontrado.");
             return;
         }

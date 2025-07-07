@@ -1,14 +1,17 @@
-/* style.css */
+/* Importação de fonte do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* Geral */
 :root {
-    --primary-color: #A00000; /* Vermelho fraco para detalhes e destaque */
-    --secondary-color: #BBBBBB; /* Um cinza claro para botões secundários */
-    --text-dark: #FFFFFF; /* Texto branco para fundos escuros */
-    --text-light: #222222; /* Texto escuro para fundos claros (se houver) */
-    --bg-light: #1A1A1A; /* Fundo preto principal */
-    --bg-dark: #000000; /* Fundo preto mais escuro para o rodapé */
-    --border-color: #333333; /* Cinza escuro para bordas e divisórias */
+    --primary-color: #3498db; /* Azul vibrante */
+    --secondary-color: #2c3e50; /* Azul escuro quase preto */
+    --accent-color: #e74c3c; /* Vermelho para destaque/erros */
+    --text-color-dark: #333;
+    --text-color-light: #f4f4f4;
+    --background-light: #ecf0f1;
+    --background-dark: #34495e;
+    --card-background: #ffffff;
+    --border-color: #ddd;
+    --shadow-light: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -18,435 +21,342 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
-    color: var(--text-dark); /* Texto principal branco */
-    background-color: var(--bg-light); /* Fundo principal preto */
+    color: var(--text-color-dark);
+    background-color: var(--background-light);
     scroll-behavior: smooth;
 }
 
-/* Container de conteúdo principal para centralizar */
+/* Container de largura limitada */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* --- Cabeçalho --- */
+/* Header */
 header {
-    background-color: var(--bg-dark); /* Fundo preto para o cabeçalho */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra mais visível no fundo escuro */
+    background-color: var(--background-dark);
+    color: var(--text-color-light);
+    padding: 1rem 0;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-    padding: 10px 0;
-    min-height: 60px;
-    display: flex;
-    align-items: center;
-    transform: translateY(0);
-    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    box-shadow: 0 2px 5px var(--shadow-light);
+    transition: transform 0.3s ease-in-out;
 }
 
-/* Classe para esconder o cabeçalho ao rolar para baixo */
 header.hidden {
     transform: translateY(-100%);
-    box-shadow: none;
 }
 
-.header-content {
-    max-width: 1200px;
-    margin: 0 auto;
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0 20px;
 }
 
 .logo {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: var(--text-dark); /* Cor da logo branca */
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color-light);
     text-decoration: none;
-    transition: color 0.3s ease;
-    display: flex;
-    align-items: center; /* Alinha a imagem e o texto verticalmente */
-    gap: 8px; /* Espaçamento entre a imagem e o texto */
+    cursor: pointer;
 }
 
-.logo:hover {
-    color: var(--primary-color); /* Vermelho fraco ao passar o mouse */
-}
-
-/* Estilo para a imagem da logo dentro da tag .logo */
-.logo img {
-    height: 75px; /* Altura da imagem da logo */
-    border-radius: 50px;
-    width: auto; /* Mantém a proporção */
-    vertical-align: middle; /* Alinha verticalmente com o texto */
-    margin-right: 0; /* O gap já cuida do espaçamento */
-}
-
-/* --- Navegação Principal (Desktop) --- */
-.main-nav ul {
+nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
 }
 
-.main-nav ul li {
-    margin-left: 25px;
-}
-
-.main-nav ul li a {
+nav .nav-item {
+    color: var(--text-color-light);
     text-decoration: none;
-    color: var(--text-dark); /* Links da navegação brancos */
-    font-size: 1.0em;
-    font-weight: 500;
+    padding: 0.5rem 1rem;
     transition: color 0.3s ease;
-    padding: 5px 0;
+    font-weight: 600;
 }
 
-.main-nav ul li a:hover {
-    color: var(--primary-color); /* Vermelho fraco ao passar o mouse */
+nav .nav-item:hover {
+    color: var(--primary-color);
 }
 
-/* --- Menu Hambúrguer (Ícone) --- */
 .hamburger-menu {
-    display: none; /* Inicia oculto e será mostrado via JS em mobile */
+    display: none; /* Escondido por padrão em desktop */
     background: none;
     border: none;
-    font-size: 2em;
-    color: var(--text-dark); /* Cor do ícone hambúrguer branco */
+    color: var(--text-color-light);
+    font-size: 2rem;
     cursor: pointer;
-    z-index: 1001; /* Garante que fique acima de outros elementos */
-    position: fixed; /* Fixa na tela */
-    top: 15px;
-    right: 20px;
-    transition: opacity 0.3s ease-out;
-    opacity: 0; /* Inicia transparente */
-    pointer-events: none; /* Não interage com o mouse */
+    z-index: 1001; /* Para ficar acima do header quando ele some */
+    position: absolute; /* Para flutuar */
+    right: 20px; /* Alinhar à direita */
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* Escondido por padrão, aparece com JS */
+    transition: opacity 0.3s ease;
 }
 
-/* Mostra o ícone do hambúrguer quando necessário (via JS) */
 .hamburger-menu.visible {
     opacity: 1;
-    pointer-events: auto;
 }
 
-/* --- Menu Lateral (Navegação em Mobile) --- */
-.main-nav {
-    display: none; /* Inicia oculto */
-    flex-direction: column;
-
-    position: fixed;
-    top: 0;
-    right: -280px; /* Esconde para a direita */
-    width: 280px; /* Largura do menu lateral */
-    height: 100%;
-    padding-top: 70px;
-    background-color: var(--bg-dark); /* Fundo preto para o menu lateral */
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    transition: right 0.3s ease-out;
-    z-index: 1001; /* Acima do conteúdo e abaixo do hambúrguer */
-}
-
-.main-nav.active {
-    display: flex; /* Mostra o menu */
-    right: 0; /* Desliza para a tela */
-}
-
-/* Botão de fechar o menu lateral (o "X") */
-.main-nav .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    font-size: 2em;
-    background: none;
-    border: none;
-    color: var(--text-dark); /* Cor do botão de fechar branco */
-    cursor: pointer;
-}
-
-.main-nav ul {
-    flex-direction: column;
-    width: 100%;
-    text-align: left;
-    padding-left: 20px;
-}
-
-.main-nav ul li {
-    margin: 15px 0;
-}
-
-.main-nav ul li a {
-    font-size: 1.1em;
-    display: block;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border-color); /* Borda mais escura */
-    color: var(--text-dark); /* Links do menu lateral brancos */
-}
-.main-nav ul li:last-child a {
-    border-bottom: none;
-}
-.main-nav ul li a:hover {
-    color: var(--primary-color); /* Hover no menu lateral em vermelho fraco */
-}
-
-
-/* --- Conteúdo Principal (Ajuste para o Cabeçalho Fixo) --- */
+/* Main Content Padding (para evitar que o conteúdo fique abaixo do header fixo) */
 main {
-    margin-top: 80px;
-    padding-bottom: 50px;
+    padding-top: 80px; /* Ajuste conforme a altura do seu cabeçalho */
 }
 
-/* --- Seções da Página (Controle de Visibilidade) --- */
+/* Seções da Página */
 .page-section {
-    display: none;
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: var(--bg-light); /* Fundo das seções principal preto */
-    color: var(--text-dark); /* Texto das seções branco */
+    display: none; /* Esconde todas as seções por padrão */
+    padding: 40px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .page-section.active {
-    display: block;
+    display: block; /* Mostra a seção ativa */
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* --- Hero Section (Home) --- */
+/* Hero Section (seção principal da Home) */
 .hero-section {
-    background: url('https://images.unsplash.com/photo-1542291026-79eddc756ec3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
-    color: var(--text-dark); /* Texto branco no hero */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1549247775-eb2023a85b9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    color: var(--text-color-light);
     text-align: center;
     padding: 100px 20px;
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    margin-bottom: 40px;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Overlay mais escuro para o texto claro */
-    z-index: 1;
-}
-
-.hero-content {
-    z-index: 2;
-}
-
-.hero-content h1 {
-    font-size: 3em;
+.hero-section h2 {
+    font-size: 3rem;
     margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8); /* Sombra mais escura para o texto branco */
+    font-weight: 700;
 }
 
-.hero-content p {
-    font-size: 1.2em;
+.hero-section p {
+    font-size: 1.2rem;
     margin-bottom: 30px;
 }
 
-/* --- Botões --- */
+/* Botões */
 .btn {
     display: inline-block;
     padding: 12px 25px;
-    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
     text-decoration: none;
-    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     border: none;
 }
 
 .btn-primary {
-    background-color: var(--primary-color); /* Vermelho fraco */
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
 }
 
 .btn-primary:hover {
-    background-color: #8B0000; /* Vermelho um pouco mais forte ao passar o mouse */
+    background-color: #2980b9; /* Tom mais escuro do azul */
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color); /* Cinza claro */
-    color: var(--text-light); /* Texto escuro no botão secundário */
-    margin-top: 20px;
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
 }
 
 .btn-secondary:hover {
-    background-color: #999999; /* Cinza um pouco mais escuro ao passar o mouse */
+    background-color: #1e2b38; /* Tom mais escuro do azul escuro */
+    transform: translateY(-2px);
 }
 
 .btn-whatsapp {
-    background-color: #25d366; /* Cor do WhatsApp (verde clássico) */
-    color: white;
+    background-color: #25d366; /* Verde WhatsApp */
+    color: #fff;
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-whatsapp:hover {
     background-color: #1DA851;
+    transform: translateY(-2px);
+}
+
+.btn-whatsapp i {
+    font-size: 1.2rem;
 }
 
 
-/* --- Grid de Produtos --- */
-.products-showcase, .full-collection {
+/* Mensagens de Carregamento e Spinner */
+.loading-message {
     text-align: center;
-    padding: 40px 20px;
-}
-
-.products-showcase h2, .full-collection h2 {
-    font-size: 2em;
-    margin-bottom: 30px;
-    color: var(--text-dark); /* Títulos em branco */
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: var(--text-color-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-top: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Grid de Produtos */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
 .product-card {
-    background-color: var(--bg-dark); /* Fundo do card de produto preto */
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra mais escura */
-    text-decoration: none;
-    color: var(--text-dark); /* Texto do card branco */
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: var(--text-color-dark);
+    box-shadow: 0 4px 8px var(--shadow-light);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
     flex-direction: column;
-    border: 1px solid var(--border-color); /* Borda escura */
 }
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .product-card img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 200px; /* Altura fixa para as imagens dos cards */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
     display: block;
     border-bottom: 1px solid var(--border-color);
 }
 
 .product-info {
     padding: 15px;
-    text-align: left;
-    flex-grow: 1;
+    flex-grow: 1; /* Permite que o info ocupe o espaço restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-info h3 {
-    font-size: 1.3em;
-    margin-bottom: 10px;
-    color: var(--primary-color); /* Nome do produto em vermelho fraco */
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 .product-info .price {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #4CAF50; /* Manter verde para preço, ou ajustar para vermelho se preferir */
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
 }
 
-.no-products-message, .loading-message {
+.no-products-message {
     text-align: center;
-    font-size: 1.1em;
-    color: #BBBBBB; /* Mensagens em cinza claro */
-    margin: 50px 0;
-}
-
-
-/* --- Seção de Detalhes do Produto --- */
-#productDetailSection {
-    text-align: center;
-}
-
-.product-detail-container {
-    max-width: 800px;
-    margin: 40px auto;
-    background-color: var(--bg-dark); /* Fundo do detalhe do produto preto */
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    font-size: 1.2rem;
+    color: var(--text-color-dark);
     padding: 30px;
+    grid-column: 1 / -1; /* Ocupa todas as colunas no grid */
+}
+
+/* Detalhes do Produto (página individual) */
+.product-detail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid var(--border-color);
-    color: var(--text-dark); /* Texto do detalhe do produto branco */
+    padding: 30px 20px;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--shadow-light);
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .product-detail-container img {
-    max-width: 80%; /* Ajusta a largura máxima para 80% do container */
-    height: auto; /* Permite que a altura se ajuste proporcionalmente */
-    object-fit: contain; /* Garante que a imagem se ajuste sem ser cortada */
+    max-width: 100%;
+    height: auto;
     border-radius: 8px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px var(--shadow-light);
 }
 
 .product-detail-container h2 {
-    font-size: 2.2em;
-    color: var(--primary-color); /* Título do produto em vermelho fraco */
-    margin-bottom: 15px;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .product-detail-container .price {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #4CAF50;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-color);
     margin-bottom: 20px;
 }
 
 .product-detail-container .description {
-    font-size: 1.1em;
-    color: #BBBBBB; /* Descrição em cinza claro */
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: center;
     margin-bottom: 30px;
-    text-align: justify;
+    max-width: 600px;
 }
 
-/* --- Estilos para a Seção "Sobre Nós" (Donos do Site) --- */
+/* Seção Sobre Nós */
 .about-us-container {
-    padding: 40px 20px;
-    max-width: 1200px;
+    padding: 30px 20px;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--shadow-light);
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
 }
 
 .about-us-container h2 {
-    font-size: 2.5em;
+    font-size: 2rem;
+    color: var(--primary-color);
     margin-bottom: 20px;
-    color: var(--text-dark); /* Título Sobre Nós em branco */
 }
 
 .about-us-container .intro-text {
-    font-size: 1.1em;
-    color: #BBBBBB; /* Texto introdutório em cinza claro */
+    font-size: 1.1rem;
+    line-height: 1.7;
     margin-bottom: 40px;
-    max-width: 800px;
+    max-width: 700px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6;
 }
 
 .owners-grid {
@@ -454,208 +364,180 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     justify-content: center;
-    align-items: flex-start;
 }
 
 .owner-card {
-    background-color: var(--bg-dark); /* Fundo do card do dono preto */
+    background-color: var(--background-light);
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     padding: 25px;
+    box-shadow: 0 2px 5px var(--shadow-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    transition: transform 0.3s ease;
-    border: 1px solid var(--border-color);
-}
-
-.owner-card:hover {
-    transform: translateY(-5px);
 }
 
 .owner-photo {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 20px;
-    border: 4px solid var(--primary-color); /* Borda da foto em vermelho fraco */
-    box-shadow: 0 0 15px rgba(160, 0, 0, 0.5); /* Sombra vermelha mais forte */
+    margin-bottom: 15px;
+    border: 3px solid var(--primary-color);
 }
 
 .owner-card h3 {
-    font-size: 1.8em;
-    color: var(--text-dark); /* Nome do dono em branco */
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+}
+
+.owner-role {
+    font-weight: 600;
+    color: var(--primary-color);
     margin-bottom: 10px;
 }
 
-.owner-card .owner-role {
-    font-size: 1.1em;
-    color: var(--primary-color); /* Cargo em vermelho fraco */
-    font-weight: bold;
+.owner-bio {
+    font-size: 0.95rem;
+    line-height: 1.6;
     margin-bottom: 15px;
 }
 
-.owner-card .owner-bio {
-    font-size: 0.95em;
-    color: #BBBBBB; /* Biografia em cinza claro */
-    line-height: 1.5;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.owner-social-media {
-    margin-top: auto;
-}
-
 .owner-social-media a {
-    color: var(--text-dark); /* Ícones de social media em branco */
-    font-size: 1.8em;
-    margin: 0 10px;
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    margin: 0 8px;
     transition: color 0.3s ease;
 }
 
 .owner-social-media a:hover {
-    color: var(--primary-color); /* Hover em vermelho fraco */
+    color: var(--primary-color);
 }
 
 
-/* --- Rodapé --- */
+/* Footer */
 footer {
-    background-color: var(--bg-dark); /* Fundo do rodapé preto */
-    color: var(--text-dark); /* Texto do rodapé branco */
+    background-color: var(--secondary-color);
+    color: var(--text-color-light);
     text-align: center;
-    padding: 20px;
-    margin-top: 30px;
+    padding: 20px 0;
+    margin-top: 50px;
 }
 
-/* --- Responsividade --- */
+/* --- Media Queries para Responsividade --- */
+
+/* Mobile */
 @media (max-width: 768px) {
-    /* Ajustes para o cabeçalho em mobile quando visível */
+    header .container {
+        flex-direction: row; /* Volta para linha */
+        justify-content: space-between;
+    }
+
     header {
-        min-height: 50px;
-        padding: 5px 0;
+        padding: 0.8rem 0;
     }
-    .header-content {
-        padding: 0 15px;
-    }
+
     .logo {
-        font-size: 1.5em;
-    }
-    .logo img {
-        height: 28px; /* Ajuste para mobile */
-        margin-right: 5px; /* Reduza o espaçamento para mobile */
+        font-size: 1.5rem;
+        position: relative; /* Para não ser afetado pelo transform do header */
+        z-index: 1002; /* Fica acima do hambúrguer */
     }
 
-    /* Esconde a navegação normal em mobile */
-    .main-nav ul {
-        display: flex; /* Mantenha como flex para o menu lateral */
-        flex-direction: column; /* Garante que os itens fiquem um abaixo do outro */
+    nav {
+        position: fixed;
+        top: 0;
+        right: -300px; /* Esconde o menu fora da tela */
+        width: 250px; /* Largura do menu lateral */
+        height: 100%;
+        background-color: var(--background-dark);
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+        flex-direction: column;
+        padding-top: 60px; /* Espaço para o botão de fechar */
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
     }
 
-    /* Mostra o ícone do hambúrguer em mobile */
+    nav.active {
+        right: 0; /* Mostra o menu */
+    }
+
+    nav .nav-item {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        display: block;
+    }
+
+    nav .nav-item:last-child {
+        border-bottom: none;
+    }
+
     .hamburger-menu {
-        display: block; /* Garante que o hambúrguer SEMPRE apareça em mobile */
-        opacity: 1; /* Garante que ele esteja visível */
-        pointer-events: auto; /* Garante que seja clicável */
+        display: block; /* Mostra o menu hambúrguer */
+        opacity: 0; /* Escondido por padrão, mas pode aparecer com JS */
     }
 
-    /* Ajusta o menu lateral quando aberto */
-    .main-nav {
-        display: flex; /* Permite que o JS mostre/esconda o menu */
-        width: 250px;
-        right: -250px;
-    }
-    .main-nav.active {
-        right: 0;
+    .hamburger-menu.visible {
+        opacity: 1; /* O JS controla isso */
     }
 
-    /* Ajuste da margem do conteúdo principal em mobile */
-    main {
-        margin-top: 65px;
+    .hero-section {
+        padding: 80px 15px;
     }
 
-    /* Ajustes para seções de produtos */
-    .hero-content h1 {
-        font-size: 2.2em;
+    .hero-section h2 {
+        font-size: 2.2rem;
     }
-    .hero-content p {
-        font-size: 1em;
+
+    .hero-section p {
+        font-size: 1rem;
     }
+
     .product-grid {
+        grid-template-columns: 1fr; /* Uma coluna em mobile */
+        gap: 20px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
+
+    .product-detail-container {
+        padding: 20px 15px;
+    }
+
+    .product-detail-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .product-detail-container .price {
+        font-size: 1.5rem;
+    }
+
+    .about-us-container {
+        padding: 20px 15px;
+    }
+
+    .about-us-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .owners-grid {
         grid-template-columns: 1fr;
     }
-    .product-detail-container {
-        padding: 20px;
-        margin: 20px auto;
-    }
-    .product-detail-container h2 {
-        font-size: 1.8em;
-    }
-    .product-detail-container .price {
-        font-size: 1.4em;
-    }
-    .product-detail-container .description {
-        font-size: 1em;
-    }
-    .product-detail-container img { /* Ajuste da imagem para mobile */
-        max-width: 90%; /* Pode ser um pouco maior em mobile para usar o espaço */
-        height: auto; /* Mantém a proporção em mobile também */
-    }
 
-
-    /* Responsividade para a seção Sobre Nós */
-    .about-us-container h2 {
-        font-size: 2em;
-    }
-    .owner-photo {
-        width: 120px;
-        height: 120px;
-    }
-    .owner-card h3 {
-        font-size: 1.5em;
-    }
-    .owner-social-media a {
-        font-size: 1.5em;
-    }
-}
-
-/* Em telas maiores que mobile (desktop/tablet), o hambúrguer deve ficar escondido */
-@media (min-width: 769px) {
-    .hamburger-menu {
-        display: none !important; /* Esconde completamente em desktop */
-        opacity: 0 !important;
-        pointer-events: none !important;
-    }
-    .main-nav {
-        position: static; /* Remove o posicionamento fixo */
-        display: flex; /* Exibe a navegação normal */
-        width: auto;
-        height: auto;
-        padding: 0;
-        box-shadow: none;
-        flex-direction: row; /* Volta para layout de linha */
-        top: auto;
-        right: auto;
-        background-color: transparent; /* Remove fundo */
-    }
-    .main-nav ul {
-        flex-direction: row;
-        text-align: center;
-        padding-left: 0;
-    }
-    .main-nav ul li {
-        margin-left: 25px;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-    .main-nav ul li a {
-        border-bottom: none;
-        padding: 5px 0;
-        font-size: 1em;
-    }
-    .main-nav .close-btn {
-        display: none; /* Esconde o botão de fechar em desktop */
+    /* Botão de fechar menu lateral */
+    .close-btn {
+        background: none;
+        border: none;
+        color: var(--text-color-light);
+        font-size: 2rem;
+        cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        z-index: 1001; /* Garante que está acima dos itens de navegação */
+        display: block; /* Garante que o botão de fechar aparece no mobile */
     }
 }

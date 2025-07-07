@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Osiris Apparel</title>
-    <link rel="icon" href="Imagenssite/image-1.png" type="image/png"> 
+    <title>Osiris Apparel - Óculos de Sol</title>
     <link rel="stylesheet" href="estilosite.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
-        <div class="header-content container">
-            <a href="#" class="logo" id="navHome">
-                <img src="Imagenssite/image-1.png" alt="Logo Osiris Apparel"> Osiris Apparel
-            </a>
-            <nav class="main-nav" id="mainNav">
-                <ul>
-                    <li><a href="#" id="navAllProducts">Coleção</a></li>
-                    <li><a href="#" id="navAboutUs">Sobre Nós</a></li>
-                </ul>
+        <div class="container">
+            <h1 class="logo">Osiris Apparel</h1>
+            <nav id="mainNav">
+                <a href="#" id="navHome" class="nav-item">Home</a>
+                <a href="#" id="navAllProducts" class="nav-item">Coleção</a>
+                <a href="#" id="navAboutUs" class="nav-item">Sobre Nós</a>
             </nav>
-            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Abrir Menu">
+            <button id="hamburgerMenu" class="hamburger-menu">
                 <i class="bi bi-list"></i>
             </button>
         </div>
@@ -29,41 +25,55 @@
     <main>
         <section id="homeSection" class="page-section active">
             <div class="hero-section">
-                <div class="hero-content">
-                    <h1>Descubra o Óculos Perfeito para Você</h1>
-                    <p>Estilo, proteção e qualidade em cada detalhe. Encontre seu próximo acessório favorito na Osiris Apparel.</p>
-                    <a href="#" class="btn btn-primary" id="exploreProductsBtn">Explore Nossos Óculos</a>
+                <div class="container">
+                    <h2>Seu Estilo, Nossos Óculos.</h2>
+                    <p>Descubra a coleção que redefine a moda e a proteção para seus olhos.</p>
+                    <button id="exploreProductsBtn" class="btn btn-primary">Explorar Produtos</button>
                 </div>
             </div>
+
             <div class="products-showcase container">
-                <h2>Modelos em Destaque</h2>
-                <div id="loadingFeaturedMessage" class="loading-message">Carregando óculos em destaque...</div>
-                <div class="product-grid" id="featuredProductsGrid">
+                <h2>Óculos em Destaque</h2>
+                <div id="loadingFeaturedMessage" class="loading-message">
+                    <p>Carregando óculos em destaque...</p>
+                    <div class="spinner"></div>
+                </div>
+                <div id="featuredProductsGrid" class="product-grid">
                     </div>
-                <a href="#" class="btn btn-secondary" id="viewAllProductsBtn">Ver Toda a Coleção</a>
+                <button id="viewAllProductsBtn" class="btn btn-secondary">Ver Coleção Completa</button>
             </div>
         </section>
 
         <section id="allProductsSection" class="page-section">
-            <div class="full-collection container">
-                <h2>Nossa Coleção Completa</h2>
-                <div id="loadingAllProductsMessage" class="loading-message">Carregando todos os óculos...</div>
-                <div class="product-grid" id="allProductsGrid">
+            <div class="container">
+                <h2>Coleção Completa</h2>
+                <div id="loadingAllProductsMessage" class="loading-message">
+                    <p>Carregando todos os óculos...</p>
+                    <div class="spinner"></div>
+                </div>
+                <div id="allProductsGrid" class="product-grid">
                     </div>
             </div>
         </section>
 
         <section id="productDetailSection" class="page-section">
-            <div id="loadingDetailMessage" class="loading-message">Carregando detalhes do óculos...</div>
-            </section>
+            <div class="container">
+                <div id="loadingDetailMessage" class="loading-message">
+                    <p>Carregando detalhes do óculos...</p>
+                    <div class="spinner"></div>
+                </div>
+                </div>
+        </section>
 
         <section id="aboutUsSection" class="page-section">
-            </section>
+            <div class="container">
+                </div>
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 Osiris Apparel. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Osiris Apparel. Todos os direitos reservados.</p>
         </div>
     </footer>
 
