@@ -37,17 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let products = [
         {
             id: '1', // ID único para o produto (pode ser qualquer string)
-            name: 'Óculos Urban Cool', // NOME DO PRODUTO
-            price: 129.90, // PREÇO DO PRODUTO (use ponto para decimais)
+            name: 'KIT RADAR 5 LENTES', // NOME DO PRODUTO
+            price: 279,90, // PREÇO DO PRODUTO (use ponto para decimais)
             description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
-            imageUrl: 'https://images.unsplash.com/photo-1574621147055-661f22144365?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // URL DA IMAGEM
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/kitradar5lentes.png?raw=true' // URL DA IMAGEM
         },
         {
             id: '2',
-            name: 'Street Vibe Aviator',
-            price: 159.90,
+            name: 'PLANTARIS ',
+            price: 119.90,
             description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
-            imageUrl: 'https://images.unsplash.com/photo-1502110595393-2cecb014d5ad?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/plate.png?raw=true'
         },
         {
             id: '3',
