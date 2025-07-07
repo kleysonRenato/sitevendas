@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: '1', // ID único para o produto (pode ser qualquer string)
             name: 'KIT RADAR 5 LENTES', // NOME DO PRODUTO
-            price: 279,90, // PREÇO DO PRODUTO (use ponto para decimais)
+            price: 279.90, // PREÇO DO PRODUTO (CORRIGIDO: use ponto para decimais)
             description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
             imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/kitradar5lentes.png?raw=true' // URL DA IMAGEM
         },
@@ -51,10 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: '3',
-            name: 'Bold Hipster',
-            price: 99.90,
+            name: 'JULIET',
+            price: 119.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://images.unsplash.com/photo-1620247657929-236b2f703567?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/juliet.png?raw=true'
         },
         {
             id: '4',
@@ -95,21 +95,21 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'Felipe J.',
             role: 'Fundador & Designer Chefe',
-            bio: '',
+            bio: 'Felipe J. é o visionário por trás da Osiris Apparel. Sua paixão por design e inovação em óculos o levou a fundar a empresa, garantindo que cada peça combine estilo e funcionalidade.', // Bio de exemplo adicionada
             photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true',
             socialMedia: {
-                instagram: 'https://instagram.com/joaosilva',
-                linkedin: 'https://linkedin.com/in/joaosilva'
+                instagram: 'https://instagram.com/joaosilva', // Ajuste este link para o Instagram real de Felipe
+                linkedin: 'https://linkedin.com/in/joaosilva' // Ajuste este link para o LinkedIn real de Felipe
             }
         },
         {
             name: 'Guilherme O.',
-            role: 'Diretora de Marketing',
+            role: 'Diretor de Marketing',
             bio: 'Acreditamos que a moda é uma forma de expressão, e por isso buscamos oferecer produtos que unem conforto, identidade e originalidade. Nossas peças são desenvolvidas para quem deseja se destacar, mantendo sempre um visual autêntico e marcante.',
             photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true',
             socialMedia: {
-                instagram: 'https://instagram.com/mariaoliveira',
-                twitter: 'https://twitter.com/maria'
+                instagram: 'https://instagram.com/mariaoliveira', // Ajuste este link para o Instagram real de Guilherme
+                twitter: 'https://twitter.com/maria' // Ajuste este link para o Twitter real de Guilherme
             }
         }
         // Para ADICIONAR MAIS DONOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
