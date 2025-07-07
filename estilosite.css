@@ -1,84 +1,153 @@
-/* style.css */
+/* Geral */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --text-dark: #333;
+    --text-light: #f8f8f8;
+    --bg-light: #f8f8f8;
+    --bg-dark: #2c3e50;
+    --border-color: #ddd;
+}
 
-/* --- Cabeçalho Geral --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    scroll-behavior: smooth;
+}
+
+/* Container de conteúdo principal para centralizar */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Cabeçalho --- */
 header {
     background-color: #ffffff;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
+    position: fixed; /* Fixa o cabeçalho no topo */
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
-    padding: 10px 0;
-    min-height: 60px;
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    padding: 10px 0; /* Preenchimento superior/inferior para uma altura menor */
+    min-height: 60px; /* Altura mínima do cabeçalho */
     display: flex;
     align-items: center;
-    /* Adicionado para a transição suave de aparecer/desaparecer */
     transform: translateY(0); /* Posição inicial visível */
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out; /* Transição para sumir/aparecer e sombra */
 }
 
-/* Classe para esconder o cabeçalho */
+/* Classe para esconder o cabeçalho ao rolar para baixo */
 header.hidden {
     transform: translateY(-100%); /* Move o cabeçalho para cima para escondê-lo */
     box-shadow: none; /* Remove a sombra quando escondido */
 }
 
-/* --- Menu Hambúrguer (para mobile e agora para rolagem) --- */
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo:hover {
+    color: var(--primary-color);
+}
+
+/* --- Navegação Principal (Desktop) --- */
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.main-nav ul li {
+    margin-left: 25px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 1.0em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+}
+
+.main-nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Menu Hambúrguer (Ícone) --- */
 .hamburger-menu {
-    display: none; /* Esconde por padrão em desktop, mas vamos controlar via JS */
+    display: none; /* Escondido por padrão em desktop, visível em mobile */
     background: none;
     border: none;
     font-size: 2em;
-    color: #333;
+    color: var(--text-dark);
     cursor: pointer;
-    z-index: 1001;
-    /* Posicionamento fixo para o menu hambúrguer quando o cabeçalho some */
-    position: fixed; /* Adicionado */
-    top: 15px; /* Ajuste a posição do ícone hambúrguer */
-    right: 20px; /* Ajuste a posição do ícone hambúrguer */
-    transition: opacity 0.3s ease-out; /* Transição para o ícone aparecer/sumir */
+    z-index: 1001; /* Garante que fique acima do menu */
+    position: fixed; /* Fixa o ícone */
+    top: 15px; /* Posição superior */
+    right: 20px; /* Posição direita */
+    transition: opacity 0.3s ease-out;
     opacity: 0; /* Escondido por padrão, aparece com a classe 'visible' */
-    pointer-events: none; /* Não clicável por padrão */
+    pointer-events: none; /* Não clicável por padrão, clicável com 'visible' */
 }
 
+/* Mostra o ícone do hambúrguer quando o cabeçalho some em mobile */
 .hamburger-menu.visible {
-    opacity: 1; /* Torna o ícone visível */
-    pointer-events: auto; /* Torna-o clicável */
-    /* Garante que o ícone fique acima do cabeçalho quando ambos estão visíveis na rolagem */
-    z-index: 1002;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1002; /* Garante que fique acima do cabeçalho */
 }
 
-
-/* --- Navegação Principal (Menu Lateral que aparece) --- */
+/* --- Menu Lateral (Navegação em Mobile) --- */
 .main-nav {
-    display: none; /* Esconde por padrão em desktop */
+    display: none; /* Esconde a navegação principal por padrão em mobile */
     flex-direction: column;
-    width: 100%;
-    position: absolute; /* Padrão, mas será ajustado para fixo quando "aberto" em mobile */
-    top: 60px; /* Alinha o menu abaixo do cabeçalho */
-    left: 0;
-    background-color: #ffffff;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
-    /* Estilos para o menu lateral quando ativo */
-    position: fixed; /* Importante para fixar o menu lateral */
+    width: 100%; /* Largura total em mobile por padrão */
+
+    /* Estilos para o menu lateral quando ATIVO (aberto) */
+    position: fixed; /* Fixa o menu lateral na tela */
     top: 0;
-    right: -250px; /* Escondido fora da tela */
-    width: 250px; /* Largura do menu lateral */
+    right: -250px; /* Inicialmente fora da tela (escondido) */
+    width: 250px; /* Largura do menu lateral quando aberto */
     height: 100%;
-    padding-top: 70px; /* Espaço para não cobrir o topo da tela */
-    background-color: #f8f8f8; /* Fundo do menu lateral */
+    padding-top: 70px; /* Espaço no topo para não cobrir a área do cabeçalho */
+    background-color: var(--bg-light);
     box-shadow: -5px 0 15px rgba(0,0,0,0.2);
     transition: right 0.3s ease-out; /* Transição para deslizar para dentro */
 }
 
 .main-nav.active {
-    display: flex; /* Mostra o menu */
+    display: flex; /* Mostra o menu quando a classe 'active' é adicionada */
     right: 0; /* Desliza para dentro da tela */
 }
 
-/* Botão para fechar o menu lateral */
+/* Botão de fechar o menu lateral (o "X") */
 .main-nav .close-btn {
     position: absolute;
     top: 15px;
@@ -86,15 +155,15 @@ header.hidden {
     font-size: 2em;
     background: none;
     border: none;
-    color: #333;
+    color: var(--text-dark);
     cursor: pointer;
 }
 
 .main-nav ul {
-    flex-direction: column;
+    flex-direction: column; /* Itens da lista em coluna no menu lateral */
     width: 100%;
-    text-align: left; /* Alinha os itens do menu à esquerda no menu lateral */
-    padding-left: 20px; /* Espaçamento para os itens do menu */
+    text-align: left; /* Alinha os itens do menu à esquerda */
+    padding-left: 20px; /* Espaçamento à esquerda para os itens */
 }
 
 .main-nav ul li {
@@ -102,38 +171,444 @@ header.hidden {
 }
 
 .main-nav ul li a {
-    font-size: 1.1em; /* Um pouco maior para o menu lateral */
-    display: block; /* Ocupa a largura total para melhor clique */
+    font-size: 1.1em; /* Tamanho da fonte maior para o menu lateral */
+    display: block; /* Ocupa a largura total para melhor área de clique */
     padding: 8px 0;
-    border-bottom: 1px solid #eee; /* Linha divisória suave */
+    border-bottom: 1px solid var(--border-color); /* Linha divisória suave */
+}
+.main-nav ul li:last-child a {
+    border-bottom: none; /* Remove a borda do último item */
 }
 
-/* --- Margem para o Conteúdo Principal --- */
+
+/* --- Conteúdo Principal (Ajuste para o Cabeçalho Fixo) --- */
 main {
-    /* Ajuste este valor para que o conteúdo comece abaixo do cabeçalho */
-    margin-top: 80px; /* Mantenha um valor seguro, pois o cabeçalho pode reaparecer */
-    padding-bottom: 50px;
+    /* Esta margem é CRÍTICA para que o conteúdo principal não seja coberto pelo cabeçalho fixo */
+    margin-top: 80px; /* Deve ser maior que a altura do cabeçalho (60px + padding) */
+    padding-bottom: 50px; /* Espaço na parte inferior para o footer */
 }
 
-/* --- Responsividade (para telas menores) --- */
-@media (min-width: 769px) { /* Em telas maiores que mobile, o hambúrguer deve ficar escondido */
+/* --- Seções da Página (Controle de Visibilidade) --- */
+.page-section {
+    display: none; /* Todas as seções são escondidas por padrão */
+    padding: 40px 20px; /* Padding padrão para todas as seções */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-section.active {
+    display: block; /* Apenas a seção com a classe 'active' é mostrada */
+}
+
+/* --- Hero Section (Home) --- */
+.hero-section {
+    background: url('https://images.unsplash.com/photo-1542291026-79eddc756ec3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    height: 60vh; /* Altura da hero section */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Para o overlay */
+}
+
+.hero-section::before { /* Overlay escuro para melhor legibilidade do texto */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Escurece a imagem de fundo */
+    z-index: 1;
+}
+
+.hero-content {
+    z-index: 2; /* Garante que o conteúdo fique acima do overlay */
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* --- Botões --- */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: white;
+    margin-top: 20px;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.btn-whatsapp {
+    background-color: #25d366; /* Cor do WhatsApp */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex; /* Para alinhar o ícone */
+    align-items: center;
+    gap: 8px; /* Espaçamento entre ícone e texto */
+    transition: background-color 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1DA851;
+}
+
+
+/* --- Grid de Produtos --- */
+.products-showcase, .full-collection {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.products-showcase h2, .full-collection h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: var(--text-dark);
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-decoration: none;
+    color: var(--text-dark);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px; /* Altura fixa para as imagens */
+    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.product-info {
+    padding: 15px;
+    text-align: left;
+    flex-grow: 1; /* Faz o info block crescer para alinhar cartões */
+}
+
+.product-info h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.product-info .price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #4CAF50; /* Um verde para o preço */
+}
+
+.no-products-message, .loading-message {
+    text-align: center;
+    font-size: 1.1em;
+    color: #888;
+    margin: 50px 0;
+}
+
+
+/* --- Seção de Detalhes do Produto --- */
+#productDetailSection {
+    text-align: center;
+}
+
+.product-detail-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-detail-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product-detail-container h2 {
+    font-size: 2.2em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.product-detail-container .price {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.product-detail-container .description {
+    font-size: 1.1em;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    text-align: justify;
+}
+
+/* --- Estilos para a Seção "Sobre Nós" (Donos do Site) --- */
+.about-us-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-us-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.about-us-container .intro-text {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.owners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.owner-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.owner-card:hover {
+    transform: translateY(-5px);
+}
+
+.owner-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid var(--primary-color); /* Cor da borda da foto */
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+}
+
+.owner-card h3 {
+    font-size: 1.8em;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.owner-card .owner-role {
+    font-size: 1.1em;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.owner-card .owner-bio {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Faz a biografia crescer para alinhar cartões */
+}
+
+.owner-social-media {
+    margin-top: auto; /* Empurra os ícones para o final do cartão */
+}
+
+.owner-social-media a {
+    color: #555;
+    font-size: 1.8em;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.owner-social-media a:hover {
+    color: var(--primary-color);
+}
+
+
+/* --- Rodapé --- */
+footer {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    /* Ajustes para o cabeçalho em mobile quando visível */
+    header {
+        min-height: 50px; /* Altura menor em mobile */
+        padding: 5px 0;
+    }
+    .header-content {
+        padding: 0 15px;
+    }
+    .logo {
+        font-size: 1.5em; /* Logo um pouco menor em mobile */
+    }
+
+    /* Esconde a navegação normal em mobile */
+    .main-nav ul {
+        display: none;
+    }
+
+    /* Mostra o ícone do hambúrguer em mobile */
+    .hamburger-menu {
+        display: block; /* Garante que o ícone do hambúrguer apareça em mobile */
+    }
+
+    /* Ajusta o menu lateral quando aberto */
+    .main-nav {
+        display: flex; /* Sobrescreve o display:none do menu lateral original */
+        width: 250px; /* Largura do menu lateral */
+        right: -250px; /* Escondido */
+    }
+    .main-nav.active {
+        right: 0; /* Mostra o menu */
+    }
+
+    /* Ajuste da margem do conteúdo principal em mobile */
+    main {
+        margin-top: 65px; /* Ajuste para a nova altura do cabeçalho em mobile */
+    }
+
+    /* Ajustes para seções de produtos */
+    .hero-content h1 {
+        font-size: 2.2em;
+    }
+    .hero-content p {
+        font-size: 1em;
+    }
+    .product-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+    }
+    .product-detail-container {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .product-detail-container h2 {
+        font-size: 1.8em;
+    }
+    .product-detail-container .price {
+        font-size: 1.4em;
+    }
+    .product-detail-container .description {
+        font-size: 1em;
+    }
+
+    /* Responsividade para a seção Sobre Nós */
+    .about-us-container h2 {
+        font-size: 2em;
+    }
+    .owner-photo {
+        width: 120px;
+        height: 120px;
+    }
+    .owner-card h3 {
+        font-size: 1.5em;
+    }
+    .owner-social-media a {
+        font-size: 1.5em;
+    }
+}
+
+/* Em telas maiores que mobile (desktop/tablet), o hambúrguer deve ficar escondido */
+@media (min-width: 769px) {
     .hamburger-menu {
         display: none !important; /* Força a ocultação em desktop */
+        opacity: 0 !important;
+        pointer-events: none !important;
     }
     .main-nav {
-        position: static; /* Voltar para fluxo normal em desktop */
-        display: flex; /* Mostrar navegação normal */
+        /* Reverte para o comportamento de navegação em desktop */
+        position: static;
+        display: flex;
         width: auto;
         height: auto;
         padding: 0;
         box-shadow: none;
-        flex-direction: row; /* Itens em linha em desktop */
+        flex-direction: row;
         top: auto;
         right: auto;
         background-color: transparent;
     }
     .main-nav ul {
-        flex-direction: row;
+        flex-direction: row; /* Itens do menu em linha */
         text-align: center;
         padding-left: 0;
     }

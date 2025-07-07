@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header'); // Referência ao cabeçalho
     const navHomeBtn = document.getElementById('navHome');
     const navAllProductsBtn = document.getElementById('navAllProducts');
-    const navAboutUsBtn = document.getElementById('navAboutUs');
+    const navAboutUsBtn = document.getElementById('navAboutUs'); // Novo botão para a seção "Sobre Nós"
     const exploreProductsBtn = document.getElementById('exploreProductsBtn');
     const viewAllProductsBtn = document.getElementById('viewAllProductsBtn');
 
@@ -23,11 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const mainNav = document.getElementById('mainNav');
-    const closeMenuBtn = document.createElement('button'); // Novo botão para fechar o menu
+
+    // Cria e adiciona o botão de fechar o menu lateral
+    const closeMenuBtn = document.createElement('button');
     closeMenuBtn.classList.add('close-btn');
     closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; // Ícone de 'x' para fechar
     mainNav.prepend(closeMenuBtn); // Adiciona o botão de fechar ao início do menu
-
 
     // --- LISTA DE PRODUTOS (EDIÇÃO MANUAL) ---
     // ##################################################################################
@@ -35,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // ##################################################################################
     let products = [
         {
-            id: '1',
-            name: 'Óculos Urban Cool',
-            price: 129.90,
-            description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.',
-            imageUrl: 'https://images.unsplash.com/photo-1574621147055-661f22144365?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            id: '1', // ID único para o produto (pode ser qualquer string)
+            name: 'Óculos Urban Cool', // NOME DO PRODUTO
+            price: 129.90, // PREÇO DO PRODUTO (use ponto para decimais)
+            description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true' // URL DA IMAGEM
         },
         {
             id: '2',
@@ -133,28 +134,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Funções de Navegação de Páginas ---
     function showSection(sectionId, productId = null) {
-        document.querySelectorAll('.page-section').forEach(section => {
+        // Esconde todas as seções (main > section)
+        document.querySelectorAll('main .page-section').forEach(section => {
             section.classList.remove('active');
         });
 
+        // Mostra a seção desejada
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
             targetSection.classList.add('active');
 
+            // Lógicas específicas ao exibir cada seção
             if (sectionId === 'homeSection') {
-                renderFeaturedProducts();
+                renderFeaturedProducts(); // Renderiza APENAS os destaques
             } else if (sectionId === 'allProductsSection') {
-                renderAllProducts();
+                renderAllProducts(); // Renderiza TODOS os produtos
             } else if (sectionId === 'productDetailSection' && productId) {
                 renderProductDetails(productId);
             } else if (sectionId === 'aboutUsSection') {
-                renderAboutUsContent();
+                renderAboutUsContent(); // Renderiza o conteúdo da seção "Sobre Nós"
             }
+            // Rola para o topo da página após a navegação
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
         // Garante que o menu lateral seja fechado ao navegar
         mainNav.classList.remove('active');
-        // Se a tela for desktop, garante que o menu hambúrguer esteja oculto
+        // Se a tela for desktop, garante que o menu hambúrguer esteja oculto (ele só deve aparecer em mobile)
         if (window.innerWidth > 768) {
             hamburgerMenu.classList.remove('visible');
         }
@@ -165,57 +170,64 @@ document.addEventListener('DOMContentLoaded', () => {
     navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
     navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
 
+    // Botões de exploração e visualização na Home Section
     exploreProductsBtn.addEventListener('click', () => {
+        // Rola suavemente para a seção de produtos em destaque na home
         document.querySelector('.products-showcase').scrollIntoView({ behavior: 'smooth' });
     });
     viewAllProductsBtn.addEventListener('click', () => {
         showSection('allProductsSection');
     });
 
-    // LÓGICA PARA O MENU HAMBÚRGUER
+    // LÓGICA PARA O MENU HAMBÚRGUER (em mobile)
     hamburgerMenu.addEventListener('click', () => {
         mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
     });
 
-    // Botão para fechar o menu lateral
+    // Botão para fechar o menu lateral (o "X")
     closeMenuBtn.addEventListener('click', () => {
         mainNav.classList.remove('active');
     });
 
     // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
     let lastScrollY = window.scrollY;
-    const headerHeight = header.offsetHeight; // Altura do cabeçalho
+    // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
+    const headerTriggerHeight = header.offsetHeight + 10; // Adiciona um pequeno buffer
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
 
-        // Se estiver rolando para baixo
-        if (currentScrollY > lastScrollY && currentScrollY > headerHeight) {
+        // Verifica se a tela é mobile (largura menor ou igual a 768px)
+        const isMobile = window.innerWidth <= 768;
+
+        // Se estiver rolando para baixo E já passou da altura inicial do cabeçalho
+        if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
             header.classList.add('hidden'); // Esconde o cabeçalho
-            if (window.innerWidth <= 768) { // Apenas em telas menores, mostra o hambúrguer
+            if (isMobile) { // Apenas em telas menores, mostra o hambúrguer
                 hamburgerMenu.classList.add('visible');
             }
         }
-        // Se estiver rolando para cima ou no topo da página
-        else if (currentScrollY < lastScrollY || currentScrollY <= headerHeight) {
+        // Se estiver rolando para cima OU no topo da página
+        else if (currentScrollY < lastScrollY || currentScrollY <= 0) { // currentScrollY <= 0 para garantir que apareça no topo
             header.classList.remove('hidden'); // Mostra o cabeçalho
-            if (window.innerWidth <= 768) { // Apenas em telas menores, esconde o hambúrguer
+            if (isMobile) { // Apenas em telas menores, esconde o hambúrguer
                 hamburgerMenu.classList.remove('visible');
-                mainNav.classList.remove('active'); // Garante que o menu lateral feche
+                mainNav.classList.remove('active'); // Garante que o menu lateral feche ao reaparecer o cabeçalho
             }
         }
 
         lastScrollY = currentScrollY; // Atualiza a última posição de rolagem
     });
 
-    // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar
+    // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar a janela
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
+            // Se virou desktop, esconde o hambúrguer e fecha o menu lateral
             hamburgerMenu.classList.remove('visible');
             mainNav.classList.remove('active');
         } else {
-            // Se estiver em mobile e rolar para baixo, o hambúrguer já estará visível
-            if (window.scrollY > header.offsetHeight && !header.classList.contains('hidden')) {
+            // Se virou mobile e o cabeçalho está escondido (rolando para baixo), mostra o hambúrguer
+            if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
             }
         }
@@ -227,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         featuredProductsGrid.innerHTML = '';
         loadingFeaturedMessage.style.display = 'none';
 
+        // Pega os 3 primeiros produtos do array 'products' para destaque
         const numberOfFeatured = 3;
         const featuredProducts = products.slice(0, numberOfFeatured);
 
@@ -330,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ${owner.socialMedia.instagram ? `<a href="${owner.socialMedia.instagram}" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>` : ''}
                                 ${owner.socialMedia.linkedin ? `<a href="${owner.socialMedia.linkedin}" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>` : ''}
                                 ${owner.socialMedia.twitter ? `<a href="${owner.socialMedia.twitter}" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>` : ''}
-                            </div>
+                                </div>
                         </div>
                     `).join('')}
                 </div>
