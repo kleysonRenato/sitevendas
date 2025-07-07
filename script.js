@@ -3,16 +3,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Referências aos Elementos HTML ---
     const homeSection = document.getElementById('homeSection');
-    const allProductsSection = document.getElementById('allProductsSection'); // NOVA SEÇÃO
+    const allProductsSection = document.getElementById('allProductsSection');
     const adminLoginSection = document.getElementById('adminLoginSection');
     const adminDashboardSection = document.getElementById('adminDashboardSection');
     const productDetailSection = document.getElementById('productDetailSection');
 
     const navHomeBtn = document.getElementById('navHome');
-    const navAllProductsBtn = document.getElementById('navAllProducts'); // NOVO BOTÃO
+    const navAllProductsBtn = document.getElementById('navAllProducts');
     const navAdminBtn = document.getElementById('navAdmin');
     const exploreProductsBtn = document.getElementById('exploreProductsBtn');
-    const viewAllProductsBtn = document.getElementById('viewAllProductsBtn'); // NOVO BOTÃO NA HOME
+    const viewAllProductsBtn = document.getElementById('viewAllProductsBtn');
 
     const adminLoginForm = document.getElementById('adminLoginForm');
     const adminEmailInput = document.getElementById('adminEmail');
@@ -29,16 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelEditBtn = document.getElementById('cancelEditBtn');
     const productMessage = document.getElementById('productMessage');
     const adminProductsList = document.getElementById('adminProductsList');
-    const adminLogoutBtn = document.getElementById('adminLogoutBtn'); // NOVO BOTÃO LOGOUT
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
 
-    const featuredProductsGrid = document.getElementById('featuredProductsGrid'); // Grade da home
+    const featuredProductsGrid = document.getElementById('featuredProductsGrid');
     const loadingFeaturedMessage = document.getElementById('loadingFeaturedMessage');
-    const allProductsGrid = document.getElementById('allProductsGrid'); // Grade da nova seção
+    const allProductsGrid = document.getElementById('allProductsGrid');
     const loadingAllProductsMessage = document.getElementById('loadingAllProductsMessage');
 
     const loadingDetailMessage = document.getElementById('loadingDetailMessage');
 
     // --- Simulação de Banco de Dados (Dados Temporários em Memória) ---
+    // Você pode adicionar mais produtos aqui ou deixar que o admin os adicione.
     let products = [
         { id: '1', name: 'Óculos Urban Cool', price: 129.90, description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', imageUrl: 'https://images.unsplash.com/photo-1574621147055-661f22144365?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
         { id: '2', name: 'Street Vibe Aviator', price: 159.90, description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.', imageUrl: 'https://images.unsplash.com/photo-1502110595393-2cecb014d5ad?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
@@ -49,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let nextProductId = products.length > 0 ? Math.max(...products.map(p => parseInt(p.id))) + 1 : 1;
 
     // --- Credenciais do Administrador ---
-    const ADMIN_EMAIL = 'admin@osiris.com'; // ALTERE AQUI
-    const ADMIN_PASSWORD = 'supersecretpassword'; // ALTERE AQUI
+    const ADMIN_EMAIL = 'admin@osiris.com'; // <<<<<<< ALTERE AQUI
+    const ADMIN_PASSWORD = 'supersecretpassword'; // <<<<<<< ALTERE AQUI
 
     // --- Variáveis de Estado ---
     let currentProductDetailId = null; // Para controlar qual produto está sendo visualizado nos detalhes
@@ -70,12 +71,18 @@ document.addEventListener('DOMContentLoaded', () => {
             // Lógicas específicas ao exibir cada seção
             if (sectionId === 'homeSection') {
                 renderFeaturedProducts(); // Renderiza APENAS os destaques
-            } else if (sectionId === 'allProductsSection') { // Nova seção
+            } else if (sectionId === 'allProductsSection') {
                 renderAllProducts(); // Renderiza TODOS os produtos
             } else if (sectionId === 'adminLoginSection') {
                 loginMessage.textContent = ''; // Limpa mensagens de login
                 adminLoginForm.reset();
             } else if (sectionId === 'adminDashboardSection') {
+                // Verifica se o admin está logado antes de exibir o dashboard
+                const isAdminLoggedIn = sessionStorage.getItem('isAdminLoggedIn') === 'true';
+                if (!isAdminLoggedIn) {
+                    showSection('adminLoginSection'); // Redireciona para login se não estiver logado
+                    return;
+                }
                 renderProductsForAdmin();
                 productForm.reset(); // Limpa o formulário de produto
                 saveProductBtn.textContent = 'Adicionar Óculos';
@@ -92,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Event Listeners para Navegação ---
     navHomeBtn.addEventListener('click', () => showSection('homeSection'));
-    navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection')); // Novo
+    navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
     navAdminBtn.addEventListener('click', () => {
         const isAdminLoggedIn = sessionStorage.getItem('isAdminLoggedIn') === 'true';
         if (isAdminLoggedIn) {
@@ -107,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Rola suavemente para a seção de produtos em destaque na home
         document.querySelector('.products-showcase').scrollIntoView({ behavior: 'smooth' });
     });
-    viewAllProductsBtn.addEventListener('click', () => { // Botão "Ver Coleção Completa"
+    viewAllProductsBtn.addEventListener('click', () => {
         showSection('allProductsSection');
     });
 
@@ -157,7 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-
         if (id) {
             // Editar produto existente
             const productIndex = products.findIndex(p => p.id === id);
@@ -191,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderAllProducts(); // Atualiza todos os produtos
         setTimeout(() => {
             productMessage.textContent = '';
-            productMessage.classList.remove('success', 'error'); // Limpa ambas as classes
+            productMessage.classList.remove('success', 'error');
         }, 3000);
     });
 
@@ -255,8 +261,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (confirm('Tem certeza que deseja excluir este óculos?')) {
                     products = products.filter(p => p.id !== id);
                     renderProductsForAdmin();
-                    renderFeaturedProducts(); // Atualiza a lista de destaques
-                    renderAllProducts(); // Atualiza a lista de todos os produtos
+                    renderFeaturedProducts();
+                    renderAllProducts();
                 }
             });
         });
@@ -264,12 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Lógica da Página Inicial (Produtos em Destaque) ---
     function renderFeaturedProducts() {
-        featuredProductsGrid.innerHTML = ''; // Limpa a grade
+        featuredProductsGrid.innerHTML = '';
         loadingFeaturedMessage.style.display = 'none';
 
-        // Define quantos produtos em destaque você quer exibir (ex: 3)
         const numberOfFeatured = 3;
-        const featuredProducts = products.slice(0, numberOfFeatured); // Pega os primeiros X produtos
+        const featuredProducts = products.slice(0, numberOfFeatured);
 
         if (featuredProducts.length === 0) {
             featuredProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos em destaque no momento.</p>';
@@ -277,14 +282,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         featuredProducts.forEach(product => {
-            const productCard = createProductCard(product); // Usa a função auxiliar
+            const productCard = createProductCard(product);
             featuredProductsGrid.appendChild(productCard);
         });
     }
 
     // --- Lógica da Página de Coleção Completa ---
     function renderAllProducts() {
-        allProductsGrid.innerHTML = ''; // Limpa a grade
+        allProductsGrid.innerHTML = '';
         loadingAllProductsMessage.style.display = 'none';
 
         if (products.length === 0) {
@@ -293,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         products.forEach(product => {
-            const productCard = createProductCard(product); // Usa a função auxiliar
+            const productCard = createProductCard(product);
             allProductsGrid.appendChild(productCard);
         });
     }
@@ -348,7 +353,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Adicionar funcionalidade do botão WhatsApp
         document.getElementById('whatsappContactBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            // Substitua 'SEU_NUMERO_WHATSAPP' pelo seu número com código do país (ex: 5521999998888)
             const whatsappNumber = '55SEU_NUMERO_WHATSAPP'; // <<<<<<< ATUALIZE SEU NÚMERO AQUI
             const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
             window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
@@ -356,5 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Inicialização: Exibe a página inicial ao carregar o site ---
-    showSection('homeSection');
+    const isAdminLoggedInOnLoad = sessionStorage.getItem('isAdminLoggedIn') === 'true';
+    if (isAdminLoggedInOnLoad && window.location.hash === '#admin') {
+        showSection('adminDashboardSection');
+    } else {
+        showSection('homeSection');
+    }
 });
