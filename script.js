@@ -40,35 +40,35 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Óculos Urban Cool', // NOME DO PRODUTO
             price: 129.90, // PREÇO DO PRODUTO (use ponto para decimais)
             description: 'Estilo arrojado para as ruas da cidade. Lentes polarizadas para máxima proteção UV400. Armação leve e resistente, ideal para uso diário e aventuras urbanas.', // DESCRIÇÃO COMPLETA
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true' // URL DA IMAGEM
+            imageUrl: 'https://images.unsplash.com/photo-1574621147055-661f22144365?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' // URL DA IMAGEM
         },
         {
             id: '2',
             name: 'Street Vibe Aviator',
             price: 159.90,
             description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1502110595393-2cecb014d5ad?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         },
         {
             id: '3',
             name: 'Bold Hipster',
             price: 99.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1620247657929-236b2f703567?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         },
         {
             id: '4',
             name: 'Vintage Edge',
             price: 110.00,
             description: 'Óculos com inspiração retrô e toque contemporâneo. Ideal para quem busca um visual autêntico e cheio de personalidade.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1626871146602-df982a2254aa?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         },
         {
             id: '5',
             name: 'Modern Minimalist',
             price: 85.50,
             description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
-            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/ss.png?raw=true'
+            imageUrl: 'https://images.unsplash.com/photo-1579549320698-c64a51e626e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
         }
         // Para ADICIONAR UM NOVO ÓCULOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
         // E ADICIONE UM NOVO OBJETO COMO ESTE:
@@ -159,16 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Garante que o menu lateral seja fechado ao navegar
         mainNav.classList.remove('active');
-        // Se a tela for desktop, garante que o menu hambúrguer esteja oculto (ele só deve aparecer em mobile)
-        if (window.innerWidth > 768) {
-            hamburgerMenu.classList.remove('visible');
+        // Em mobile, quando uma seção é mostrada, o menu hambúrguer deve estar visível se o cabeçalho estiver escondido
+        // ou o cabeçalho deve estar visível.
+        if (window.innerWidth <= 768) {
+            // Se o menu lateral foi fechado, e estamos em mobile, o hambúrguer deve sumir se o cabeçalho voltar,
+            // ou aparecer se o cabeçalho sumir.
+            if (header.classList.contains('hidden')) {
+                 hamburgerMenu.classList.add('visible');
+            } else {
+                 hamburgerMenu.classList.remove('visible');
+            }
         }
     }
 
     // --- Event Listeners para Navegação ---
     // O botão Home e o logo sempre voltam para a página inicial
     navHomeBtn.addEventListener('click', () => showSection('homeSection'));
-    // navHomeBtn já é o link da logo, então não precisa de outro listener para o logo
 
     navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
     navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
@@ -185,11 +191,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // LÓGICA PARA O MENU HAMBÚRGUER (em mobile)
     hamburgerMenu.addEventListener('click', () => {
         mainNav.classList.toggle('active'); // Abre/fecha o menu lateral
+        // O hambúrguer deve ficar escondido quando o menu lateral está aberto
+        hamburgerMenu.classList.toggle('visible');
     });
 
     // Botão para fechar o menu lateral (o "X")
     closeMenuBtn.addEventListener('click', () => {
         mainNav.classList.remove('active');
+        // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
+        if (window.innerWidth <= 768 && header.classList.contains('hidden')) {
+             hamburgerMenu.classList.add('visible');
+        } else if (window.innerWidth <= 768) { // Se não estiver oculto, mas estamos em mobile, garante que ele não esteja visível
+            hamburgerMenu.classList.remove('visible');
+        }
     });
 
     // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
@@ -200,24 +214,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         const currentScrollY = window.scrollY;
-
-        // Verifica se a tela é mobile (largura menor ou igual a 768px)
         const isMobile = window.innerWidth <= 768;
 
-        // Se estiver rolando para baixo E já passou da altura inicial do cabeçalho
-        if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
-            header.classList.add('hidden'); // Esconde o cabeçalho
-            if (isMobile) { // Apenas em telas menores, mostra o hambúrguer
-                hamburgerMenu.classList.add('visible');
+        if (isMobile) {
+            // Rolando para baixo E passou da altura do cabeçalho
+            if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
+                header.classList.add('hidden'); // Esconde o cabeçalho
+                hamburgerMenu.classList.add('visible'); // Mostra o hambúrguer
             }
-        }
-        // Se estiver rolando para cima OU no topo da página
-        else if (currentScrollY < lastScrollY || currentScrollY <= 0) { // currentScrollY <= 0 para garantir que apareça no topo
-            header.classList.remove('hidden'); // Mostra o cabeçalho
-            if (isMobile) { // Apenas em telas menores, esconde o hambúrguer
-                hamburgerMenu.classList.remove('visible');
-                mainNav.classList.remove('active'); // Garante que o menu lateral feche ao reaparecer o cabeçalho
+            // Rolando para cima OU no topo da página
+            else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
+                header.classList.remove('hidden'); // Mostra o cabeçalho
+                hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer (quando o cabeçalho está visível)
+                mainNav.classList.remove('active'); // Garante que o menu lateral feche
             }
+        } else {
+            // Em desktop, garante que o cabeçalho esteja sempre visível e o hambúrguer escondido
+            header.classList.remove('hidden');
+            hamburgerMenu.classList.remove('visible');
+            mainNav.classList.remove('active'); // Sempre fechado em desktop, pois a navegação é diferente
         }
 
         lastScrollY = currentScrollY; // Atualiza a última posição de rolagem
@@ -225,15 +240,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Garante que o ícone do hambúrguer se comporte corretamente ao redimensionar a janela
     window.addEventListener('resize', () => {
+        // Se a tela se torna desktop
         if (window.innerWidth > 768) {
-            // Se virou desktop, esconde o hambúrguer e fecha o menu lateral
-            hamburgerMenu.classList.remove('visible');
-            mainNav.classList.remove('active');
+            hamburgerMenu.classList.remove('visible'); // Esconde o hambúrguer
+            mainNav.classList.remove('active'); // Fecha o menu lateral
+            header.classList.remove('hidden'); // Garante que o cabeçalho esteja visível
         } else {
-            // Se virou mobile e o cabeçalho está escondido (rolando para baixo), mostra o hambúrguer
-            // Verifica se o cabeçalho está de fato escondido antes de mostrar o hambúrguer em mobile
+            // Se a tela se torna mobile
+            // Verifica se o cabeçalho deveria estar escondido para exibir o hambúrguer
             if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
                 hamburgerMenu.classList.add('visible');
+            } else { // Se o cabeçalho está visível no topo, esconde o hambúrguer
+                hamburgerMenu.classList.remove('visible');
             }
         }
     });
