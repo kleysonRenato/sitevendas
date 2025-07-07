@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         {
             id: '2',
-            name: 'Street Vibe Aviator',
+            name: 'juju',
             price: 159.90,
             description: 'Um clássico repaginado com um toque moderno. Perfeito para qualquer ocasião, oferecendo visão nítida e proteção contra raios solares intensos. Acabamento premium.',
             imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
