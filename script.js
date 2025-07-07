@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'Guilherme O.',
             role: 'Diretora de Marketing',
-            bio: '',
+            bio: 'Acreditamos que a moda é uma forma de expressão, e por isso buscamos oferecer produtos que unem conforto, identidade e originalidade. Nossas peças são desenvolvidas para quem deseja se destacar, mantendo sempre um visual autêntico e marcante.',
             photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true',
             socialMedia: {
                 instagram: 'https://instagram.com/mariaoliveira',
@@ -165,9 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Se o menu lateral foi fechado, e estamos em mobile, o hambúrguer deve sumir se o cabeçalho voltar,
             // ou aparecer se o cabeçalho sumir.
             if (header.classList.contains('hidden')) {
-                 hamburgerMenu.classList.add('visible');
+                hamburgerMenu.classList.add('visible');
             } else {
-                 hamburgerMenu.classList.remove('visible');
+                hamburgerMenu.classList.remove('visible');
             }
         }
     }
@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mainNav.classList.remove('active');
         // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
         if (window.innerWidth <= 768 && header.classList.contains('hidden')) {
-             hamburgerMenu.classList.add('visible');
+            hamburgerMenu.classList.add('visible');
         } else if (window.innerWidth <= 768) { // Se não estiver oculto, mas estamos em mobile, garante que ele não esteja visível
             hamburgerMenu.classList.remove('visible');
         }
