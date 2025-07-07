@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Bold Hipster',
             price: 99.90,
             description: 'Design único para quem não tem medo de se destacar. Armação robusta e lentes com filtro de luz azul, ideal para uso prolongado em frente a telas ou ao ar livre.',
-            imageUrl: 'https://drive.google.com/file/d/162DvpklqoYlGNZC7WksYu7SV75e4IccX/view?usp=sharing'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/juju.png?raw=true'
         },
         {
             id: '4',
