@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Adicionar funcionalidade do botão WhatsApp
         document.getElementById('whatsappContactBtn').addEventListener('click', (e) => {
             e.preventDefault();
-            const whatsappNumber = '55SEU_NUMERO_WHATSAPP'; // <<<<<<< ATUALIZE SEU NÚMERO AQUI COM O NÚMERO DO CLIENTE
+            const whatsappNumber = '51996237370'; // <<<<<<< ATUALIZE SEU NÚMERO AQUI COM O NÚMERO DO CLIENTE
             const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
             window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
         });
