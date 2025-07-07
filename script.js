@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Modern Minimalist',
             price: 85.50,
             description: 'Linhas limpas e design discreto. Conforto e elegância para o dia a dia, com lentes que oferecem proteção total.',
-            imageUrl: 'https://images.unsplash.com/photo-1579549320698-c64a51e626e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+            imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotojuju.png?raw=true'
         }
         // Para ADICIONAR UM NOVO ÓCULOS, COLOQUE UMA VÍRGULA NO FINAL DO ÚLTIMO ITEM ACIMA
         // E ADICIONE UM NOVO OBJETO COMO ESTE:
@@ -93,20 +93,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // ##################################################################################
     const owners = [
         {
-            name: 'João Silva',
+            name: 'Felipe J.',
             role: 'Fundador & Designer Chefe',
             bio: 'Com mais de 10 anos de experiência em design de moda e paixão por óculos, João lidera a criação de nossos modelos exclusivos, unindo estética e funcionalidade.',
-            photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true',
             socialMedia: {
                 instagram: 'https://instagram.com/joaosilva',
                 linkedin: 'https://linkedin.com/in/joaosilva'
             }
         },
         {
-            name: 'Maria Oliveira',
+            name: 'Guilherme O.',
             role: 'Diretora de Marketing',
             bio: 'Especialista em branding e comunicação digital, Maria é a mente por trás da nossa presença online, garantindo que a Osiris Apparel chegue a quem busca estilo e qualidade.',
-            photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true',
             socialMedia: {
                 instagram: 'https://instagram.com/mariaoliveira',
                 twitter: 'https://twitter.com/maria'
