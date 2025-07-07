@@ -67,6 +67,8 @@ header.hidden {
 
 .logo {
     font-size: 1.8em;
+    height: 100px;
+    border-radius: 50px;
     font-weight: bold;
     color: var(--text-dark);
     text-decoration: none;
