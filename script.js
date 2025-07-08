@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Dados dos Donos do Site ---
     const owners = [
-        { name: 'Felipe J.', role: 'Fundador', bio: '', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true', socialMedia: { instagram: 'https://instagram.com/joaosilva' } },
-        { name: 'Guilherme O.', role: 'Fundador', bio: '', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true', socialMedia: { instagram: 'https://instagram.com/mariaoliveira' } }
+        { name: 'Felipe J.', role: 'Fundador', bio: '', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true', socialMedia: { instagram: 'https://www.instagram.com/felipe_junges/' } },
+        { name: 'Guilherme O.', role: 'Fundador', bio: '', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotogui.png?raw=true', socialMedia: { instagram: 'https://www.instagram.com/oliveira19p/' } }
     ];
     console.log("Donos carregados.");
 
