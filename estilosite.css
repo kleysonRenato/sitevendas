@@ -305,11 +305,15 @@ main {
 }
 
 .product-detail-container img {
-    max-width: 100%;
-    height: auto;
+    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
+    height: 400px; /* Altura máxima para a imagem de detalhes */
+    object-fit: contain; /* Ajusta a imagem inteira dentro da área, sem cortar */
     border-radius: 8px;
     margin-bottom: 25px;
     box-shadow: 0 2px 5px var(--shadow-light);
+    display: block; /* Garante que as margens automáticas funcionem para centralizar */
+    margin-left: auto; /* Centraliza a imagem horizontalmente */
+    margin-right: auto; /* Centraliza a imagem horizontalmente */
 }
 
 .product-detail-container h2 {
@@ -506,6 +510,10 @@ footer {
 
     .product-detail-container {
         padding: 20px 15px;
+    }
+
+    .product-detail-container img { /* Ajuste para mobile também */
+        height: 300px; /* Altura máxima para a imagem de detalhes em mobile */
     }
 
     .product-detail-container h2 {
