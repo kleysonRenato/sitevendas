@@ -50,11 +50,10 @@ header {
     left: 0;
     z-index: 1000;
     box-shadow: 0 3px 8px var(--shadow-medium); /* Sombra mais pronunciada */
-    /* Removido transform para esconder, pois não haverá mais essa funcionalidade por padrão */
-    /* transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; */
+    /* Removida transição para esconder/mostrar, o header agora é sempre visível */
 }
 
-/* A classe header.hidden foi removida */
+/* A classe header.hidden foi removida, pois o header não esconde mais ao rolar */
 
 header .container {
     display: flex;
@@ -98,14 +97,12 @@ nav .nav-item:hover {
     background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
 }
 
-/* O .hamburger-menu e seus estilos foram completamente removidos */
-/* Os estilos relacionados à navegação mobile lateral (nav#mainNav com position: fixed, etc.) foram removidos */
-/* O .close-btn e .menu-overlay foram removidos */
+/* Os estilos relacionados ao .hamburger-menu, .close-btn e .menu-overlay foram removidos */
 
 
 /* Main Content Padding */
 main {
-    padding-top: 90px; /* Ajuste para compensar a nova altura do header */
+    padding-top: 90px; /* Ajuste para compensar a nova altura do header fixo */
 }
 
 /* Seções da Página */
