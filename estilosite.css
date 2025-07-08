@@ -2,16 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary-color: #3498db; /* Azul vibrante */
-    --secondary-color: #2c3e50; /* Azul escuro quase preto */
-    --accent-color: #e74c3c; /* Vermelho para destaque/erros */
-    --text-color-dark: #333;
-    --text-color-light: #f4f4f4;
-    --background-light: #ecf0f1;
-    --background-dark: #34495e;
-    --card-background: #ffffff;
-    --border-color: #ddd;
-    --shadow-light: rgba(0, 0, 0, 0.1);
+    /* Cores atualizadas para Preto, Branco e Vermelho */
+    --primary-color: #E74C3C; /* Vermelho Vibrante para ações principais/destaque */
+    --secondary-color: #222222; /* Preto Quase Puro para elementos escuros (header/footer) */
+    --accent-color: #FF0000; /* Vermelho Puro para forte destaque ou erro (pode ser o mesmo que primary) */
+    --text-color-dark: #333333; /* Cinza escuro para texto principal */
+    --text-color-light: #FFFFFF; /* Branco puro para texto em fundos escuros */
+    --background-light: #F8F8F8; /* Branco Suave para fundos claros */
+    --background-dark: #1A1A1A; /* Preto Profundo para fundos escuros (header/footer) */
+    --card-background: #FFFFFF; /* Branco para cards */
+    --border-color: #EEEEEE; /* Cinza muito claro para bordas suaves */
+    --shadow-light: rgba(0, 0, 0, 0.15); /* Sombra um pouco mais visível */
 }
 
 * {
@@ -81,7 +82,7 @@ nav .nav-item {
 }
 
 nav .nav-item:hover {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Muda para vermelho no hover */
 }
 
 .hamburger-menu {
@@ -126,7 +127,7 @@ main {
 
 /* Hero Section (seção principal da Home) */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1549247775-eb2023a85b9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1549247775-eb2023a85b9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
     color: var(--text-color-light);
     text-align: center;
     padding: 100px 20px;
@@ -158,27 +159,27 @@ main {
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Vermelho */
     color: var(--text-color-light);
 }
 
 .btn-primary:hover {
-    background-color: #2980b9; /* Tom mais escuro do azul */
+    background-color: #CC3333; /* Tom mais escuro do vermelho */
     transform: translateY(-2px);
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color); /* Preto */
     color: var(--text-color-light);
 }
 
 .btn-secondary:hover {
-    background-color: #1e2b38; /* Tom mais escuro do azul escuro */
+    background-color: #000000; /* Tom mais escuro do preto */
     transform: translateY(-2px);
 }
 
 .btn-whatsapp {
-    background-color: #25d366; /* Verde WhatsApp */
+    background-color: #25d366; /* Verde WhatsApp (mantido padrão) */
     color: #fff;
     padding: 12px 25px;
     border-radius: 5px;
@@ -214,7 +215,7 @@ main {
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--primary-color);
+    border-top: 4px solid var(--primary-color); /* Vermelho no spinner */
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -279,7 +280,7 @@ main {
 .product-info .price {
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Preço em vermelho */
 }
 
 .no-products-message {
@@ -313,7 +314,7 @@ main {
 
 .product-detail-container h2 {
     font-size: 2.2rem;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Título em vermelho */
     margin-bottom: 10px;
     text-align: center;
 }
@@ -321,7 +322,7 @@ main {
 .product-detail-container .price {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--accent-color);
+    color: var(--accent-color); /* Preço detalhe em vermelho (pode ser primary tb) */
     margin-bottom: 20px;
 }
 
@@ -346,7 +347,7 @@ main {
 
 .about-us-container h2 {
     font-size: 2rem;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Título em vermelho */
     margin-bottom: 20px;
 }
 
@@ -367,7 +368,7 @@ main {
 }
 
 .owner-card {
-    background-color: var(--background-light);
+    background-color: var(--background-light); /* Fundo claro para o card */
     border-radius: 10px;
     padding: 25px;
     box-shadow: 0 2px 5px var(--shadow-light);
@@ -383,18 +384,18 @@ main {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
-    border: 3px solid var(--primary-color);
+    border: 3px solid var(--primary-color); /* Borda da foto em vermelho */
 }
 
 .owner-card h3 {
     font-size: 1.5rem;
     margin-bottom: 5px;
-    color: var(--secondary-color);
+    color: var(--secondary-color); /* Nome em preto */
 }
 
 .owner-role {
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--primary-color); /* Cargo em vermelho */
     margin-bottom: 10px;
 }
 
@@ -405,20 +406,20 @@ main {
 }
 
 .owner-social-media a {
-    color: var(--secondary-color);
+    color: var(--secondary-color); /* Ícones sociais em preto */
     font-size: 1.5rem;
     margin: 0 8px;
     transition: color 0.3s ease;
 }
 
 .owner-social-media a:hover {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Ícones sociais em vermelho no hover */
 }
 
 
 /* Footer */
 footer {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color); /* Fundo do footer em preto */
     color: var(--text-color-light);
     text-align: center;
     padding: 20px 0;
@@ -450,7 +451,7 @@ footer {
         right: -300px; /* Esconde o menu fora da tela */
         width: 250px; /* Largura do menu lateral */
         height: 100%;
-        background-color: var(--background-dark);
+        background-color: var(--background-dark); /* Fundo do menu lateral em preto */
         box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
         flex-direction: column;
         padding-top: 60px; /* Espaço para o botão de fechar */
