@@ -44,44 +44,43 @@ header {
     background-color: var(--background-dark);
     color: var(--text-color-light);
     padding: 1.2rem 0; /* Mais padding vertical */
-    position: fixed;
+    position: fixed; /* Mantém o cabeçalho fixo no topo */
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
     box-shadow: 0 3px 8px var(--shadow-medium); /* Sombra mais pronunciada */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+    /* Removido transform para esconder, pois não haverá mais essa funcionalidade por padrão */
+    /* transition: transform 0.3s ease-in-out, box-shadow 0.3s ease; */
 }
 
-header.hidden {
-    transform: translateY(-100%);
-}
+/* A classe header.hidden foi removida */
 
 header .container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-between; /* Espaça o logo e a navegação */
+    align-items: center; /* Centraliza verticalmente */
 }
 
 /* Estilos do Logo (APENAS TEXTO) */
 .logo {
     display: flex; /* Mantém flex para alinhamento vertical no header */
     align-items: center;
-    gap: 0; /* Não há imagem, então não precisa de gap */
     text-decoration: none;
     color: var(--text-color-light);
     cursor: pointer;
+    white-space: nowrap; /* Evita que o texto quebre */
 }
 
 .logo .logo-text {
     font-size: 1.7rem; /* Tamanho da fonte do texto do logo em desktop */
     font-weight: 700;
-    white-space: nowrap;
 }
 
 /* Navegação principal */
 nav {
     display: flex; /* Garante que os nav-items fiquem lado a lado */
+    align-items: center; /* Centraliza verticalmente os itens de navegação */
 }
 
 nav .nav-item {
@@ -91,6 +90,7 @@ nav .nav-item {
     transition: color 0.3s ease, background-color 0.3s ease;
     font-weight: 600;
     border-radius: 5px; /* Bordas arredondadas para itens de nav */
+    white-space: nowrap; /* Evita que os itens de navegação quebrem */
 }
 
 nav .nav-item:hover {
@@ -98,7 +98,10 @@ nav .nav-item:hover {
     background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
 }
 
-/* O .hamburger-menu e seus estilos foram removidos */
+/* O .hamburger-menu e seus estilos foram completamente removidos */
+/* Os estilos relacionados à navegação mobile lateral (nav#mainNav com position: fixed, etc.) foram removidos */
+/* O .close-btn e .menu-overlay foram removidos */
+
 
 /* Main Content Padding */
 main {
@@ -454,54 +457,45 @@ footer {
 /* Mobile */
 @media (max-width: 768px) {
     header .container {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0 15px; /* Ajuste o padding do container do header em mobile */
+        flex-direction: column; /* Empilha o logo e a navegação em mobile */
+        justify-content: center; /* Centraliza verticalmente */
+        padding: 0 15px;
+        gap: 10px; /* Espaçamento entre logo e navegação */
     }
 
     header {
-        padding: 1rem 0; /* Ajuste o padding do header em mobile */
+        padding: 1rem 0;
+        position: static; /* Não fixo em mobile para evitar sobreposição */
+        box-shadow: none; /* Sem sombra em mobile para simplificar */
     }
 
     /* Logo em mobile */
     .logo {
-        position: relative;
-        z-index: 1002;
-        gap: 5px; /* Sem gap se não há imagem, mas mantido para consistência */
+        margin-bottom: 5px; /* Espaçamento abaixo do logo */
     }
-
-    /* .logo .logo-img foi removido */
 
     .logo .logo-text {
         font-size: 1.4rem; /* Tamanho da fonte do texto do logo em mobile */
     }
 
-    /* A navegação lateral e o hamburger menu foram removidos */
+    /* Navegação em mobile */
     nav#mainNav {
-        /* Para telas menores, se não há hambúrguer, os itens de navegação se empilhariam por padrão. */
-        /* Se você quiser ocultar a navegação em mobile e não ter um menu,
-           pode adicionar display: none; aqui, mas os usuários não teriam acesso.
-           Como a solicitação foi apenas "deixe apenas o logo, nome, coleção e sobre nós",
-           e removeu o hambúrguer, presume-se que a navegação será sempre visível,
-           mas pode quebrar o layout se não houver espaço.
-           Vou manter como display: flex; e deixo o alinhamento para você ajustar
-           se precisar que eles se comportem de forma diferente sem um hambúrguer. */
         display: flex;
         flex-direction: row; /* Mantém os itens em linha */
-        align-items: center;
-        /* Se precisar ocultar em mobile sem hambúrguer: */
-        /* display: none; */
+        flex-wrap: wrap; /* Permite que os itens quebrem para a próxima linha se não houver espaço */
+        justify-content: center; /* Centraliza os itens de navegação */
+        gap: 10px; /* Espaçamento entre os itens de navegação */
+        margin-top: 10px; /* Espaço acima da navegação */
     }
 
     nav .nav-item {
-        padding: 0.8rem 1rem; /* Ajuste para mobile se a nav for visível */
+        padding: 0.6rem 1rem; /* Ajuste para mobile */
         font-size: 0.95rem; /* Fonte menor em mobile para os itens de nav */
-        border-bottom: none; /* Remove a borda se não há menu lateral */
     }
 
     /* Main Content Padding em Mobile */
     main {
-        padding-top: 70px; /* Ajuste para mobile */
+        padding-top: 20px; /* Ajuste para mobile, já que o header não é fixo */
     }
 
     /* Hero Section em Mobile */
@@ -561,6 +555,4 @@ footer {
         width: 110px;
         height: 110px;
     }
-
-    /* O .close-btn e .menu-overlay foram removidos */
 }
