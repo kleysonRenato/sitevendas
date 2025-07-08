@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const whatsappContactBtn = document.getElementById('whatsappContactBtn');
         if (whatsappContactBtn) {
             // CORREÇÃO DO NÚMERO DO WHATSAPP AQUI!
-            const whatsappNumber = '5551997343582'; 
+            const whatsappNumber = '5551996237370'; 
             whatsappContactBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
