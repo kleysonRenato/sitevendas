@@ -23,33 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const loadingDetailMessage = document.getElementById('loadingDetailMessage');
 
-    const hamburgerMenu = document.getElementById('hamburgerMenu');
-    const mainNav = document.getElementById('mainNav');
-
-    // Cria e adiciona o botão de fechar o menu lateral
-    // Importante: Verifica se mainNav existe antes de tentar manipulá-lo
-    if (mainNav) {
-        console.log("mainNav encontrado. Criando botão de fechar.");
-        const closeMenuBtn = document.createElement('button');
-        closeMenuBtn.classList.add('close-btn');
-        closeMenuBtn.innerHTML = '<i class="bi bi-x-lg"></i>'; 
-        mainNav.prepend(closeMenuBtn); 
-
-        // Adiciona o listener para o botão de fechar o menu lateral
-        closeMenuBtn.addEventListener('click', () => {
-            mainNav.classList.remove('active');
-            // Ao fechar o menu lateral, o hambúrguer deve reaparecer se o cabeçalho estiver oculto
-            if (window.innerWidth <= 768 && header && header.classList.contains('hidden') && hamburgerMenu) {
-                hamburgerMenu.classList.add('visible');
-            } else if (window.innerWidth <= 768 && hamburgerMenu) {
-                hamburgerMenu.classList.remove('visible');
-            }
-        });
-    } else {
-        console.error("ERRO: Elemento com ID 'mainNav' não encontrado. O menu lateral pode não funcionar.");
-    }
+    // As referências a 'hamburgerMenu' e 'mainNav' (para o menu mobile) foram removidas
+    // pois o header agora é fixo e o menu não tem mais hambúrguer/lateral.
 
     // --- LISTA DE PRODUTOS ---
+    // Em um cenário real, você buscaria isso de uma API
     let products = [
         { id: '1', name: 'KIT RADAR 5 LENTES', price: 279.90, description: 'Todas as nossas lentes oferecem proteção total do sol e bloqueiam 100% dos raios uva, uvb e uvc. Vamos crescer com você, sua satisfação é nossa primeira prioridade e nossa equipe está sempre pronta para ajudá-lo com qualquer uma de suas perguntas antes e depois de sua compra. Acreditamos que um bom produto é o primeiro passo para o sucesso, também oferecemos aos clientes a melhor experiência do usuário e serviço pós-venda.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/kitradar5lentes.png?raw=true' },
         { id: '2', name: 'PLANTARIS ', price: 119.90, description: 'Todas as nossas lentes oferecem proteção total do sol e bloqueiam 100% dos raios uva, uvb e uvc. Vamos crescer com você, sua satisfação é nossa primeira prioridade e nossa equipe está sempre pronta para ajudá-lo com qualquer uma de suas perguntas antes e depois de sua compra. Acreditamos que um bom produto é o primeiro passo para o sucesso, também oferecemos aos clientes a melhor experiência do usuário e serviço pós-venda.', imageUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/plantaris.png?raw=true' },
@@ -93,43 +71,37 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`ERRO: Seção com ID '${sectionId}' não encontrada no HTML.`);
         }
         
-        // Garante que o menu lateral seja fechado ao navegar (em mobile)
-        if (mainNav) { 
-            mainNav.classList.remove('active');
-        }
-
-        // Em mobile, controla a visibilidade do hambúrguer após a navegação
-        if (window.innerWidth <= 768 && hamburgerMenu && header) { 
-            if (header.classList.contains('hidden')) {
-                hamburgerMenu.classList.add('visible');
-            } else {
-                hamburgerMenu.classList.remove('visible');
-            }
-        }
+        // Em desktop e mobile, o menu lateral não existe mais, então não há o que fechar.
+        // O header também é sempre visível, sem lógica de hidden/visible ou hambúrguer.
     }
 
     // --- Event Listeners para Navegação ---
     // Verifica se os botões existem antes de adicionar event listeners
     if (navHomeBtn) {
-        navHomeBtn.addEventListener('click', () => showSection('homeSection'));
+        navHomeBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Previne o comportamento padrão do link
+            showSection('homeSection');
+        });
     } else { console.error("ERRO: Elemento com ID 'navHome' não encontrado."); }
     
     if (navAllProductsBtn) {
-        navAllProductsBtn.addEventListener('click', () => showSection('allProductsSection'));
+        navAllProductsBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Previne o comportamento padrão do link
+            showSection('allProductsSection');
+        });
     } else { console.error("ERRO: Elemento com ID 'navAllProducts' não encontrado."); }
     
     if (navAboutUsBtn) {
-        navAboutUsBtn.addEventListener('click', () => showSection('aboutUsSection'));
+        navAboutUsBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Previne o comportamento padrão do link
+            showSection('aboutUsSection');
+        });
     } else { console.error("ERRO: Elemento com ID 'navAboutUs' não encontrado."); }
     
     if (exploreProductsBtn) {
         exploreProductsBtn.addEventListener('click', () => {
-            const productsShowcase = document.querySelector('.products-showcase');
-            if (productsShowcase) {
-                productsShowcase.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                console.warn("AVISO: Elemento com classe '.products-showcase' não encontrado para rolar.");
-            }
+            // Agora o botão "Explorar Produtos" leva diretamente para a seção de todos os produtos
+            showSection('allProductsSection'); 
         });
     } else { console.error("ERRO: Elemento com ID 'exploreProductsBtn' não encontrado."); }
 
@@ -139,64 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else { console.error("ERRO: Elemento com ID 'viewAllProductsBtn' não encontrado."); }
 
-    // Lógica para o menu hambúrguer em mobile
-    if (hamburgerMenu && mainNav) {
-        hamburgerMenu.addEventListener('click', () => {
-            mainNav.classList.toggle('active'); 
-            hamburgerMenu.classList.toggle('visible');
-        });
-    } else { console.error("ERRO: Elementos 'hamburgerMenu' ou 'mainNav' não encontrados. Menu hambúrguer pode não funcionar."); }
-
-    // --- Lógica de Scroll para Esconder/Mostrar Cabeçalho e Menu Hambúrguer ---
-    let lastScrollY = window.scrollY;
-    // Pega a altura real do cabeçalho para saber quando ele está "fora da tela"
-    const headerTriggerHeight = header ? header.offsetHeight + 10 : 0; // Verifica se 'header' existe
-
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        const isMobile = window.innerWidth <= 768;
-
-        if (isMobile) {
-            if (header && hamburgerMenu && mainNav) { 
-                if (currentScrollY > lastScrollY && currentScrollY > headerTriggerHeight) {
-                    header.classList.add('hidden'); 
-                    hamburgerMenu.classList.add('visible'); 
-                } else if (currentScrollY < lastScrollY || currentScrollY <= 0) {
-                    header.classList.remove('hidden'); 
-                    hamburgerMenu.classList.remove('visible'); 
-                    mainNav.classList.remove('active'); 
-                }
-            }
-        } else {
-            // Em desktop, garante que o cabeçalho esteja sempre visível e o hambúrguer escondido
-            if (header) { header.classList.remove('hidden'); }
-            if (hamburgerMenu) { hamburgerMenu.classList.remove('visible'); }
-            if (mainNav) { mainNav.classList.remove('active'); }
-        }
-        lastScrollY = currentScrollY; 
-    });
-
-    // Garante comportamento correto ao redimensionar a janela
-    window.addEventListener('resize', () => {
-        if (header && hamburgerMenu && mainNav) { 
-            if (window.innerWidth > 768) {
-                hamburgerMenu.classList.remove('visible'); 
-                mainNav.classList.remove('active'); 
-                header.classList.remove('hidden'); 
-            } else {
-                if (window.scrollY > header.offsetHeight && header.classList.contains('hidden')) {
-                    hamburgerMenu.classList.add('visible');
-                } else { 
-                    hamburgerMenu.classList.remove('visible');
-                }
-            }
-        }
-    });
-
+    // A lógica para o menu hambúrguer em mobile e o scroll para esconder/mostrar o cabeçalho foi removida.
+    // O header agora é sempre visível e o menu é fixo no desktop/mobile.
 
     // --- Lógica da Página Inicial (Produtos em Destaque) ---
     function renderFeaturedProducts() {
-        console.log("Iniciando renderFeaturedProducts...");
         if (!featuredProductsGrid) {
             console.error("ERRO: Elemento com ID 'featuredProductsGrid' não encontrado no HTML para renderizar produtos em destaque.");
             return;
@@ -204,71 +123,55 @@ document.addEventListener('DOMContentLoaded', () => {
         featuredProductsGrid.innerHTML = ''; // Limpa o grid
         
         if (loadingFeaturedMessage) {
-            console.log("Escondendo loadingFeaturedMessage.");
             loadingFeaturedMessage.style.display = 'none'; // Esconde a mensagem de carregamento
-        } else {
-            console.warn("AVISO: Elemento 'loadingFeaturedMessage' não encontrado.");
         }
 
         const numberOfFeatured = 3;
         const featuredProducts = products.slice(0, numberOfFeatured);
-        console.log("Produtos em destaque selecionados:", featuredProducts.length, featuredProducts);
-
 
         if (featuredProducts.length === 0) {
             featuredProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos em destaque no momento.</p>';
-            console.log("Nenhum produto em destaque para mostrar.");
             return;
         }
 
-        featuredProducts.forEach((product, index) => {
+        featuredProducts.forEach((product) => {
             try {
                 const productCard = createProductCard(product);
                 featuredProductsGrid.appendChild(productCard);
-                console.log(`Produto em destaque #${index + 1} (${product.name}) adicionado.`);
             } catch (e) {
                 console.error(`ERRO ao criar ou adicionar card do produto em destaque "${product.name}" (ID: ${product.id}):`, e);
             }
         });
-        console.log("Finalizado renderFeaturedProducts.");
     }
 
     // --- Lógica da Página de Coleção Completa ---
     function renderAllProducts() {
-        console.log("Iniciando renderAllProducts...");
         if (!allProductsGrid) {
             console.error("ERRO: Elemento com ID 'allProductsGrid' não encontrado no HTML para renderizar todos os produtos.");
             return;
         }
         allProductsGrid.innerHTML = '';
         if (loadingAllProductsMessage) {
-            console.log("Escondendo loadingAllProductsMessage.");
             loadingAllProductsMessage.style.display = 'none';
-        } else {
-            console.warn("AVISO: Elemento 'loadingAllProductsMessage' não encontrado.");
         }
 
         if (products.length === 0) {
             allProductsGrid.innerHTML = '<p class="no-products-message">Nenhum óculos disponível na coleção completa.</p>';
-            console.log("Nenhum produto na coleção completa para mostrar.");
             return;
         }
 
-        products.forEach((product, index) => {
+        products.forEach((product) => {
             try {
                 const productCard = createProductCard(product);
                 allProductsGrid.appendChild(productCard);
-                console.log(`Produto completo #${index + 1} (${product.name}) adicionado.`);
             } catch (e) {
                 console.error(`ERRO ao criar ou adicionar card do produto completo "${product.name}" (ID: ${product.id}):`, e);
             }
         });
-        console.log("Finalizado renderAllProducts.");
     }
 
     // --- Função Auxiliar para Criar Card de Produto (Reutilizável) ---
     function createProductCard(product) {
-        console.log("Criando card para:", product.name);
         const productCard = document.createElement('a');
         productCard.href = '#';
         productCard.classList.add('product-card');
@@ -276,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${product.imageUrl}" alt="${product.name}">
             <div class="product-info">
                 <h3>${product.name}</h3>
-                <p class="price">R$ ${product.price.toFixed(2)}</p>
+                <p class="price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
             </div>
         `;
         productCard.addEventListener('click', (e) => {
@@ -286,25 +189,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return productCard;
     }
 
-    // --- Lógica da Página de Detalhes do Produto (Clientes) ---
+    // --- Lógica da Página de Detalhes do Produto ---
     function renderProductDetails(productId) {
-        console.log(`Iniciando renderProductDetails para ID: ${productId}`);
         if (!productDetailSection) {
             console.error("ERRO: Elemento com ID 'productDetailSection' não encontrado.");
             return;
         }
-        productDetailSection.innerHTML = '';
+        // Limpa o conteúdo da seção de detalhes antes de renderizar um novo produto
+        productDetailSection.innerHTML = ''; 
+
         if (loadingDetailMessage) {
             loadingDetailMessage.style.display = 'none';
-        } else {
-            console.warn("AVISO: Elemento 'loadingDetailMessage' não encontrado.");
         }
 
         const product = products.find(p => p.id === productId);
 
         if (!product) {
             productDetailSection.innerHTML = '<div class="product-detail-container"><p class="no-products-message">Óculos não encontrado.</p></div>';
-            console.warn(`AVISO: Produto com ID '${productId}' não encontrado.`);
             return;
         }
 
@@ -313,13 +214,12 @@ document.addEventListener('DOMContentLoaded', () => {
         detailContainer.innerHTML = `
             <img src="${product.imageUrl}" alt="${product.name}">
             <h2>${product.name}</h2>
-            <p class="price">R$ ${product.price.toFixed(2)}</p>
+            <p class="price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
             <p class="description">${product.description}</p>
             <a href="#" id="whatsappContactBtn" class="btn-whatsapp">
                 <i class="bi bi-whatsapp"></i> Chamar no WhatsApp
             </a>
-            <button class="btn btn-secondary" style="margin-top: 15px;" onclick="history.back()">Voltar para a Coleção</button>
-        `;
+            `;
         productDetailSection.appendChild(detailContainer);
 
         const whatsappContactBtn = document.getElementById('whatsappContactBtn');
@@ -328,18 +228,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const whatsappNumber = '5551996237370'; 
             whatsappContactBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2)}). Poderia me dar mais informações?`);
+                const message = encodeURIComponent(`Olá! Tenho interesse no óculos "${product.name}" (R$ ${product.price.toFixed(2).replace('.', ',')}). Poderia me dar mais informações?`);
                 window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
             });
         } else {
             console.error("ERRO: Botão 'whatsappContactBtn' não encontrado após a renderização do detalhe do produto.");
         }
-        console.log("Finalizado renderProductDetails.");
     }
 
-    // --- Lógica da Seção "Sobre Nós" (Donos do Site) ---
+    // --- Lógica da Seção "Sobre Nós" ---
     function renderAboutUsContent() {
-        console.log("Iniciando renderAboutUsContent...");
         if (!aboutUsSection) {
             console.error("ERRO: Elemento com ID 'aboutUsSection' não encontrado.");
             return;
@@ -359,13 +257,12 @@ document.addEventListener('DOMContentLoaded', () => {
                                 ${owner.socialMedia.instagram ? `<a href="${owner.socialMedia.instagram}" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>` : ''}
                                 ${owner.socialMedia.linkedin ? `<a href="${owner.socialMedia.linkedin}" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>` : ''}
                                 ${owner.socialMedia.twitter ? `<a href="${owner.socialMedia.twitter}" target="_blank" title="Twitter/X"><i class="bi bi-twitter-x"></i></a>` : ''}
-                                </div>
+                            </div>
                         </div>
                     `).join('')}
                 </div>
             </div>
         `;
-        console.log("Finalizado renderAboutUsContent.");
     }
 
     // --- Inicialização: Exibe a página inicial ao carregar o site ---
