@@ -63,25 +63,18 @@ header .container {
     align-items: center;
 }
 
-/* Estilos do Logo (imagem + texto) */
+/* Estilos do Logo (APENAS TEXTO) */
 .logo {
-    display: flex;
+    display: flex; /* Mantém flex para alinhamento vertical no header */
     align-items: center;
-    gap: 8px; /* Espaçamento entre a imagem e o texto */
+    gap: 0; /* Não há imagem, então não precisa de gap */
     text-decoration: none;
     color: var(--text-color-light);
     cursor: pointer;
 }
 
-.logo .logo-img {
-    height: 38px; /* AJUSTADO: Altura padrão do logo em desktop */
-    width: auto;
-    display: block;
-    max-width: 100%;
-}
-
 .logo .logo-text {
-    font-size: 1.7rem; /* AJUSTADO: Tamanho da fonte do texto do logo em desktop */
+    font-size: 1.7rem; /* Tamanho da fonte do texto do logo em desktop */
     font-weight: 700;
     white-space: nowrap;
 }
@@ -105,26 +98,7 @@ nav .nav-item:hover {
     background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
 }
 
-/* Hamburger Menu (ícone) */
-.hamburger-menu {
-    display: none; /* Escondido por padrão em desktop */
-    background: none;
-    border: none;
-    color: var(--text-color-light);
-    font-size: 2.2rem; /* Ícone maior */
-    cursor: pointer;
-    z-index: 1001;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.hamburger-menu.visible {
-    opacity: 1;
-}
+/* O .hamburger-menu e seus estilos foram removidos */
 
 /* Main Content Padding */
 main {
@@ -489,59 +463,40 @@ footer {
         padding: 1rem 0; /* Ajuste o padding do header em mobile */
     }
 
-    /* Logo menor em mobile */
+    /* Logo em mobile */
     .logo {
         position: relative;
         z-index: 1002;
-        gap: 5px;
+        gap: 5px; /* Sem gap se não há imagem, mas mantido para consistência */
     }
 
-    .logo .logo-img {
-        height: 30px; /* Altura menor do logo em mobile */
-    }
+    /* .logo .logo-img foi removido */
 
     .logo .logo-text {
         font-size: 1.4rem; /* Tamanho da fonte do texto do logo em mobile */
     }
 
-
-    /* Navegação Mobile (Lateral) */
-    nav#mainNav { /* Use o ID para sobrescrever com certeza */
-        position: fixed;
-        top: 0;
-        right: -300px;
-        width: 250px;
-        height: 100%;
-        background-color: var(--background-dark);
-        box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
-        flex-direction: column;
-        padding-top: 70px; /* Espaço para o botão de fechar */
-        transition: right 0.4s ease-in-out; /* Transição mais suave */
-        z-index: 1000;
-        overflow-y: auto; /* Permite rolagem se muitos itens */
-    }
-
-    nav.active {
-        right: 0;
+    /* A navegação lateral e o hamburger menu foram removidos */
+    nav#mainNav {
+        /* Para telas menores, se não há hambúrguer, os itens de navegação se empilhariam por padrão. */
+        /* Se você quiser ocultar a navegação em mobile e não ter um menu,
+           pode adicionar display: none; aqui, mas os usuários não teriam acesso.
+           Como a solicitação foi apenas "deixe apenas o logo, nome, coleção e sobre nós",
+           e removeu o hambúrguer, presume-se que a navegação será sempre visível,
+           mas pode quebrar o layout se não houver espaço.
+           Vou manter como display: flex; e deixo o alinhamento para você ajustar
+           se precisar que eles se comportem de forma diferente sem um hambúrguer. */
+        display: flex;
+        flex-direction: row; /* Mantém os itens em linha */
+        align-items: center;
+        /* Se precisar ocultar em mobile sem hambúrguer: */
+        /* display: none; */
     }
 
     nav .nav-item {
-        padding: 1.2rem 1.8rem; /* Mais padding para itens do menu lateral */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Borda mais visível */
-        width: 100%;
-        display: block;
-        font-size: 1.1rem; /* Fonte maior no menu lateral */
-    }
-
-    /* Hamburger Menu */
-    .hamburger-menu {
-        display: block;
-        opacity: 0;
-        font-size: 2rem; /* Tamanho do ícone para mobile */
-    }
-
-    .hamburger-menu.visible {
-        opacity: 1;
+        padding: 0.8rem 1rem; /* Ajuste para mobile se a nav for visível */
+        font-size: 0.95rem; /* Fonte menor em mobile para os itens de nav */
+        border-bottom: none; /* Remove a borda se não há menu lateral */
     }
 
     /* Main Content Padding em Mobile */
@@ -607,36 +562,5 @@ footer {
         height: 110px;
     }
 
-    /* Botão de fechar menu lateral */
-    .close-btn {
-        background: none;
-        border: none;
-        color: var(--text-color-light);
-        font-size: 2.2rem; /* Ícone maior */
-        cursor: pointer;
-        position: absolute;
-        top: 15px; /* Posição mais baixa */
-        right: 20px;
-        z-index: 1001;
-        display: block;
-    }
-}
-
-/* Estilos para o overlay do menu mobile */
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Mais escuro */
-    z-index: 999;
-    display: none;
-    transition: opacity 0.3s ease; /* Transição para o overlay */
-    opacity: 0; /* Escondido por padrão com opacidade */
-}
-
-.menu-overlay.active {
-    display: block;
-    opacity: 1; /* Mostra suavemente */
+    /* O .close-btn e .menu-overlay foram removidos */
 }
