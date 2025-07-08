@@ -60,17 +60,35 @@ header .container {
     align-items: center;
 }
 
+/* Logo (o link <a> que contém a imagem e o texto) */
 .logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--text-color-light);
-    text-decoration: none;
+    display: flex; /* Permite que a imagem e o texto fiquem lado a lado */
+    align-items: center; /* Alinha verticalmente */
+    gap: 8px; /* Espaçamento entre a imagem e o texto */
+    text-decoration: none; /* Remove sublinhado padrão */
+    color: var(--text-color-light); /* Cor do texto do logo */
     cursor: pointer;
 }
 
-nav ul {
-    list-style: none;
-    display: flex;
+/* Imagem do Logo */
+.logo .logo-img {
+    height: 35px; /* AJUSTADO: Altura padrão do logo em desktop */
+    width: auto; /* Mantém a proporção */
+    display: block;
+    max-width: 100%;
+}
+
+/* Texto do Logo */
+.logo .logo-text {
+    font-size: 1.6rem; /* AJUSTADO: Tamanho da fonte do texto do logo em desktop */
+    font-weight: 700;
+    white-space: nowrap; /* Evita que o texto quebre */
+}
+
+/* Navegação principal */
+nav #mainNav { /* Use o ID para ser mais específico, caso necessário */
+    list-style: none; /* Remove os marcadores de lista */
+    display: flex; /* Alinha os itens lado a lado */
 }
 
 nav .nav-item {
@@ -435,7 +453,7 @@ footer {
 /* Mobile */
 @media (max-width: 768px) {
     header .container {
-        flex-direction: row; /* Volta para linha */
+        flex-direction: row;
         justify-content: space-between;
     }
 
@@ -443,28 +461,38 @@ footer {
         padding: 0.8rem 0;
     }
 
+    /* AJUSTADO: Logo menor em mobile */
     .logo {
-        font-size: 1.5rem;
         position: relative; /* Para não ser afetado pelo transform do header */
         z-index: 1002; /* Fica acima do hambúrguer */
+        gap: 5px; /* Espaçamento menor em mobile */
     }
+
+    .logo .logo-img {
+        height: 30px; /* AJUSTADO: Altura menor do logo em mobile */
+    }
+
+    .logo .logo-text {
+        font-size: 1.3rem; /* AJUSTADO: Tamanho da fonte do texto do logo em mobile */
+    }
+
 
     nav {
         position: fixed;
         top: 0;
-        right: -300px; /* Esconde o menu fora da tela */
-        width: 250px; /* Largura do menu lateral */
+        right: -300px;
+        width: 250px;
         height: 100%;
-        background-color: var(--background-dark); /* Fundo do menu lateral em preto */
+        background-color: var(--background-dark);
         box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
         flex-direction: column;
-        padding-top: 60px; /* Espaço para o botão de fechar */
+        padding-top: 60px;
         transition: right 0.3s ease-in-out;
         z-index: 1000;
     }
 
     nav.active {
-        right: 0; /* Mostra o menu */
+        right: 0;
     }
 
     nav .nav-item {
@@ -479,12 +507,12 @@ footer {
     }
 
     .hamburger-menu {
-        display: block; /* Mostra o menu hambúrguer */
-        opacity: 0; /* Escondido por padrão, mas pode aparecer com JS */
+        display: block;
+        opacity: 0;
     }
 
     .hamburger-menu.visible {
-        opacity: 1; /* O JS controla isso */
+        opacity: 1;
     }
 
     .hero-section {
@@ -500,7 +528,7 @@ footer {
     }
 
     .product-grid {
-        grid-template-columns: 1fr; /* Uma coluna em mobile */
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
@@ -512,8 +540,8 @@ footer {
         padding: 20px 15px;
     }
 
-    .product-detail-container img { /* Ajuste para mobile também */
-        height: 300px; /* Altura máxima para a imagem de detalhes em mobile */
+    .product-detail-container img {
+        height: 300px;
     }
 
     .product-detail-container h2 {
@@ -546,7 +574,23 @@ footer {
         position: absolute;
         top: 10px;
         right: 15px;
-        z-index: 1001; /* Garante que está acima dos itens de navegação */
-        display: block; /* Garante que o botão de fechar aparece no mobile */
+        z-index: 1001;
+        display: block;
     }
+}
+
+/* Adicionado: Estilos para o overlay do menu mobile */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente */
+    z-index: 999; /* Fica abaixo do menu, mas acima do conteúdo */
+    display: none; /* Escondido por padrão */
+}
+
+.menu-overlay.active {
+    display: block; /* Mostra quando o menu está ativo */
 }
