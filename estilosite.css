@@ -12,9 +12,11 @@
     --background-dark: #1A1A1A; /* Preto Profundo para fundos escuros (header/footer) */
     --card-background: #FFFFFF; /* Branco para cards */
     --border-color: #EEEEEE; /* Cinza muito claro para bordas suaves */
-    --shadow-light: rgba(0, 0, 0, 0.15); /* Sombra um pouco mais visível */
+    --shadow-light: rgba(0, 0, 0, 0.1); /* Sombra um pouco mais suave */
+    --shadow-medium: rgba(0, 0, 0, 0.2); /* Sombra para hover/destaque */
 }
 
+/* Reset básico e Box Sizing */
 * {
     margin: 0;
     padding: 0;
@@ -27,27 +29,28 @@ body {
     color: var(--text-color-dark);
     background-color: var(--background-light);
     scroll-behavior: smooth;
+    overflow-x: hidden; /* Evita rolagem horizontal indesejada */
 }
 
 /* Container de largura limitada */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 20px; /* Padding lateral consistente */
 }
 
 /* Header */
 header {
     background-color: var(--background-dark);
     color: var(--text-color-light);
-    padding: 1rem 0;
+    padding: 1.2rem 0; /* Mais padding vertical */
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px var(--shadow-light);
-    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 3px 8px var(--shadow-medium); /* Sombra mais pronunciada */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
 }
 
 header.hidden {
@@ -60,62 +63,62 @@ header .container {
     align-items: center;
 }
 
-/* Logo (o link <a> que contém a imagem e o texto) */
+/* Estilos do Logo (imagem + texto) */
 .logo {
-    display: flex; /* Permite que a imagem e o texto fiquem lado a lado */
-    align-items: center; /* Alinha verticalmente */
+    display: flex;
+    align-items: center;
     gap: 8px; /* Espaçamento entre a imagem e o texto */
-    text-decoration: none; /* Remove sublinhado padrão */
-    color: var(--text-color-light); /* Cor do texto do logo */
+    text-decoration: none;
+    color: var(--text-color-light);
     cursor: pointer;
 }
 
-/* Imagem do Logo */
 .logo .logo-img {
-    height: 35px; /* AJUSTADO: Altura padrão do logo em desktop */
-    width: auto; /* Mantém a proporção */
+    height: 38px; /* AJUSTADO: Altura padrão do logo em desktop */
+    width: auto;
     display: block;
     max-width: 100%;
 }
 
-/* Texto do Logo */
 .logo .logo-text {
-    font-size: 1.6rem; /* AJUSTADO: Tamanho da fonte do texto do logo em desktop */
+    font-size: 1.7rem; /* AJUSTADO: Tamanho da fonte do texto do logo em desktop */
     font-weight: 700;
-    white-space: nowrap; /* Evita que o texto quebre */
+    white-space: nowrap;
 }
 
 /* Navegação principal */
-nav #mainNav { /* Use o ID para ser mais específico, caso necessário */
-    list-style: none; /* Remove os marcadores de lista */
-    display: flex; /* Alinha os itens lado a lado */
+nav {
+    display: flex; /* Garante que os nav-items fiquem lado a lado */
 }
 
 nav .nav-item {
     color: var(--text-color-light);
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: color 0.3s ease;
+    padding: 0.8rem 1.2rem; /* Mais padding para itens de navegação */
+    transition: color 0.3s ease, background-color 0.3s ease;
     font-weight: 600;
+    border-radius: 5px; /* Bordas arredondadas para itens de nav */
 }
 
 nav .nav-item:hover {
-    color: var(--primary-color); /* Muda para vermelho no hover */
+    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.05); /* Fundo sutil no hover */
 }
 
+/* Hamburger Menu (ícone) */
 .hamburger-menu {
     display: none; /* Escondido por padrão em desktop */
     background: none;
     border: none;
     color: var(--text-color-light);
-    font-size: 2rem;
+    font-size: 2.2rem; /* Ícone maior */
     cursor: pointer;
-    z-index: 1001; /* Para ficar acima do header quando ele some */
-    position: absolute; /* Para flutuar */
-    right: 20px; /* Alinhar à direita */
+    z-index: 1001;
+    position: absolute;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0; /* Escondido por padrão, aparece com JS */
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
@@ -123,107 +126,119 @@ nav .nav-item:hover {
     opacity: 1;
 }
 
-/* Main Content Padding (para evitar que o conteúdo fique abaixo do header fixo) */
+/* Main Content Padding */
 main {
-    padding-top: 80px; /* Ajuste conforme a altura do seu cabeçalho */
+    padding-top: 90px; /* Ajuste para compensar a nova altura do header */
 }
 
 /* Seções da Página */
 .page-section {
-    display: none; /* Esconde todas as seções por padrão */
-    padding: 40px 0;
+    display: none;
+    padding: 60px 0; /* Mais padding para seções */
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transição mais suave */
 }
 
 .page-section.active {
-    display: block; /* Mostra a seção ativa */
+    display: block;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Hero Section (seção principal da Home) */
+/* Hero Section */
 .hero-section {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1549247775-eb2023a85b9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1549247775-eb2023a85b9b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
     color: var(--text-color-light);
     text-align: center;
-    padding: 100px 20px;
-    margin-bottom: 40px;
+    padding: 120px 20px; /* Mais padding */
+    margin-bottom: 50px; /* Mais margem inferior */
 }
 
 .hero-section h2 {
-    font-size: 3rem;
-    margin-bottom: 15px;
+    font-size: 3.5rem; /* Fonte maior */
+    margin-bottom: 20px;
     font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Sombra no texto do título */
 }
 
 .hero-section p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+    font-size: 1.3rem; /* Fonte maior */
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Botões */
 .btn {
     display: inline-block;
-    padding: 12px 25px;
-    font-size: 1rem;
+    padding: 14px 30px; /* Mais padding */
+    font-size: 1.05rem; /* Fonte ligeiramente maior */
     font-weight: 600;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px; /* Mais arredondado */
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     border: none;
+    text-transform: uppercase; /* Texto em maiúsculas */
+    letter-spacing: 0.5px; /* Espaçamento entre letras */
 }
 
 .btn-primary {
-    background-color: var(--primary-color); /* Vermelho */
+    background-color: var(--primary-color);
     color: var(--text-color-light);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); /* Sombra colorida */
 }
 
 .btn-primary:hover {
-    background-color: #CC3333; /* Tom mais escuro do vermelho */
-    transform: translateY(-2px);
+    background-color: #CC3333;
+    transform: translateY(-3px); /* Efeito de elevação maior */
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color); /* Preto */
+    background-color: var(--secondary-color);
     color: var(--text-color-light);
+    box-shadow: 0 4px 10px rgba(34, 34, 34, 0.3);
 }
 
 .btn-secondary:hover {
-    background-color: #000000; /* Tom mais escuro do preto */
-    transform: translateY(-2px);
+    background-color: #000000;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(34, 34, 34, 0.4);
 }
 
 .btn-whatsapp {
-    background-color: #25d366; /* Verde WhatsApp (mantido padrão) */
+    background-color: #25d366; /* Verde WhatsApp */
     color: #fff;
-    padding: 12px 25px;
-    border-radius: 5px;
+    padding: 14px 30px;
+    border-radius: 8px;
     text-decoration: none;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
 }
 
 .btn-whatsapp:hover {
     background-color: #1DA851;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
 .btn-whatsapp i {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 
 /* Mensagens de Carregamento e Spinner */
 .loading-message {
     text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
+    padding: 30px; /* Mais padding */
+    font-size: 1.2rem; /* Fonte maior */
     color: var(--text-color-dark);
     display: flex;
     flex-direction: column;
@@ -232,13 +247,13 @@ main {
 }
 
 .spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--primary-color); /* Vermelho no spinner */
+    border: 5px solid rgba(0, 0, 0, 0.1); /* Borda mais grossa */
+    border-top: 5px solid var(--primary-color);
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 50px; /* Maior */
+    height: 50px; /* Maior */
     animation: spin 1s linear infinite;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 @keyframes spin {
@@ -258,55 +273,57 @@ main {
 .product-card {
     background-color: var(--card-background);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: 12px; /* Mais arredondado */
     overflow: hidden;
     text-decoration: none;
     color: var(--text-color-dark);
-    box-shadow: 0 4px 8px var(--shadow-light);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 15px var(--shadow-light); /* Sombra inicial mais suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px); /* Elevação maior no hover */
+    box-shadow: 0 10px 25px var(--shadow-medium); /* Sombra mais intensa no hover */
 }
 
 .product-card img {
     width: 100%;
-    height: 200px; /* Altura fixa para as imagens dos cards */
-    object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+    height: 220px; /* Altura ligeiramente maior para as imagens dos cards */
+    object-fit: cover;
     display: block;
     border-bottom: 1px solid var(--border-color);
+    border-top-left-radius: 10px; /* Bordas arredondadas para a parte superior da imagem */
+    border-top-right-radius: 10px;
 }
 
 .product-info {
-    padding: 15px;
-    flex-grow: 1; /* Permite que o info ocupe o espaço restante */
+    padding: 20px; /* Mais padding */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .product-info h3 {
-    font-size: 1.3rem;
-    margin-bottom: 8px;
+    font-size: 1.4rem; /* Título do card maior */
+    margin-bottom: 10px;
     font-weight: 600;
 }
 
 .product-info .price {
-    font-size: 1.1rem;
+    font-size: 1.25rem; /* Preço maior */
     font-weight: 700;
-    color: var(--primary-color); /* Preço em vermelho */
+    color: var(--primary-color);
 }
 
 .no-products-message {
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* Fonte maior */
     color: var(--text-color-dark);
-    padding: 30px;
-    grid-column: 1 / -1; /* Ocupa todas as colunas no grid */
+    padding: 40px;
+    grid-column: 1 / -1;
 }
 
 /* Detalhes do Produto (página individual) */
@@ -314,138 +331,148 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px 20px;
+    padding: 40px 30px; /* Mais padding */
     background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-light);
-    max-width: 800px;
+    border-radius: 15px; /* Mais arredondado */
+    box-shadow: 0 8px 20px var(--shadow-light); /* Sombra mais pronunciada */
+    max-width: 900px; /* Largura máxima maior */
     margin: 0 auto;
 }
 
 .product-detail-container img {
-    max-width: 100%; /* Garante que a imagem não ultrapasse a largura do contêiner */
-    height: 400px; /* Altura máxima para a imagem de detalhes */
-    object-fit: contain; /* Ajusta a imagem inteira dentro da área, sem cortar */
-    border-radius: 8px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 5px var(--shadow-light);
-    display: block; /* Garante que as margens automáticas funcionem para centralizar */
-    margin-left: auto; /* Centraliza a imagem horizontalmente */
-    margin-right: auto; /* Centraliza a imagem horizontalmente */
+    max-width: 100%;
+    height: 450px; /* Altura máxima maior para a imagem de detalhes */
+    object-fit: contain;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 10px var(--shadow-light);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .product-detail-container h2 {
-    font-size: 2.2rem;
-    color: var(--primary-color); /* Título em vermelho */
-    margin-bottom: 10px;
+    font-size: 2.6rem; /* Título maior */
+    color: var(--primary-color);
+    margin-bottom: 15px;
     text-align: center;
 }
 
 .product-detail-container .price {
-    font-size: 1.8rem;
+    font-size: 2.2rem; /* Preço maior */
     font-weight: 700;
-    color: var(--accent-color); /* Preço detalhe em vermelho (pode ser primary tb) */
-    margin-bottom: 20px;
+    color: var(--accent-color);
+    margin-bottom: 25px;
 }
 
 .product-detail-container .description {
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 1.1rem; /* Fonte maior */
+    line-height: 1.7;
     text-align: center;
-    margin-bottom: 30px;
-    max-width: 600px;
+    margin-bottom: 40px;
+    max-width: 700px;
 }
 
 /* Seção Sobre Nós */
 .about-us-container {
-    padding: 30px 20px;
+    padding: 40px 30px; /* Mais padding */
     background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--shadow-light);
-    max-width: 900px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px var(--shadow-light);
+    max-width: 1000px; /* Largura máxima maior */
     margin: 0 auto;
     text-align: center;
 }
 
 .about-us-container h2 {
-    font-size: 2rem;
-    color: var(--primary-color); /* Título em vermelho */
-    margin-bottom: 20px;
+    font-size: 2.4rem; /* Título maior */
+    color: var(--primary-color);
+    margin-bottom: 25px;
 }
 
 .about-us-container .intro-text {
-    font-size: 1.1rem;
+    font-size: 1.15rem; /* Fonte ligeiramente maior */
     line-height: 1.7;
-    margin-bottom: 40px;
-    max-width: 700px;
+    margin-bottom: 50px; /* Mais margem inferior */
+    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .owners-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Min-width ligeiramente maior */
+    gap: 40px; /* Mais espaçamento */
     justify-content: center;
 }
 
 .owner-card {
-    background-color: var(--background-light); /* Fundo claro para o card */
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 2px 5px var(--shadow-light);
+    background-color: var(--background-light);
+    border-radius: 12px;
+    padding: 30px; /* Mais padding */
+    box-shadow: 0 4px 10px var(--shadow-light); /* Sombra mais visível */
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.owner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
 }
 
 .owner-photo {
-    width: 120px;
-    height: 120px;
+    width: 140px; /* Foto maior */
+    height: 140px; /* Foto maior */
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid var(--primary-color); /* Borda da foto em vermelho */
+    margin-bottom: 20px;
+    border: 4px solid var(--primary-color); /* Borda mais grossa */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2); /* Sombra na foto */
 }
 
 .owner-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    color: var(--secondary-color); /* Nome em preto */
+    font-size: 1.6rem; /* Nome maior */
+    margin-bottom: 8px;
+    color: var(--secondary-color);
 }
 
 .owner-role {
     font-weight: 600;
-    color: var(--primary-color); /* Cargo em vermelho */
-    margin-bottom: 10px;
-}
-
-.owner-bio {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    color: var(--primary-color);
+    font-size: 1.05rem; /* Cargo ligeiramente maior */
     margin-bottom: 15px;
 }
 
+.owner-bio {
+    font-size: 1rem; /* Fonte ligeiramente maior */
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
 .owner-social-media a {
-    color: var(--secondary-color); /* Ícones sociais em preto */
-    font-size: 1.5rem;
-    margin: 0 8px;
-    transition: color 0.3s ease;
+    color: var(--secondary-color);
+    font-size: 1.7rem; /* Ícones sociais maiores */
+    margin: 0 10px; /* Mais espaçamento entre ícones */
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .owner-social-media a:hover {
-    color: var(--primary-color); /* Ícones sociais em vermelho no hover */
+    color: var(--primary-color);
+    transform: translateY(-2px);
 }
 
 
 /* Footer */
 footer {
-    background-color: var(--secondary-color); /* Fundo do footer em preto */
+    background-color: var(--secondary-color);
     color: var(--text-color-light);
     text-align: center;
-    padding: 20px 0;
-    margin-top: 50px;
+    padding: 25px 0; /* Mais padding */
+    margin-top: 60px; /* Mais margem superior */
+    font-size: 0.95rem; /* Fonte ligeiramente menor */
 }
 
 /* --- Media Queries para Responsividade --- */
@@ -455,40 +482,43 @@ footer {
     header .container {
         flex-direction: row;
         justify-content: space-between;
+        padding: 0 15px; /* Ajuste o padding do container do header em mobile */
     }
 
     header {
-        padding: 0.8rem 0;
+        padding: 1rem 0; /* Ajuste o padding do header em mobile */
     }
 
-    /* AJUSTADO: Logo menor em mobile */
+    /* Logo menor em mobile */
     .logo {
-        position: relative; /* Para não ser afetado pelo transform do header */
-        z-index: 1002; /* Fica acima do hambúrguer */
-        gap: 5px; /* Espaçamento menor em mobile */
+        position: relative;
+        z-index: 1002;
+        gap: 5px;
     }
 
     .logo .logo-img {
-        height: 30px; /* AJUSTADO: Altura menor do logo em mobile */
+        height: 30px; /* Altura menor do logo em mobile */
     }
 
     .logo .logo-text {
-        font-size: 1.3rem; /* AJUSTADO: Tamanho da fonte do texto do logo em mobile */
+        font-size: 1.4rem; /* Tamanho da fonte do texto do logo em mobile */
     }
 
 
-    nav {
+    /* Navegação Mobile (Lateral) */
+    nav#mainNav { /* Use o ID para sobrescrever com certeza */
         position: fixed;
         top: 0;
         right: -300px;
         width: 250px;
         height: 100%;
         background-color: var(--background-dark);
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+        box-shadow: -4px 0 15px rgba(0, 0, 0, 0.4); /* Sombra mais forte */
         flex-direction: column;
-        padding-top: 60px;
-        transition: right 0.3s ease-in-out;
+        padding-top: 70px; /* Espaço para o botão de fechar */
+        transition: right 0.4s ease-in-out; /* Transição mais suave */
         z-index: 1000;
+        overflow-y: auto; /* Permite rolagem se muitos itens */
     }
 
     nav.active {
@@ -496,72 +526,85 @@ footer {
     }
 
     nav .nav-item {
-        padding: 1rem 1.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1.2rem 1.8rem; /* Mais padding para itens do menu lateral */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* Borda mais visível */
         width: 100%;
         display: block;
+        font-size: 1.1rem; /* Fonte maior no menu lateral */
     }
 
-    nav .nav-item:last-child {
-        border-bottom: none;
-    }
-
+    /* Hamburger Menu */
     .hamburger-menu {
         display: block;
         opacity: 0;
+        font-size: 2rem; /* Tamanho do ícone para mobile */
     }
 
     .hamburger-menu.visible {
         opacity: 1;
     }
 
+    /* Main Content Padding em Mobile */
+    main {
+        padding-top: 70px; /* Ajuste para mobile */
+    }
+
+    /* Hero Section em Mobile */
     .hero-section {
-        padding: 80px 15px;
+        padding: 90px 15px;
     }
 
     .hero-section h2 {
-        font-size: 2.2rem;
+        font-size: 2.8rem;
     }
 
     .hero-section p {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 
+    /* Grid de Produtos em Mobile */
     .product-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+        grid-template-columns: 1fr; /* Uma coluna em mobile */
+        gap: 25px;
     }
 
     .product-card img {
-        height: 180px;
+        height: 200px; /* Altura do card em mobile */
     }
 
+    /* Detalhes do Produto em Mobile */
     .product-detail-container {
-        padding: 20px 15px;
+        padding: 30px 20px;
     }
 
     .product-detail-container img {
-        height: 300px;
+        height: 350px; /* Altura da imagem de detalhes em mobile */
     }
 
     .product-detail-container h2 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
     }
 
     .product-detail-container .price {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
     }
 
+    /* Seção Sobre Nós em Mobile */
     .about-us-container {
-        padding: 20px 15px;
+        padding: 30px 20px;
     }
 
     .about-us-container h2 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
     }
 
     .owners-grid {
         grid-template-columns: 1fr;
+    }
+
+    .owner-photo {
+        width: 110px;
+        height: 110px;
     }
 
     /* Botão de fechar menu lateral */
@@ -569,28 +612,31 @@ footer {
         background: none;
         border: none;
         color: var(--text-color-light);
-        font-size: 2rem;
+        font-size: 2.2rem; /* Ícone maior */
         cursor: pointer;
         position: absolute;
-        top: 10px;
-        right: 15px;
+        top: 15px; /* Posição mais baixa */
+        right: 20px;
         z-index: 1001;
         display: block;
     }
 }
 
-/* Adicionado: Estilos para o overlay do menu mobile */
+/* Estilos para o overlay do menu mobile */
 .menu-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente */
-    z-index: 999; /* Fica abaixo do menu, mas acima do conteúdo */
-    display: none; /* Escondido por padrão */
+    background-color: rgba(0, 0, 0, 0.6); /* Mais escuro */
+    z-index: 999;
+    display: none;
+    transition: opacity 0.3s ease; /* Transição para o overlay */
+    opacity: 0; /* Escondido por padrão com opacidade */
 }
 
 .menu-overlay.active {
-    display: block; /* Mostra quando o menu está ativo */
+    display: block;
+    opacity: 1; /* Mostra suavemente */
 }
