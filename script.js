@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Dados dos Donos do Site ---
     const owners = [
-        { name: 'João Silva', role: 'Fundador & Designer Chefe', bio: 'Com mais de 10 anos de experiência em design de moda e paixão por óculos, João lidera a criação de nossos modelos exclusivos, unindo estética e funcionalidade.', photoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', socialMedia: { instagram: 'https://instagram.com/joaosilva', linkedin: 'https://linkedin.com/in/joaosilva' } },
-        { name: 'Maria Oliveira', role: 'Diretora de Marketing', bio: 'Especialista em branding e comunicação digital, Maria é a mente por trás da nossa presença online, garantindo que a Osiris Apparel chegue a quem busca estilo e qualidade.', photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', socialMedia: { instagram: 'https://instagram.com/mariaoliveira', twitter: 'https://twitter.com/maria' } }
+        { name: 'Felipe', role: 'Fundador', bio: '', photoUrl: 'https://github.com/kleysonRenato/sitevendas/blob/main/Imagenssite/fotolipe.png?raw=true', socialMedia: { instagram: 'https://instagram.com/joaosilva' } },
+        { name: 'Maria Oliveira', role: 'Fundador', bio: 'Especialista em branding e comunicação digital, Maria é a mente por trás da nossa presença online, garantindo que a Osiris Apparel chegue a quem busca estilo e qualidade.', photoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', socialMedia: { instagram: 'https://instagram.com/mariaoliveira', twitter: 'https://twitter.com/maria' } }
     ];
     console.log("Donos carregados.");
 
